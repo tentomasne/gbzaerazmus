@@ -1,0 +1,3 @@
+Contact: mailto:gbza@davidik.eu
+Expires: 2025-12-31T23:59:59Z
+Preferred-Languages: en, sk, cs, fr
