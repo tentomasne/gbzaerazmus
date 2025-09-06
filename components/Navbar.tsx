@@ -22,7 +22,7 @@ export function Navbar() {
   const navigation = [
     { name: 'Home', href: '/' },
     { name: 'Countries', href: '/countries' },
-    { name: 'News', href: '/news' },
+    { name: 'Student News', href: '/news' },
     { name: 'Managers', href: '/managers' },
   ];
 

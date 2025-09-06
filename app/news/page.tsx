@@ -65,14 +65,14 @@ export default function NewsPage() {
             className="text-center mb-16"
           >
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Latest{' '}
+              Student{' '}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                News & Updates
+                News & Stories
               </span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Stay informed about our Erasmus program developments, student experiences, 
-              and exciting opportunities across Europe.
+              Read the latest stories, experiences, and updates shared by our 
+              GBZA students currently studying across Europe.
             </p>
           </motion.div>
 
@@ -210,8 +210,8 @@ export default function NewsPage() {
                 Stay Updated
               </h2>
               <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-                Subscribe to our newsletter to receive the latest news about our Erasmus programs, 
-                student success stories, and upcoming opportunities.
+                Subscribe to our newsletter to receive the latest stories and updates 
+                from our GBZA students studying across Europe.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
                 <Input placeholder="Enter your email" className="flex-1" />

@@ -48,10 +48,10 @@ export default function NotFound() {
                 Oops! Page Not Found
               </h2>
               <p className="text-lg text-gray-600 mb-2">
-                The page you're looking for seems to have wandered off on its own European adventure.
+                The page you&apos;re looking for seems to have wandered off with our students on their European adventure.
               </p>
               <p className="text-gray-500">
-                Don't worry, we'll help you find your way back to exploring our students' journeys!
+                Don&apos;t worry, we&apos;ll help you find your way back to reading our students&apos; stories!
               </p>
             </motion.div>
 

@@ -74,7 +74,7 @@ export function HeroCarousel() {
   };
 
   return (
-    <div className="relative h-[80vh] overflow-hidden rounded-2xl shadow-2xl">
+    <div className="relative h-screen overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentIndex}
@@ -91,32 +91,49 @@ export function HeroCarousel() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/50" />
           
           <div className="absolute inset-0 flex items-center justify-center">
-            <motion.div
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-              className="text-center text-white px-4 max-w-5xl"
-            >
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
               <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
-                className="text-8xl md:text-9xl mb-6"
+                initial={{ y: 50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="text-center text-white"
               >
-                {countries[currentIndex].flag}
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
+                  className="text-6xl md:text-8xl mb-8"
+                >
+                  {countries[currentIndex].flag}
+                </motion.div>
+                
+                <h1 className="text-4xl md:text-7xl font-bold mb-6 leading-tight">
+                  Showcasing{' '}
+                  <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                    GBZA Excellence
+                  </span>
+                  {' '}in {countries[currentIndex].name}
+                </h1>
+                
+                <p className="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed max-w-4xl mx-auto">
+                  Every year, Gymnasium Bilingválne carefully selects exceptional students for 
+                  transformative Erasmus+ experiences across Europe. {countries[currentIndex].description}.
+                </p>
+                
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 text-lg px-8 py-3" asChild>
+                    <Link href={`/countries/${countries[currentIndex].id}`}>
+                      Explore {countries[currentIndex].name}
+                    </Link>
+                  </Button>
+                  <Button size="lg" variant="outline" className="bg-white/10 text-white border-white/30 hover:bg-white/20 text-lg px-8 py-3" asChild>
+                    <Link href="/news">
+                      Read Student Stories
+                    </Link>
+                  </Button>
+                </div>
               </motion.div>
-              <h1 className="text-4xl md:text-7xl font-bold mb-6 leading-tight">
-                {countries[currentIndex].name}
-              </h1>
-              <p className="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed">
-                {countries[currentIndex].description}
-              </p>
-              <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 text-lg px-8 py-3" asChild>
-                <Link href={`/countries/${countries[currentIndex].id}`}>
-                  Explore Their Journey
-                </Link>
-              </Button>
-            </motion.div>
+            </div>
           </div>
         </motion.div>
       </AnimatePresence>

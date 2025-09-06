@@ -3,10 +3,13 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Globe, Users, BookOpen, Award, MapPin, Clock } from 'lucide-react';
 import Link from 'next/link';
+import { format } from 'date-fns';
 import { Navbar } from '@/components/Navbar';
 import { HeroCarousel } from '@/components/HeroCarousel';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { newsArticles } from '@/lib/news';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -27,39 +30,8 @@ export default function Home() {
     <div className="min-h-screen">
       <Navbar />
       
-      {/* Hero Section */}
-      <section className="section-padding pt-24">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-12"
-          >
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Showcasing{' '}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                GBZA Excellence
-              </span>
-              {' '}in Europe
-            </h1>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-              Every year, Gymnasium Bilingválne carefully selects exceptional students for 
-              transformative Erasmus+ experiences across Europe. This showcase celebrates 
-              their academic achievements and cultural discoveries in our partner countries.
-            </p>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
-          >
-            <HeroCarousel />
-          </motion.div>
-        </div>
-      </section>
+      {/* Full Hero Carousel Section */}
+      <HeroCarousel />
 
       {/* Features Section */}
       <section className="section-padding bg-white/50">
@@ -145,6 +117,97 @@ export default function Home() {
         </div>
       </section>
 
+      {/* News Section */}
+      <section className="section-padding bg-gradient-to-br from-blue-50 to-purple-50">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
+              Latest News from Our Students
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Read the latest updates, experiences, and achievements shared by our 
+              GBZA students currently studying across Europe.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          >
+            {newsArticles.slice(0, 3).map((article, index) => (
+              <motion.div
+                key={article.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
+              >
+                <Card className="glass-card h-full overflow-hidden hover:shadow-xl transition-all duration-300 group">
+                  <div className="relative h-48 overflow-hidden">
+                    <div
+                      className="absolute inset-0 bg-cover bg-center transform group-hover:scale-105 transition-transform duration-500"
+                      style={{ backgroundImage: `url(${article.image})` }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className="absolute top-4 left-4">
+                      <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
+                        {article.country}
+                      </Badge>
+                    </div>
+                  </div>
+                  
+                  <CardContent className="p-6 flex flex-col flex-1">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+                      {article.title}
+                    </h3>
+                    
+                    <p className="text-gray-600 mb-4 line-clamp-3 flex-1">
+                      {article.excerpt}
+                    </p>
+                    
+                    <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                      <span>By {article.author}</span>
+                      <span>{format(new Date(article.publishedAt), 'MMM dd, yyyy')}</span>
+                    </div>
+
+                    <Link href={`/news/${article.id}`}>
+                      <Button className="w-full group">
+                        Read More
+                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-center mt-12"
+          >
+            <Link href="/news">
+              <Button size="lg" variant="outline">
+                View All Student News
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="section-padding">
         <div className="max-w-7xl mx-auto">
@@ -159,8 +222,8 @@ export default function Home() {
               Celebrating Student Achievement
             </h2>
             <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
-              Explore the remarkable journeys of our carefully selected GBZA students 
-              as they excel in European academic environments and embrace new cultures.
+              Follow the remarkable journeys of our carefully selected GBZA students 
+              through their own stories and updates from European academic environments.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/countries">
@@ -171,7 +234,7 @@ export default function Home() {
               </Link>
               <Link href="/news">
                 <Button size="lg" variant="outline">
-                  Read Success Stories
+                  Read Student Stories
                 </Button>
               </Link>
             </div>
