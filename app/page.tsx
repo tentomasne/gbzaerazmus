@@ -4,12 +4,14 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Globe, Users, BookOpen, Award, MapPin, Clock } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
-import { Navbar } from '@/components/Navbar';
+import Navbar  from '@/components/Navbar';
 import { HeroCarousel } from '@/components/HeroCarousel';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { newsArticles } from '@/lib/news';
+import { useEffect, useState } from 'react';
+import NavbarDemo from '@/components/Navbar';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -26,10 +28,30 @@ const stagger = {
 };
 
 export default function Home() {
+    const [showNavbar, setShowNavbar] = useState(true)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroHeight = window.innerHeight * 0.8 // Hero section is roughly 80vh
+      const scrollY = window.scrollY
+
+      if (scrollY > heroHeight) {
+        setShowNavbar(false)
+      } else {
+        setShowNavbar(true)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   return (
     <div className="min-h-screen">
-      <Navbar />
-      
+
+          <NavbarDemo showNavbar={showNavbar} />
+
+
       {/* Full Hero Carousel Section */}
       <HeroCarousel />
 
