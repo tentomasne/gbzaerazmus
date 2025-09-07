@@ -10,11 +10,28 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { newsArticles } from '@/lib/news';
+import Lenis from 'lenis'
+import { useEffect } from 'react';
 
 export default function NewsArticlePage() {
   const params = useParams();
   const articleId = params.id as string;
   const article = newsArticles.find(a => a.id === articleId);
+
+  useEffect(() => {
+    const lenis = new Lenis();
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
 
   if (!article) {
     return (
@@ -32,7 +49,7 @@ export default function NewsArticlePage() {
   return (
     <div className="min-h-screen">
       <Navbar />
-      
+
       <div className="section-padding pt-24">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -40,8 +57,8 @@ export default function NewsArticlePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Link 
-              href="/news" 
+            <Link
+              href="/news"
               className="inline-flex items-center text-blue-600 hover:text-blue-500 mb-8 transition-colors"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />

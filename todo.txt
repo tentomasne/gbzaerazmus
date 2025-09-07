@@ -2,6 +2,5 @@ whole admin
 subcribe to our newsletter
 footer better
 gradients 
-animated scrolling
 acertnity
 multilanguage

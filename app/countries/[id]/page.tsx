@@ -10,11 +10,28 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { countries } from '@/lib/countries';
+import Lenis from 'lenis'
+import { useEffect } from 'react';
 
 export default function CountryPage() {
   const params = useParams();
   const countryId = params.id as string;
   const country = countries.find(c => c.id === countryId);
+
+  useEffect(() => {
+    const lenis = new Lenis();
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
 
   if (!country) {
     return (
@@ -38,7 +55,7 @@ export default function CountryPage() {
   return (
     <div className="min-h-screen">
       <Navbar />
-      
+
       <div className="relative">
         {/* Hero Section */}
         <div className="relative h-[60vh] overflow-hidden">
@@ -47,7 +64,7 @@ export default function CountryPage() {
             style={{ backgroundImage: `url(${country.image})` }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-          
+
           <div className="relative h-full flex items-end">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 w-full">
               <motion.div

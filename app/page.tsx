@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Globe, Users, BookOpen, Award, MapPin, Clock } from 'lucide-react';
 import Link from 'next/link';
+import Lenis from 'lenis'
 import { format } from 'date-fns';
 import { HeroCarousel } from '@/components/HeroCarousel';
 import { Button } from '@/components/ui/button';
@@ -27,11 +28,27 @@ const stagger = {
 };
 
 export default function Home() {
-    const [showNavbar, setShowNavbar] = useState(true)
+  const [showNavbar, setShowNavbar] = useState(true)
+
+  useEffect(() => {
+    const lenis = new Lenis();
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
 
   useEffect(() => {
     const handleScroll = () => {
-      const heroHeight = window.innerHeight * 0.8 // Hero section is roughly 80vh
+      const heroHeight = window.innerHeight * 0.8
       const scrollY = window.scrollY
 
       if (scrollY > heroHeight) {
@@ -49,7 +66,7 @@ export default function Home() {
     <div className="min-h-screen">
 
       <Navbar showNavbar={showNavbar} />
-      
+
 
       {/* Full Hero Carousel Section */}
       <HeroCarousel />
@@ -57,7 +74,7 @@ export default function Home() {
       {/* Features Section */}
       <section className="section-padding">
         <div className="max-w-7xl mx-auto">
-          
+
           <motion.div
             variants={stagger}
             initial="initial"
@@ -65,22 +82,22 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <motion.h2 
+            <motion.h2
               variants={fadeInUp}
               className="text-3xl md:text-5xl font-bold text-gray-900 mb-6"
             >
               Why Our Students Excel in Europe
             </motion.h2>
-            <motion.p 
+            <motion.p
               variants={fadeInUp}
               className="text-lg text-gray-600 max-w-3xl mx-auto"
             >
-              Our rigorous selection process ensures that only the most dedicated and capable 
+              Our rigorous selection process ensures that only the most dedicated and capable
               GBZA students represent our school in prestigious European institutions.
             </motion.p>
           </motion.div>
 
-          
+
 
           <motion.div
             variants={stagger}
@@ -155,7 +172,7 @@ export default function Home() {
               Latest News from Our Students
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Read the latest updates, experiences, and achievements shared by our 
+              Read the latest updates, experiences, and achievements shared by our
               GBZA students currently studying across Europe.
             </p>
           </motion.div>
@@ -188,16 +205,16 @@ export default function Home() {
                       </Badge>
                     </div>
                   </div>
-                  
+
                   <CardContent className="p-6 flex flex-col flex-1">
                     <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
                       {article.title}
                     </h3>
-                    
+
                     <p className="text-gray-600 mb-4 line-clamp-3 flex-1">
                       {article.excerpt}
                     </p>
-                    
+
                     <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
                       <span>By {article.author}</span>
                       <span>{format(new Date(article.publishedAt), 'MMM dd, yyyy')}</span>
@@ -234,7 +251,7 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="section-padding">
-        
+
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -243,12 +260,12 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="glass-card rounded-3xl p-8 md:p-12 text-center"
           >
-            
+
             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
               Celebrating Student Achievement
             </h2>
             <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
-              Follow the remarkable journeys of our carefully selected GBZA students 
+              Follow the remarkable journeys of our carefully selected GBZA students
               through their own stories and updates from European academic environments.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -266,7 +283,7 @@ export default function Home() {
             </div>
           </motion.div>
         </div>
-        
+
       </section>
 
       {/* Footer */}

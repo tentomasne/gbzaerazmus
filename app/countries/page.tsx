@@ -1,7 +1,9 @@
 'use client';
 
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Lenis from 'lenis'
 import { ArrowRight, MapPin, Clock, Users, BookOpen } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -24,10 +26,24 @@ const stagger = {
 };
 
 export default function CountriesPage() {
+  useEffect(() => {
+    const lenis = new Lenis();
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
   return (
     <div className="min-h-screen">
       <Navbar />
-      
+
       <div className="section-padding pt-24">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -43,7 +59,7 @@ export default function CountriesPage() {
               </span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Choose from our partner countries across Europe. Each destination offers 
+              Choose from our partner countries across Europe. Each destination offers
               unique cultural experiences and world-class educational opportunities.
             </p>
           </motion.div>
@@ -74,12 +90,12 @@ export default function CountriesPage() {
                       </Badge>
                     </div>
                   </div>
-                  
+
                   <CardContent className="p-6">
                     <p className="text-gray-600 mb-4 line-clamp-3">
                       {country.description}
                     </p>
-                    
+
                     <div className="grid grid-cols-2 gap-4 mb-4">
                       <div className="flex items-center text-sm text-gray-500">
                         <Clock className="h-4 w-4 mr-2" />
@@ -129,7 +145,7 @@ export default function CountriesPage() {
                 Can't Decide? We're Here to Help!
               </h2>
               <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-                Our Erasmus coordinators can help you choose the perfect destination 
+                Our Erasmus coordinators can help you choose the perfect destination
                 based on your academic goals and personal interests.
               </p>
               <Link href="/managers">

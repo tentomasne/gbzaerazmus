@@ -13,6 +13,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { newsArticles } from '@/lib/news';
 import { countries } from '@/lib/countries';
+import Lenis from 'lenis'
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -32,6 +33,21 @@ export default function NewsPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCountry, setSelectedCountry] = useState('all');
   const [filteredArticles, setFilteredArticles] = useState(newsArticles);
+
+      useEffect(() => {
+    const lenis = new Lenis();
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
 
   // Filter articles based on search term and selected country
   useEffect(() => {

@@ -7,6 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { managers } from '@/lib/managers';
+import Lenis from 'lenis'
+import { useEffect } from 'react';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -23,10 +25,26 @@ const stagger = {
 };
 
 export default function ManagersPage() {
+
+  useEffect(() => {
+    const lenis = new Lenis();
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
   return (
     <div className="min-h-screen">
       <Navbar />
-      
+
       <div className="section-padding pt-24">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -42,7 +60,7 @@ export default function ManagersPage() {
               </span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our dedicated coordinators work tirelessly to select exceptional GBZA students 
+              Our dedicated coordinators work tirelessly to select exceptional GBZA students
               and ensure they have transformative experiences across Europe.
             </p>
           </motion.div>
@@ -69,7 +87,7 @@ export default function ManagersPage() {
                     </CardTitle>
                     <p className="text-blue-600 font-medium">{manager.title}</p>
                   </CardHeader>
-                  
+
                   <CardContent className="space-y-6">
                     <p className="text-gray-600 text-sm leading-relaxed">
                       {manager.bio}
@@ -79,7 +97,7 @@ export default function ManagersPage() {
                     <div className="space-y-3">
                       <div className="flex items-center text-sm text-gray-600">
                         <Mail className="h-4 w-4 mr-3 text-blue-600" />
-                        <a 
+                        <a
                           href={`mailto:${manager.email}`}
                           className="hover:text-blue-600 transition-colors"
                         >
@@ -88,7 +106,7 @@ export default function ManagersPage() {
                       </div>
                       <div className="flex items-center text-sm text-gray-600">
                         <Phone className="h-4 w-4 mr-3 text-blue-600" />
-                        <a 
+                        <a
                           href={`tel:${manager.phone}`}
                           className="hover:text-blue-600 transition-colors"
                         >
@@ -131,7 +149,7 @@ export default function ManagersPage() {
                       </div>
                     </div>
 
-                    <Button 
+                    <Button
                       className="w-full group"
                       onClick={() => window.location.href = `mailto:${manager.email}`}
                     >
