@@ -1,5 +1,5 @@
 'use client';
-
+import { ArrowRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -215,24 +215,32 @@ export default function NewsPage() {
 
           {/* Newsletter Signup */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mt-20"
+            className="glass-card rounded-3xl p-8 md:p-12 text-center mt-20 mx-auto"
           >
-            <div className="glass-card rounded-3xl p-8 md:p-12 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Stay Updated
-              </h2>
-              <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-                Subscribe to our newsletter to receive the latest stories and updates 
-                from our GBZA students studying across Europe.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-                <Input placeholder="Enter your email" className="flex-1" />
-                <Button>Subscribe</Button>
-              </div>
+
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
+              Celebrating Student Achievement
+            </h2>
+            <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
+              Follow the remarkable journeys of our carefully selected GBZA students
+              through their own stories and updates from European academic environments.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/countries">
+                <Button size="lg" className="group">
+                  Explore Destinations
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+              <Link href="/news">
+                <Button size="lg" variant="outline">
+                  Read Student Stories
+                </Button>
+              </Link>
             </div>
           </motion.div>
         </div>
