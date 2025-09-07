@@ -41,13 +41,31 @@ interface SelectedImage {
     resizeStartHeight: number
 }
 
-export default function HtmlTextEditor() {
+interface HtmlTextEditorProps {
+    value?: string;
+    onChange?: (content: string) => void;
+    placeholder?: string;
+}
+
+export default function HtmlTextEditor({ 
+    value = '', 
+    onChange, 
+    placeholder = "Start writing..." 
+}: HtmlTextEditorProps) {
     const [content, setContent] = useState("")
     const [toolbarPosition, setToolbarPosition] = useState<ToolbarPosition>({ top: 0, left: 0, show: false })
     const [selectedText, setSelectedText] = useState("")
     const [selectedImage, setSelectedImage] = useState<SelectedImage | null>(null)
     const editorRef = useRef<HTMLDivElement>(null)
     const fileInputRef = useRef<HTMLInputElement>(null)
+
+    // Initialize content from props
+    useEffect(() => {
+        if (value && editorRef.current && editorRef.current.innerHTML !== value) {
+            editorRef.current.innerHTML = value;
+            setContent(value);
+        }
+    }, [value]);
 
     const handleImageClick = useCallback(
         (e: Event) => {
@@ -366,7 +384,11 @@ export default function HtmlTextEditor() {
 
     const updateContent = () => {
         if (editorRef.current) {
-            setContent(editorRef.current.innerHTML)
+            const newContent = editorRef.current.innerHTML;
+            setContent(newContent);
+            if (onChange) {
+                onChange(newContent);
+            }
         }
     }
 
@@ -496,7 +518,7 @@ export default function HtmlTextEditor() {
                         onInput={updateContent}
                         onDrop={handleDrop}
                         onDragOver={(e) => e.preventDefault()}
-                        placeholder="Start writing your article..."
+                        data-placeholder={placeholder}
                         suppressContentEditableWarning={true}
                     />
                 </Card>
