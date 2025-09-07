@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useParams } from 'next/navigation';
 import { ArrowLeft, MapPin, Clock, Users, Globe, BookOpen, Home, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
-import { Navbar } from '@/components/Navbar';
+import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';

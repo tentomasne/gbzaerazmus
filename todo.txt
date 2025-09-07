@@ -4,5 +4,4 @@ footer better
 gradients 
 animated scrolling
 acertnity
-navbar
 multilanguage

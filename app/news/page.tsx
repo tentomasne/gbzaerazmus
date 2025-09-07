@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Calendar, User, Tag, Search, Filter } from 'lucide-react';
 import { format } from 'date-fns';
-import { Navbar } from '@/components/Navbar';
+import Navbar from '@/components/Navbar';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';

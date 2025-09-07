@@ -4,14 +4,13 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Globe, Users, BookOpen, Award, MapPin, Clock } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
-import Navbar  from '@/components/Navbar';
 import { HeroCarousel } from '@/components/HeroCarousel';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { newsArticles } from '@/lib/news';
 import { useEffect, useState } from 'react';
-import NavbarDemo from '@/components/Navbar';
+import Navbar from '@/components/Navbar';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -49,15 +48,16 @@ export default function Home() {
   return (
     <div className="min-h-screen">
 
-          <NavbarDemo showNavbar={showNavbar} />
-
+      <Navbar showNavbar={showNavbar} />
+      
 
       {/* Full Hero Carousel Section */}
       <HeroCarousel />
 
       {/* Features Section */}
-      <section className="section-padding bg-white/50">
+      <section className="section-padding">
         <div className="max-w-7xl mx-auto">
+          
           <motion.div
             variants={stagger}
             initial="initial"
@@ -79,6 +79,8 @@ export default function Home() {
               GBZA students represent our school in prestigious European institutions.
             </motion.p>
           </motion.div>
+
+          
 
           <motion.div
             variants={stagger}
@@ -232,6 +234,7 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="section-padding">
+        
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -240,6 +243,7 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="glass-card rounded-3xl p-8 md:p-12 text-center"
           >
+            
             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
               Celebrating Student Achievement
             </h2>
@@ -262,6 +266,7 @@ export default function Home() {
             </div>
           </motion.div>
         </div>
+        
       </section>
 
       {/* Footer */}

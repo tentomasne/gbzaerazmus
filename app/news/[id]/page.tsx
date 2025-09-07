@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { ArrowLeft, Calendar, User, Tag, Share2 } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
-import { Navbar } from '@/components/Navbar';
+import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';

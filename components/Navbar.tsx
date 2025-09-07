@@ -1,7 +1,11 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { HoveredLink, Menu, MenuItem, ProductItem } from "@/components/ui/navbar-menu"
 import { cn } from "@/lib/utils"
+import { useAuth } from "@/contexts/AuthContext"
+import { LogOut, User, Settings } from "lucide-react"
 
 export default function NavbarDemo({ showNavbar = true }: { showNavbar?: boolean }) {
   return (
@@ -13,59 +17,82 @@ export default function NavbarDemo({ showNavbar = true }: { showNavbar?: boolean
 
 function Navbar({ className, showNavbar = true }: { className?: string; showNavbar?: boolean }) {
   const [active, setActive] = useState<string | null>(null)
+  const pathname = usePathname()
+  const { user, isAuthenticated, logout } = useAuth()
+
   return (
     <div
       className={cn(
-        "fixed top-10 inset-x-0 max-w-2xl mx-auto z-50 transition-all duration-300 ease-in-out",
+        "fixed top-10 inset-x-0 max-w-4xl mx-auto z-50 transition-all duration-300 ease-in-out",
         showNavbar ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none",
         className,
       )}
     >
       <Menu setActive={setActive}>
-        <MenuItem setActive={setActive} active={active} item="Services">
-          <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="/web-dev">Web Development</HoveredLink>
-            <HoveredLink href="/interface-design">Interface Design</HoveredLink>
-            <HoveredLink href="/seo">Search Engine Optimization</HoveredLink>
-            <HoveredLink href="/branding">Branding</HoveredLink>
-          </div>
-        </MenuItem>
-        <MenuItem setActive={setActive} active={active} item="Products">
-          <div className="text-sm grid grid-cols-2 gap-10 p-4">
-            <ProductItem
-              title="Algochurn"
-              href="https://algochurn.com"
-              src="https://assets.aceternity.com/demos/algochurn.webp"
-              description="Prepare for tech interviews like never before."
-            />
-            <ProductItem
-              title="Tailwind Master Kit"
-              href="https://tailwindmasterkit.com"
-              src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
-              description="Production ready Tailwind css components for your next project"
-            />
-            <ProductItem
-              title="Moonbeam"
-              href="https://gomoonbeam.com"
-              src="https://assets.aceternity.com/demos/Screenshot+2024-02-21+at+11.51.31%E2%80%AFPM.png"
-              description="Never write from scratch again. Go from idea to blog in minutes."
-            />
-            <ProductItem
-              title="Rogue"
-              href="https://userogue.com"
-              src="https://assets.aceternity.com/demos/Screenshot+2024-02-21+at+11.47.07%E2%80%AFPM.png"
-              description="Respond to government RFPs, RFIs and RFQs 10x faster using AI"
-            />
-          </div>
-        </MenuItem>
-        <MenuItem setActive={setActive} active={active} item="Pricing">
-          <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="/hobby">Hobby</HoveredLink>
-            <HoveredLink href="/individual">Individual</HoveredLink>
-            <HoveredLink href="/team">Team</HoveredLink>
-            <HoveredLink href="/enterprise">Enterprise</HoveredLink>
-          </div>
-        </MenuItem>
+        {/* Home */}
+        <Link href="/" className={cn(
+          "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+          pathname === "/" ? "bg-blue-100 text-blue-700" : "text-gray-700 hover:text-blue-600"
+        )}>
+          Home
+        </Link>
+
+        {/* Destinations */}
+        <Link href="/countries" className={cn(
+          "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+          pathname.startsWith("/countries") ? "bg-blue-100 text-blue-700" : "text-gray-700 hover:text-blue-600"
+        )}>
+          Destinations
+        </Link>
+
+        {/* Student News */}
+        <Link href="/news" className={cn(
+          "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+          pathname.startsWith("/news") ? "bg-blue-100 text-blue-700" : "text-gray-700 hover:text-blue-600"
+        )}>
+          Student News
+        </Link>
+
+        {/* Our Team */}
+        <Link href="/managers" className={cn(
+          "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+          pathname === "/managers" ? "bg-blue-100 text-blue-700" : "text-gray-700 hover:text-blue-600"
+        )}>
+          Our Team
+        </Link>
+
+        {/* User Menu - Only show if authenticated */}
+        {isAuthenticated && (
+          <MenuItem setActive={setActive} active={active} item={user?.name || "Account"}>
+            <div className="flex flex-col space-y-4 text-sm p-4 min-w-[200px]">
+              <div className="border-b pb-2 mb-2">
+                <p className="font-medium text-gray-900">{user?.name}</p>
+                <p className="text-gray-500 text-xs">{user?.email}</p>
+                <p className="text-blue-600 text-xs font-medium">{user?.role}</p>
+              </div>
+              
+              <HoveredLink href="/dashboard" className="flex items-center">
+                <User className="h-4 w-4 mr-2" />
+                Dashboard
+              </HoveredLink>
+              
+              {user?.role === 'ADMIN' && (
+                <HoveredLink href="/admin" className="flex items-center">
+                  <Settings className="h-4 w-4 mr-2" />
+                  Admin Panel
+                </HoveredLink>
+              )}
+              
+              <button 
+                onClick={logout}
+                className="flex items-center text-red-600 hover:text-red-700 transition-colors text-left"
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Sign Out
+              </button>
+            </div>
+          </MenuItem>
+        )}
       </Menu>
     </div>
   )

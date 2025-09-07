@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Plus, Edit, Trash2, Eye, Clock, CheckCircle, XCircle } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
-import { Navbar } from '@/components/Navbar';
+import Navbar from '@/components/Navbar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';

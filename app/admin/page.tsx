@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Users, FileText, Image, TrendingUp, Plus, Edit, Trash2, CheckCircle, Clock, Eye, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
-import { Navbar } from '@/components/Navbar';
+import Navbar from '@/components/Navbar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
