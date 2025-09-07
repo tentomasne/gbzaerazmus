@@ -1,5 +1,4 @@
 whole admin
 footer better
-gradients 
-acertnity
+annoucements
 multilanguage

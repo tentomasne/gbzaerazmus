@@ -12,6 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { newsArticles } from '@/lib/news';
 import { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
+import WorldMapDemo from '@/components/EuropeMap';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -249,7 +250,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Map Section */}
+      <WorldMapDemo />
+
+
       <section className="section-padding">
 
         <div className="max-w-7xl mx-auto">
