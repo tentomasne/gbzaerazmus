@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import WorldMapDemo from '@/components/EuropeMap';
 import { PointerHighlight } from '@/components/ui/pointer-highlight';
-import { StickyBanner } from '@/components/ui/sticky-banner';
+import { AnnouncementBanner } from '@/components/AnnouncementBanner';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -74,18 +74,8 @@ export default function Home() {
       {/* Full Hero Carousel Section */}
       <HeroCarousel />
 
-
-                  {/* Annoucements */}
-            <StickyBanner className="bg-gradient-to-b from-blue-500 to-blue-600 h-12 flex items-center justify-center">
-              <p className="mx-0 max-w-[90%] text-white drop-shadow-md">
-                Announcing $10 seed funding from project mayhem ventures.{" "}
-                <a href="#" className="transition duration-200 hover:underline">
-                  Read announcement
-                </a>
-              </p>
-            </StickyBanner>
-
-
+      {/* Announcements */}
+      <AnnouncementBanner />
 
       {/* Features Section */}
       <section className="section-padding">

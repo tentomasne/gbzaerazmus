@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Users, FileText, Image, TrendingUp, Plus, Edit, Trash2, CheckCircle, Clock, Eye, AlertCircle } from 'lucide-react';
+import { Users, FileText, Image, TrendingUp, Plus, Edit, Trash2, CheckCircle, Clock, Eye, AlertCircle, Megaphone } from 'lucide-react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -233,11 +233,47 @@ export default function AdminPage() {
           )}
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Quick Actions */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="lg:col-span-3"
+            >
+              <Card className="glass-card">
+                <CardHeader>
+                  <CardTitle>Quick Actions</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <Link href="/admin/announcements">
+                      <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center gap-2">
+                        <Megaphone className="h-6 w-6 text-blue-600" />
+                        <span className="text-sm font-medium">Manage Announcements</span>
+                      </Button>
+                    </Link>
+                    <Link href="/admin/users/new">
+                      <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center gap-2">
+                        <Users className="h-6 w-6 text-green-600" />
+                        <span className="text-sm font-medium">Add New User</span>
+                      </Button>
+                    </Link>
+                    <Link href="/dashboard/articles/new">
+                      <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center gap-2">
+                        <FileText className="h-6 w-6 text-purple-600" />
+                        <span className="text-sm font-medium">Create Article</span>
+                      </Button>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
             {/* User Management */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
             >
               <Card className="glass-card">
                 <CardHeader>
@@ -306,7 +342,7 @@ export default function AdminPage() {
             <motion.div
               initial={{ opacity: 0, x: 0 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
             >
               <Card className="glass-card">
                 <CardHeader>
@@ -375,7 +411,7 @@ export default function AdminPage() {
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
             >
               <Card className="glass-card">
                 <CardHeader>

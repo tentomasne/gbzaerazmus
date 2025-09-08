@@ -1,5 +1,4 @@
 cover image upload as base64
-annoucements
 navbar mobile fix and staff login
 navbar menu items
 
