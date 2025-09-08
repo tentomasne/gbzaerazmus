@@ -5,3 +5,8 @@ annoucements
 multilanguage
 navbar mobile fix and staff login
 navbar menu items
+
+
+final:
+make it server sided
+react ga4
