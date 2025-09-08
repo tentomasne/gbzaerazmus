@@ -1,7 +1,5 @@
-admin users
 cover image upload as base64
 annoucements
-multilanguage
 navbar mobile fix and staff login
 navbar menu items
 
@@ -9,3 +7,6 @@ navbar menu items
 final:
 make it server sided
 react ga4
+
+niekdy:
+https://ui.aceternity.com/components/animated-testimonials
