@@ -2,13 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Plus, Edit, Trash2, Eye, Clock, CheckCircle, XCircle } from 'lucide-react';
+import { Plus, Edit, Trash2, Eye, Clock, CheckCircle, XCircle, Search, Filter } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import Navbar from '@/components/Navbar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 
@@ -27,6 +29,9 @@ interface Article {
 
 export default function DashboardPage() {
   const [articles, setArticles] = useState<Article[]>([]);
+  const [filteredArticles, setFilteredArticles] = useState<Article[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
   const [loading, setLoading] = useState(true);
   const { user, isAuthenticated } = useAuth();
 
@@ -46,6 +51,7 @@ export default function DashboardPage() {
       });
       const data = await response.json();
       setArticles(data.articles || []);
+      setFilteredArticles(data.articles || []);
     } catch (error) {
       toast.error('Failed to fetch articles');
     } finally {
@@ -73,6 +79,25 @@ export default function DashboardPage() {
       toast.error('Failed to delete article');
     }
   };
+
+  // Filter articles based on search term and status
+  useEffect(() => {
+    let filtered = articles;
+
+    if (searchTerm) {
+      filtered = filtered.filter(article =>
+        article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        article.excerpt?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        article.country?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    if (statusFilter !== 'all') {
+      filtered = filtered.filter(article => article.status === statusFilter);
+    }
+
+    setFilteredArticles(filtered);
+  }, [searchTerm, statusFilter, articles]);
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -158,6 +183,43 @@ export default function DashboardPage() {
             ))}
           </motion.div>
 
+          {/* Search and Filter */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="mb-8"
+          >
+            <Card className="glass-card">
+              <CardContent className="p-6">
+                <div className="flex flex-col md:flex-row gap-4">
+                  <div className="flex-1 relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                    <Input
+                      placeholder="Search articles by title, excerpt, or country..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="pl-10"
+                    />
+                  </div>
+                  <Select value={statusFilter} onValueChange={setStatusFilter}>
+                    <SelectTrigger className="md:w-48">
+                      <Filter className="h-4 w-4 mr-2" />
+                      <SelectValue placeholder="Filter by status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Status</SelectItem>
+                      <SelectItem value="PUBLISHED">Published</SelectItem>
+                      <SelectItem value="PENDING">Pending</SelectItem>
+                      <SelectItem value="DRAFT">Draft</SelectItem>
+                      <SelectItem value="REJECTED">Rejected</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
           {/* Articles List */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -166,7 +228,7 @@ export default function DashboardPage() {
           >
             <Card className="glass-card">
               <CardHeader>
-                <CardTitle>Your Articles</CardTitle>
+                <CardTitle>Your Articles ({filteredArticles.length})</CardTitle>
               </CardHeader>
               <CardContent>
                 {loading ? (
@@ -174,7 +236,18 @@ export default function DashboardPage() {
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
                     <p className="text-gray-600 mt-2">Loading articles...</p>
                   </div>
-                ) : articles.length === 0 ? (
+                ) : filteredArticles.length === 0 ? (
+                  searchTerm || statusFilter !== 'all' ? (
+                    <div className="text-center py-8">
+                      <p className="text-gray-600 mb-4">No articles match your search criteria.</p>
+                      <Button 
+                        variant="outline" 
+                        onClick={() => { setSearchTerm(''); setStatusFilter('all'); }}
+                      >
+                        Clear Filters
+                      </Button>
+                    </div>
+                  ) : (
                   <div className="text-center py-8">
                     <p className="text-gray-600 mb-4">No articles yet. Create your first article!</p>
                     <Link href="/dashboard/articles/new">
@@ -184,9 +257,10 @@ export default function DashboardPage() {
                       </Button>
                     </Link>
                   </div>
+                  )
                 ) : (
                   <div className="space-y-4">
-                    {articles.map((article) => (
+                    {filteredArticles.map((article) => (
                       <div
                         key={article.id}
                         className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors"

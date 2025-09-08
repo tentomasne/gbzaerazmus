@@ -243,10 +243,10 @@ export default function AdminPage() {
                 <CardHeader>
                   <div className="flex justify-between items-center">
                     <CardTitle>User Management</CardTitle>
-                    <Link href="/admin/users/new">
+                    <Link href="/admin/users/">
                       <Button size="sm">
                         <Plus className="h-4 w-4 mr-2" />
-                        Add User
+                        Manage
                       </Button>
                     </Link>
                   </div>

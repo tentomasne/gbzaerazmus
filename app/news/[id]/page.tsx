@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useParams } from 'next/navigation';
 import { ArrowLeft, Calendar, User, Tag, Share2 } from 'lucide-react';
