@@ -29,6 +29,7 @@ const articleSchema = z.object({
   country: z.string().optional(),
   status: z.enum(['DRAFT', 'PENDING', 'PUBLISHED']),
   tags: z.array(z.string()).default([]),
+  coverImage: z.string().optional(),
 });
 
 type ArticleFormData = z.infer<typeof articleSchema>;
@@ -38,6 +39,7 @@ export default function NewArticlePage() {
   const [content, setContent] = useState('');
   const [tagInput, setTagInput] = useState('');
   const [tags, setTags] = useState<string[]>([]);
+  const [coverImage, setCoverImage] = useState('');
   const { user } = useAuth();
   const router = useRouter();
 
@@ -98,6 +100,7 @@ export default function NewArticlePage() {
           ...data,
           content,
           tags,
+          coverImage,
         }),
       });
 
@@ -228,6 +231,30 @@ export default function NewArticlePage() {
                         </SelectContent>
                       </Select>
                     </div>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="coverImage">Cover Image URL</Label>
+                    <Input
+                      id="coverImage"
+                      value={coverImage}
+                      onChange={(e) => {
+                        setCoverImage(e.target.value);
+                        setValue('coverImage', e.target.value);
+                      }}
+                      placeholder="https://example.com/image.jpg"
+                      className="mt-1"
+                    />
+                    {coverImage && (
+                      <div className="mt-2">
+                        <img
+                          src={coverImage}
+                          alt="Cover preview"
+                          className="w-full h-32 object-cover rounded-lg"
+                          onError={() => setCoverImage('')}
+                        />
+                      </div>
+                    )}
                   </div>
 
                   <div>

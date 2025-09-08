@@ -1,5 +1,7 @@
-whole admin
+admin users
+cover image upload as base64
 footer better
 annoucements
 multilanguage
 navbar mobile fix and staff login
+navbar menu items

@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
+import { Input } from '@/components/ui/input';
 
 interface Stats {
   totalUsers: number;
@@ -29,6 +30,18 @@ interface User {
   _count: { articles: number };
 }
 
+interface Article {
+  id: string;
+  title: string;
+  excerpt: string;
+  status: string;
+  country: string;
+  createdAt: string;
+  updatedAt: string;
+  author: {
+    name: string;
+  };
+}
 const getStatusIcon = (status: string) => {
   switch (status) {
     case 'PUBLISHED':
@@ -54,6 +67,9 @@ const getStatusColor = (status: string) => {
 export default function AdminPage() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [users, setUsers] = useState<User[]>([]);
+  const [userArticles, setUserArticles] = useState<Article[]>([]);
+  const [allArticles, setAllArticles] = useState<Article[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const { user, isAuthenticated, hasRole } = useAuth();
 
@@ -68,16 +84,22 @@ export default function AdminPage() {
   const fetchData = async () => {
     try {
       const token = localStorage.getItem('token');
-      const [statsRes, usersRes] = await Promise.all([
+      const [statsRes, usersRes, userArticlesRes, allArticlesRes] = await Promise.all([
         fetch('/api/stats', { headers: { Authorization: `Bearer ${token}` } }),
-        fetch('/api/users', { headers: { Authorization: `Bearer ${token}` } })
+        fetch('/api/users', { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`/api/articles?authorId=${user?.id}`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch('/api/articles', { headers: { Authorization: `Bearer ${token}` } })
       ]);
 
       const statsData = await statsRes.json();
       const usersData = await usersRes.json();
+      const userArticlesData = await userArticlesRes.json();
+      const allArticlesData = await allArticlesRes.json();
 
       setStats(statsData.stats);
       setUsers(usersData.users || []);
+      setUserArticles(userArticlesData.articles || []);
+      setAllArticles(allArticlesData.articles || []);
     } catch (error) {
       toast.error('Failed to fetch data');
     } finally {
@@ -105,6 +127,16 @@ export default function AdminPage() {
       toast.error('Failed to delete user');
     }
   };
+
+  const filteredUserArticles = userArticles.filter(article =>
+    article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    article.excerpt?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const filteredAllArticles = allArticles.filter(article =>
+    article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    article.excerpt?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   if (!isAuthenticated || !hasRole('ADMIN')) {
     return null;
@@ -200,7 +232,7 @@ export default function AdminPage() {
             </motion.div>
           )}
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* User Management */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -270,28 +302,44 @@ export default function AdminPage() {
               </Card>
             </motion.div>
 
-            {/* Recent Articles */}
+            {/* Your Articles */}
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 0 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               <Card className="glass-card">
                 <CardHeader>
-                  <CardTitle>Recent Articles</CardTitle>
+                  <div className="flex justify-between items-center">
+                    <CardTitle>Your Articles</CardTitle>
+                    <Link href="/dashboard/articles/new">
+                      <Button size="sm">
+                        <Plus className="h-4 w-4 mr-2" />
+                        New Article
+                      </Button>
+                    </Link>
+                  </div>
                 </CardHeader>
                 <CardContent>
+                  <div className="mb-4">
+                    <Input
+                      placeholder="Search articles..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="w-full"
+                    />
+                  </div>
                   {loading ? (
                     <div className="text-center py-4">
                       <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mx-auto"></div>
                     </div>
-                  ) : stats?.recentArticles.length === 0 ? (
+                  ) : filteredUserArticles.length === 0 ? (
                     <div className="text-center py-4">
-                      <p className="text-gray-600">No articles yet.</p>
+                      <p className="text-gray-600">No articles found.</p>
                     </div>
                   ) : (
                     <div className="space-y-3">
-                      {stats?.recentArticles.map((article) => (
+                      {filteredUserArticles.slice(0, 5).map((article) => (
                         <div key={article.id} className="flex items-center justify-between p-3 border rounded-lg">
                           <div>
                             <div className="font-medium text-gray-900 line-clamp-1">{article.title}</div>
@@ -310,6 +358,66 @@ export default function AdminPage() {
                           </Link>
                         </div>
                       ))}
+                      {filteredUserArticles.length > 5 && (
+                        <Link href="/dashboard">
+                          <Button variant="outline" className="w-full">
+                            View All Your Articles ({filteredUserArticles.length})
+                          </Button>
+                        </Link>
+                      )}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* All Articles */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <Card className="glass-card">
+                <CardHeader>
+                  <CardTitle>All Articles</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {loading ? (
+                    <div className="text-center py-4">
+                      <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mx-auto"></div>
+                    </div>
+                  ) : filteredAllArticles.length === 0 ? (
+                    <div className="text-center py-4">
+                      <p className="text-gray-600">No articles found.</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-3">
+                      {filteredAllArticles.slice(0, 5).map((article) => (
+                        <div key={article.id} className="flex items-center justify-between p-3 border rounded-lg">
+                          <div>
+                            <div className="font-medium text-gray-900 line-clamp-1">{article.title}</div>
+                            <div className="text-sm text-gray-600">by {article.author.name}</div>
+                            <div className="flex items-center gap-2 mt-1">
+                              {getStatusIcon(article.status)}
+                              <Badge className={getStatusColor(article.status)}>
+                                {article.status}
+                              </Badge>
+                            </div>
+                          </div>
+                          <Link href={`/dashboard/articles/${article.id}`}>
+                            <Button size="sm" variant="outline">
+                              <Eye className="h-3 w-3" />
+                            </Button>
+                          </Link>
+                        </div>
+                      ))}
+                      {filteredAllArticles.length > 5 && (
+                        <div className="text-center pt-2">
+                          <span className="text-sm text-gray-500">
+                            Showing 5 of {filteredAllArticles.length} articles
+                          </span>
+                        </div>
+                      )}
                     </div>
                   )}
                 </CardContent>

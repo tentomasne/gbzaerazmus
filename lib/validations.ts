@@ -19,6 +19,7 @@ export const articleSchema = z.object({
   country: z.string().optional(),
   tags: z.array(z.string()).default([]),
   status: z.enum(['DRAFT', 'PENDING', 'PUBLISHED', 'REJECTED']).default('DRAFT'),
+  coverImage: z.string().optional(),
 });
 
 export const userUpdateSchema = z.object({

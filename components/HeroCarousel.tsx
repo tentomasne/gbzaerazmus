@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { StickyBanner } from './ui/sticky-banner';
 
 interface Country {
   name: string;
@@ -169,6 +170,7 @@ export function HeroCarousel() {
           />
         ))}
       </div>
+      
     </div>
   );
 }

@@ -64,20 +64,20 @@ function Navbar({ className, showNavbar = true }: { className?: string; showNavb
         {/* User Menu - Only show if authenticated */}
         {isAuthenticated && (
           <MenuItem setActive={setActive} active={active} item={user?.name || "Account"}>
-            <div className="flex flex-col space-y-4 text-sm p-4 min-w-[200px]">
-              <div className="border-b pb-2 mb-2">
+            <div className="flex flex-col space-y-3 text-sm min-w-[200px]  ">
+              <div className="border-b bor</div>der-white/20 pb-3 mb-1">
                 <p className="font-medium text-gray-900">{user?.name}</p>
                 <p className="text-gray-500 text-xs">{user?.email}</p>
                 <p className="text-blue-600 text-xs font-medium">{user?.role}</p>
               </div>
               
-              <HoveredLink href="/dashboard" className="flex items-center">
+              <HoveredLink href="/dashboard" className="flex items-center py-2">
                 <User className="h-4 w-4 mr-2" />
                 Dashboard
               </HoveredLink>
               
               {user?.role === 'ADMIN' && (
-                <HoveredLink href="/admin" className="flex items-center">
+                <HoveredLink href="/admin" className="flex items-center py-2">
                   <Settings className="h-4 w-4 mr-2" />
                   Admin Panel
                 </HoveredLink>
@@ -85,7 +85,7 @@ function Navbar({ className, showNavbar = true }: { className?: string; showNavb
               
               <button 
                 onClick={logout}
-                className="flex items-center text-red-600 hover:text-red-700 transition-colors text-left"
+                className="flex items-center text-red-600 hover:text-red-700 transition-colors text-left py-2 px-3 rounded-xl hover:bg-white/10"
               >
                 <LogOut className="h-4 w-4 mr-2" />
                 Sign Out

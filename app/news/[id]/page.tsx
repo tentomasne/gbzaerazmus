@@ -9,14 +9,28 @@ import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import { newsArticles } from '@/lib/news';
 import Lenis from 'lenis'
 import { useEffect } from 'react';
+
+interface NewsArticle {
+  id: string;
+  title: string;
+  content: string;
+  author: {
+    name: string;
+  };
+  publishedAt: string;
+  coverImage?: string;
+  country: string;
+  tags: string[];
+}
 
 export default function NewsArticlePage() {
   const params = useParams();
   const articleId = params.id as string;
-  const article = newsArticles.find(a => a.id === articleId);
+  const [article, setArticle] = useState<NewsArticle | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [relatedArticles, setRelatedArticles] = useState<NewsArticle[]>([]);
 
   useEffect(() => {
     const lenis = new Lenis();
@@ -32,6 +46,51 @@ export default function NewsArticlePage() {
       lenis.destroy();
     };
   }, []);
+
+  useEffect(() => {
+    if (articleId) {
+      fetchArticle();
+    }
+  }, [articleId]);
+
+  const fetchArticle = async () => {
+    try {
+      const response = await fetch(`/api/articles/${articleId}`);
+      if (response.ok) {
+        const data = await response.json();
+        setArticle(data.article);
+        
+        // Fetch related articles
+        const relatedResponse = await fetch(`/api/articles?status=PUBLISHED&country=${data.article.country}`);
+        if (relatedResponse.ok) {
+          const relatedData = await relatedResponse.json();
+          const filtered = relatedData.articles.filter((a: NewsArticle) => a.id !== articleId).slice(0, 2);
+          setRelatedArticles(filtered);
+        }
+      }
+    } catch (error) {
+      console.error('Failed to fetch article:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen">
+        <Navbar />
+        <div className="section-padding pt-24">
+          <div className="max-w-4xl mx-auto">
+            <div className="animate-pulse space-y-6">
+              <div className="h-8 bg-gray-200 rounded w-1/4"></div>
+              <div className="h-12 bg-gray-200 rounded w-3/4"></div>
+              <div className="h-96 bg-gray-200 rounded"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!article) {
     return (
@@ -70,7 +129,9 @@ export default function NewsArticlePage() {
               <div className="relative h-64 md:h-96 rounded-2xl overflow-hidden mb-8">
                 <div
                   className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url(${article.image})` }}
+                  style={{ 
+                    backgroundImage: `url(${article.coverImage || 'https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop'})` 
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-6 left-6">
@@ -91,7 +152,7 @@ export default function NewsArticlePage() {
                 </div>
                 <div className="flex items-center">
                   <User className="h-4 w-4 mr-2" />
-                  {article.author}
+                  {article.author.name}
                 </div>
                 <Button variant="ghost" size="sm" className="p-0 h-auto">
                   <Share2 className="h-4 w-4 mr-2" />
@@ -138,15 +199,14 @@ export default function NewsArticlePage() {
             >
               <h3 className="text-2xl font-bold text-gray-900 mb-8">Related Stories</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {newsArticles
-                  .filter(a => a.id !== article.id && (a.country === article.country || a.tags.some(tag => article.tags.includes(tag))))
-                  .slice(0, 2)
-                  .map((relatedArticle) => (
+                {relatedArticles.map((relatedArticle) => (
                     <Card key={relatedArticle.id} className="glass-card hover:shadow-lg transition-shadow duration-300">
                       <div className="relative h-32 overflow-hidden">
                         <div
                           className="absolute inset-0 bg-cover bg-center"
-                          style={{ backgroundImage: `url(${relatedArticle.image})` }}
+                          style={{ 
+                            backgroundImage: `url(${relatedArticle.coverImage || 'https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop'})` 
+                          }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                       </div>
@@ -154,9 +214,6 @@ export default function NewsArticlePage() {
                         <h4 className="font-semibold text-gray-900 mb-2 line-clamp-2">
                           {relatedArticle.title}
                         </h4>
-                        <p className="text-sm text-gray-600 mb-3 line-clamp-2">
-                          {relatedArticle.excerpt}
-                        </p>
                         <Link href={`/news/${relatedArticle.id}`}>
                           <Button size="sm" variant="outline" className="w-full">
                             Read More

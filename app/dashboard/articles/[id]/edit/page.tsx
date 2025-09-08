@@ -28,6 +28,7 @@ const articleSchema = z.object({
   country: z.string().optional(),
   status: z.enum(['DRAFT', 'PENDING', 'PUBLISHED']),
   tags: z.array(z.string()).default([]),
+  coverImage: z.string().optional(),
 });
 
 type ArticleFormData = z.infer<typeof articleSchema>;
@@ -40,6 +41,7 @@ interface Article {
   status: string;
   country: string;
   tags: string[];
+  coverImage: string;
   author: {
     id: string;
     name: string;
@@ -53,6 +55,7 @@ export default function EditArticlePage() {
   const [content, setContent] = useState('');
   const [tagInput, setTagInput] = useState('');
   const [tags, setTags] = useState<string[]>([]);
+  const [coverImage, setCoverImage] = useState('');
   const { user } = useAuth();
   const params = useParams();
   const router = useRouter();
@@ -96,6 +99,7 @@ export default function EditArticlePage() {
         setArticle(articleData);
         setContent(articleData.content);
         setTags(articleData.tags || []);
+        setCoverImage(articleData.coverImage || '');
         
         // Reset form with article data
         reset({
@@ -105,6 +109,7 @@ export default function EditArticlePage() {
           country: articleData.country || '',
           status: articleData.status,
           tags: articleData.tags || [],
+          coverImage: articleData.coverImage || '',
         });
       } else {
         toast.error('Article not found');
@@ -159,6 +164,7 @@ export default function EditArticlePage() {
           ...data,
           content,
           tags,
+          coverImage,
         }),
       });
 
@@ -312,6 +318,30 @@ export default function EditArticlePage() {
                         </SelectContent>
                       </Select>
                     </div>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="coverImage">Cover Image URL</Label>
+                    <Input
+                      id="coverImage"
+                      value={coverImage}
+                      onChange={(e) => {
+                        setCoverImage(e.target.value);
+                        setValue('coverImage', e.target.value);
+                      }}
+                      placeholder="https://example.com/image.jpg"
+                      className="mt-1"
+                    />
+                    {coverImage && (
+                      <div className="mt-2">
+                        <img
+                          src={coverImage}
+                          alt="Cover preview"
+                          className="w-full h-32 object-cover rounded-lg"
+                          onError={() => setCoverImage('')}
+                        />
+                      </div>
+                    )}
                   </div>
 
                   <div>

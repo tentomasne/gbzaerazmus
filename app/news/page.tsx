@@ -11,9 +11,22 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { newsArticles } from '@/lib/news';
 import { countries } from '@/lib/countries';
 import Lenis from 'lenis'
+
+interface NewsArticle {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  author: {
+    name: string;
+  };
+  publishedAt: string;
+  coverImage?: string;
+  country: string;
+  tags: string[];
+}
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -32,7 +45,9 @@ const stagger = {
 export default function NewsPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCountry, setSelectedCountry] = useState('all');
-  const [filteredArticles, setFilteredArticles] = useState(newsArticles);
+  const [articles, setArticles] = useState<NewsArticle[]>([]);
+  const [filteredArticles, setFilteredArticles] = useState<NewsArticle[]>([]);
+  const [loading, setLoading] = useState(true);
 
       useEffect(() => {
     const lenis = new Lenis();
@@ -49,9 +64,29 @@ export default function NewsPage() {
     };
   }, []);
 
+  // Fetch articles from database
+  useEffect(() => {
+    fetchArticles();
+  }, []);
+
+  const fetchArticles = async () => {
+    try {
+      const response = await fetch('/api/articles?status=PUBLISHED');
+      if (response.ok) {
+        const data = await response.json();
+        setArticles(data.articles || []);
+        setFilteredArticles(data.articles || []);
+      }
+    } catch (error) {
+      console.error('Failed to fetch articles:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Filter articles based on search term and selected country
   useEffect(() => {
-    let filtered = newsArticles;
+    let filtered = articles;
 
     if (searchTerm) {
       filtered = filtered.filter(article =>
@@ -66,7 +101,7 @@ export default function NewsPage() {
     }
 
     setFilteredArticles(filtered);
-  }, [searchTerm, selectedCountry]);
+  }, [searchTerm, selectedCountry, articles]);
 
   return (
     <div className="min-h-screen">
@@ -131,69 +166,87 @@ export default function NewsPage() {
           </motion.div>
 
           {/* Articles Grid */}
-          <motion.div
-            variants={stagger}
-            initial="initial"
-            animate="animate"
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
-            {filteredArticles.map((article, index) => (
-              <motion.div key={article.id} variants={fadeInUp}>
-                <Card className="glass-card h-full overflow-hidden hover:shadow-xl transition-all duration-300 group">
-                  <div className="relative h-48 overflow-hidden">
-                    <div
-                      className="absolute inset-0 bg-cover bg-center transform group-hover:scale-105 transition-transform duration-500"
-                      style={{ backgroundImage: `url(${article.image})` }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute top-4 left-4">
-                      <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
-                        {article.country}
-                      </Badge>
-                    </div>
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="animate-pulse">
+                  <div className="bg-gray-200 h-48 rounded-t-lg"></div>
+                  <div className="bg-white p-6 rounded-b-lg">
+                    <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
+                    <div className="h-3 bg-gray-200 rounded mb-2"></div>
+                    <div className="h-3 bg-gray-200 rounded w-1/2"></div>
                   </div>
-                  
-                  <CardContent className="p-6 flex flex-col flex-1">
-                    <div className="flex items-center text-sm text-gray-500 mb-3">
-                      <Calendar className="h-4 w-4 mr-2" />
-                      {format(new Date(article.publishedAt), 'MMMM dd, yyyy')}
-                      <User className="h-4 w-4 ml-4 mr-2" />
-                      {article.author}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <motion.div
+              variants={stagger}
+              initial="initial"
+              animate="animate"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            >
+              {filteredArticles.map((article, index) => (
+                <motion.div key={article.id} variants={fadeInUp}>
+                  <Card className="glass-card h-full overflow-hidden hover:shadow-xl transition-all duration-300 group">
+                    <div className="relative h-48 overflow-hidden">
+                      <div
+                        className="absolute inset-0 bg-cover bg-center transform group-hover:scale-105 transition-transform duration-500"
+                        style={{ 
+                          backgroundImage: `url(${article.coverImage || 'https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop'})` 
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                      <div className="absolute top-4 left-4">
+                        <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
+                          {article.country || 'General'}
+                        </Badge>
+                      </div>
                     </div>
                     
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                      {article.title}
-                    </h3>
-                    
-                    <p className="text-gray-600 mb-4 line-clamp-3 flex-1">
-                      {article.excerpt}
-                    </p>
-                    
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {article.tags.slice(0, 2).map((tag) => (
-                        <Badge key={tag} variant="outline" className="text-xs">
-                          <Tag className="h-3 w-3 mr-1" />
-                          {tag}
-                        </Badge>
-                      ))}
-                      {article.tags.length > 2 && (
-                        <Badge variant="outline" className="text-xs">
-                          +{article.tags.length - 2} more
-                        </Badge>
-                      )}
-                    </div>
 
-                    <Link href={`/news/${article.id}`}>
-                      <Button className="w-full group">
-                        Read More
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
+                    <CardContent className="p-6 flex flex-col flex-1">
+                      <div className="flex items-center text-sm text-gray-500 mb-3">
+                        <Calendar className="h-4 w-4 mr-2" />
+                        {format(new Date(article.publishedAt), 'MMMM dd, yyyy')}
+                        <User className="h-4 w-4 ml-4 mr-2" />
+                        {article.author.name}
+                      </div>
+                      
+                      <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+                        {article.title}
+                      </h3>
+                      
+                      <p className="text-gray-600 mb-4 line-clamp-3 flex-1">
+                        {article.excerpt}
+                      </p>
+                      
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {article.tags.slice(0, 2).map((tag) => (
+                          <Badge key={tag} variant="outline" className="text-xs">
+                            <Tag className="h-3 w-3 mr-1" />
+                            {tag}
+                          </Badge>
+                        ))}
+                        {article.tags.length > 2 && (
+                          <Badge variant="outline" className="text-xs">
+                            +{article.tags.length - 2} more
+                          </Badge>
+                        )}
+                      </div>
 
+                      <Link href={`/news/${article.id}`}>
+                        <Button className="w-full group">
+                          Read More
+                        </Button>
+                      </Link>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
           {filteredArticles.length === 0 && (
             <motion.div
               initial={{ opacity: 0 }}

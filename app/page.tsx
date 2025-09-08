@@ -13,6 +13,8 @@ import { newsArticles } from '@/lib/news';
 import { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import WorldMapDemo from '@/components/EuropeMap';
+import { PointerHighlight } from '@/components/ui/pointer-highlight';
+import { StickyBanner } from '@/components/ui/sticky-banner';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -71,6 +73,19 @@ export default function Home() {
 
       {/* Full Hero Carousel Section */}
       <HeroCarousel />
+
+
+                  {/* Annoucements */}
+            <StickyBanner className="bg-gradient-to-b from-blue-500 to-blue-600 h-12 flex items-center justify-center">
+              <p className="mx-0 max-w-[90%] text-white drop-shadow-md">
+                Announcing $10 seed funding from project mayhem ventures.{" "}
+                <a href="#" className="transition duration-200 hover:underline">
+                  Read announcement
+                </a>
+              </p>
+            </StickyBanner>
+
+
 
       {/* Features Section */}
       <section className="section-padding">
@@ -169,8 +184,11 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
-              Latest News from Our Students
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 mx-auto max-w-lg font-bold tracking-tight text-center">
+              Latest News from
+              <PointerHighlight containerClassName="inline-block md:inline">
+              <span className="text-blue-600 md:ml-2 block md:inline"> Our Students</span>
+              </PointerHighlight>
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               Read the latest updates, experiences, and achievements shared by our
@@ -290,46 +308,7 @@ export default function Home() {
 
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">E</span>
-                </div>
-                <span className="font-bold text-xl">Erasmus GBZA</span>
-              </div>
-              <p className="text-gray-400">
-                Showcasing the excellence of selected GBZA students across Europe.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Explore</h3>
-              <div className="space-y-2">
-                <Link href="/countries" className="text-gray-400 hover:text-white block">Destinations</Link>
-                <Link href="/news" className="text-gray-400 hover:text-white block">Student Stories</Link>
-                <Link href="/managers" className="text-gray-400 hover:text-white block">Our Team</Link>
-              </div>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Contact</h3>
-              <p className="text-gray-400">
-                Gymnasium Bäumlihof<br />
-                Zu den Drei Linden 80<br />
-                4058 Basel, Switzerland<br />
-                erasmus@gbza.ch
-              </p>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-            <p className="text-gray-400">
-              © 2024 Erasmus GBZA. Celebrating student excellence across Europe.
-            </p>
-          </div>
-        </div>
-      </footer>
+      
     </div>
   );
 }

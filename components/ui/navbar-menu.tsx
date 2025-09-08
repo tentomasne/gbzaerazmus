@@ -43,10 +43,10 @@ export const MenuItem = ({
                 layoutId="active"
                 className="bg-white/20 dark:bg-black/20 backdrop-blur-xl rounded-3xl overflow-hidden border border-white/30 dark:border-white/10 shadow-2xl shadow-black/10 dark:shadow-white/5"
                 style={{
-                  background: "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)",
+                  background: "linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.08) 100%)",
                 }}
               >
-                <motion.div layout className="w-max h-full p-6 backdrop-blur-sm">
+                <motion.div layout className="w-max h-full p-4 backdrop-blur-md">
                   {children}
                 </motion.div>
               </motion.div>
