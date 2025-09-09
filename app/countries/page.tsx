@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import Lenis from 'lenis'
 import { ArrowRight, MapPin, Clock, Users, BookOpen } from 'lucide-react';
@@ -26,6 +27,8 @@ const stagger = {
 };
 
 export default function CountriesPage() {
+  const { t } = useTranslation();
+
   useEffect(() => {
     const lenis = new Lenis();
 
@@ -53,14 +56,13 @@ export default function CountriesPage() {
             className="text-center mb-16"
           >
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Discover Your Next{' '}
+              {t('countries.title')}{' '}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Destination
+                {t('countries.destination')}
               </span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Choose from our partner countries across Europe. Each destination offers
-              unique cultural experiences and world-class educational opportunities.
+              {t('countries.subtitle')}
             </p>
           </motion.div>
 
@@ -122,7 +124,7 @@ export default function CountriesPage() {
 
                     <Link href={`/countries/${country.id}`}>
                       <Button className="w-full group">
-                        Learn More
+                        {t('countries.learnMore')}
                         <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                       </Button>
                     </Link>
@@ -142,15 +144,14 @@ export default function CountriesPage() {
           >
             <div className="glass-card rounded-3xl p-8 md:p-12">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Can't Decide? We're Here to Help!
+                {t('countries.cantDecide')}
               </h2>
               <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-                Our Erasmus coordinators can help you choose the perfect destination
-                based on your academic goals and personal interests.
+                {t('countries.cantDecideSubtitle')}
               </p>
               <Link href="/managers">
                 <Button size="lg">
-                  Contact Our Team
+                  {t('countries.contactOurTeam')}
                 </Button>
               </Link>
             </div>

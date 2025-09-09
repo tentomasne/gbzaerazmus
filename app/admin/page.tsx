@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { Users, FileText, Image, TrendingUp, Plus, Edit, Trash2, CheckCircle, Clock, Eye, AlertCircle, Megaphone } from 'lucide-react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
@@ -71,6 +72,7 @@ export default function AdminPage() {
   const [allArticles, setAllArticles] = useState<Article[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
   const { user, isAuthenticated, hasRole } = useAuth();
 
   useEffect(() => {
@@ -155,10 +157,10 @@ export default function AdminPage() {
             className="mb-8"
           >
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-              Admin Dashboard
+              {t('admin.adminDashboard')}
             </h1>
             <p className="text-gray-600">
-              Manage users, content, and system settings.
+              {t('admin.manageUsers')}
             </p>
           </motion.div>
 
@@ -176,7 +178,7 @@ export default function AdminPage() {
                     <Users className="h-8 w-8 text-blue-600" />
                     <div className="ml-4">
                       <div className="text-2xl font-bold text-gray-900">{stats.totalUsers}</div>
-                      <div className="text-sm text-gray-600">Total Users</div>
+                      <div className="text-sm text-gray-600">{t('admin.totalUsers')}</div>
                     </div>
                   </div>
                 </CardContent>
@@ -188,7 +190,7 @@ export default function AdminPage() {
                     <FileText className="h-8 w-8 text-green-600" />
                     <div className="ml-4">
                       <div className="text-2xl font-bold text-gray-900">{stats.totalArticles}</div>
-                      <div className="text-sm text-gray-600">Total Articles</div>
+                      <div className="text-sm text-gray-600">{t('dashboard.totalArticles')}</div>
                     </div>
                   </div>
                 </CardContent>
@@ -200,7 +202,7 @@ export default function AdminPage() {
                     <CheckCircle className="h-8 w-8 text-emerald-600" />
                     <div className="ml-4">
                       <div className="text-2xl font-bold text-gray-900">{stats.publishedArticles}</div>
-                      <div className="text-sm text-gray-600">Published</div>
+                      <div className="text-sm text-gray-600">{t('dashboard.published')}</div>
                     </div>
                   </div>
                 </CardContent>
@@ -212,7 +214,7 @@ export default function AdminPage() {
                     <Clock className="h-8 w-8 text-yellow-600" />
                     <div className="ml-4">
                       <div className="text-2xl font-bold text-gray-900">{stats.pendingArticles}</div>
-                      <div className="text-sm text-gray-600">Pending</div>
+                      <div className="text-sm text-gray-600">{t('dashboard.pending')}</div>
                     </div>
                   </div>
                 </CardContent>
@@ -224,7 +226,7 @@ export default function AdminPage() {
                     <Image className="h-8 w-8 text-purple-600" />
                     <div className="ml-4">
                       <div className="text-2xl font-bold text-gray-900">{stats.totalImages}</div>
-                      <div className="text-sm text-gray-600">Images</div>
+                      <div className="text-sm text-gray-600">{t('admin.totalImages')}</div>
                     </div>
                   </div>
                 </CardContent>
@@ -242,26 +244,26 @@ export default function AdminPage() {
             >
               <Card className="glass-card">
                 <CardHeader>
-                  <CardTitle>Quick Actions</CardTitle>
+                  <CardTitle>{t('admin.quickActions')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <Link href="/admin/announcements">
                       <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center gap-2">
                         <Megaphone className="h-6 w-6 text-blue-600" />
-                        <span className="text-sm font-medium">Manage Announcements</span>
+                        <span className="text-sm font-medium">{t('admin.manageAnnouncements')}</span>
                       </Button>
                     </Link>
                     <Link href="/admin/users/new">
                       <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center gap-2">
                         <Users className="h-6 w-6 text-green-600" />
-                        <span className="text-sm font-medium">Add New User</span>
+                        <span className="text-sm font-medium">{t('admin.addNewUser')}</span>
                       </Button>
                     </Link>
                     <Link href="/dashboard/articles/new">
                       <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center gap-2">
                         <FileText className="h-6 w-6 text-purple-600" />
-                        <span className="text-sm font-medium">Create Article</span>
+                        <span className="text-sm font-medium">{t('dashboard.createArticle')}</span>
                       </Button>
                     </Link>
                   </div>
@@ -278,11 +280,11 @@ export default function AdminPage() {
               <Card className="glass-card">
                 <CardHeader>
                   <div className="flex justify-between items-center">
-                    <CardTitle>User Management</CardTitle>
+                    <CardTitle>{t('admin.userManagement')}</CardTitle>
                     <Link href="/admin/users/">
                       <Button size="sm">
                         <Plus className="h-4 w-4 mr-2" />
-                        Manage
+                        {t('admin.manage')}
                       </Button>
                     </Link>
                   </div>
@@ -304,7 +306,7 @@ export default function AdminPage() {
                                 {user.role}
                               </Badge>
                               <span className="text-xs text-gray-500">
-                                {user._count.articles} articles
+                                {user._count.articles} {t('admin.articlesWritten')}
                               </span>
                             </div>
                           </div>
@@ -328,7 +330,7 @@ export default function AdminPage() {
                       {users.length > 5 && (
                         <Link href="/admin/users">
                           <Button variant="outline" className="w-full">
-                            View All Users ({users.length})
+                            {t('admin.viewAllUsers')} ({users.length})
                           </Button>
                         </Link>
                       )}
@@ -347,11 +349,11 @@ export default function AdminPage() {
               <Card className="glass-card">
                 <CardHeader>
                   <div className="flex justify-between items-center">
-                    <CardTitle>Your Articles</CardTitle>
+                    <CardTitle>{t('dashboard.yourArticles')}</CardTitle>
                     <Link href="/dashboard/articles/new">
                       <Button size="sm">
                         <Plus className="h-4 w-4 mr-2" />
-                        New Article
+                        {t('dashboard.newArticle')}
                       </Button>
                     </Link>
                   </div>
@@ -359,7 +361,7 @@ export default function AdminPage() {
                 <CardContent>
                   <div className="mb-4">
                     <Input
-                      placeholder="Search articles..."
+                      placeholder={t('common.search')}
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="w-full"
@@ -371,7 +373,7 @@ export default function AdminPage() {
                     </div>
                   ) : filteredUserArticles.length === 0 ? (
                     <div className="text-center py-4">
-                      <p className="text-gray-600">No articles found.</p>
+                      <p className="text-gray-600">{t('dashboard.noArticlesYet')}</p>
                     </div>
                   ) : (
                     <div className="space-y-3">
@@ -397,7 +399,7 @@ export default function AdminPage() {
                       {filteredUserArticles.length > 5 && (
                         <Link href="/dashboard">
                           <Button variant="outline" className="w-full">
-                            View All Your Articles ({filteredUserArticles.length})
+                            {t('admin.viewAllArticles')} ({filteredUserArticles.length})
                           </Button>
                         </Link>
                       )}
@@ -415,7 +417,7 @@ export default function AdminPage() {
             >
               <Card className="glass-card">
                 <CardHeader>
-                  <CardTitle>All Articles</CardTitle>
+                  <CardTitle>{t('admin.allArticles')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   {loading ? (
@@ -424,7 +426,7 @@ export default function AdminPage() {
                     </div>
                   ) : filteredAllArticles.length === 0 ? (
                     <div className="text-center py-4">
-                      <p className="text-gray-600">No articles found.</p>
+                      <p className="text-gray-600">{t('dashboard.noArticlesYet')}</p>
                     </div>
                   ) : (
                     <div className="space-y-3">
@@ -450,7 +452,7 @@ export default function AdminPage() {
                       {filteredAllArticles.length > 5 && (
                         <div className="text-center pt-2">
                           <span className="text-sm text-gray-500">
-                            Showing 5 of {filteredAllArticles.length} articles
+                            {t('admin.showingOf')} {filteredAllArticles.length} {t('admin.articles')}
                           </span>
                         </div>
                       )}

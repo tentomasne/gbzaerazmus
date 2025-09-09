@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Save, User, Mail, Lock, Shield } from 'lucide-react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
@@ -39,6 +40,7 @@ export default function EditUserPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
+  const { t } = useTranslation();
   const { user, isAuthenticated, hasRole } = useAuth();
   const params = useParams();
   const router = useRouter();
@@ -78,11 +80,11 @@ export default function EditUserPage() {
           role: data.user.role,
         });
       } else {
-        toast.error('User not found');
+        toast.error(t('editUser.userNotFound'));
         router.push('/admin/users');
       }
     } catch (error) {
-      toast.error('Failed to fetch user');
+      toast.error(t('editUser.failedToUpdate'));
       router.push('/admin/users');
     } finally {
       setLoading(false);
@@ -110,14 +112,14 @@ export default function EditUserPage() {
       });
 
       if (response.ok) {
-        toast.success('User updated successfully!');
+        toast.success(t('editUser.userUpdated'));
         router.push('/admin/users');
       } else {
         const error = await response.json();
-        toast.error(error.error || 'Failed to update user');
+        toast.error(error.error || t('editUser.failedToUpdate'));
       }
     } catch (error) {
-      toast.error('Failed to update user');
+      toast.error(t('editUser.failedToUpdate'));
     } finally {
       setSaving(false);
     }
@@ -165,14 +167,14 @@ export default function EditUserPage() {
               className="inline-flex items-center text-blue-600 hover:text-blue-500 mb-6 transition-colors"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Users
+              {t('createUser.backToUsers')}
             </Link>
 
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-              Edit User
+              {t('editUser.title')}
             </h1>
             <p className="text-gray-600">
-              Update user information and permissions.
+              {t('editUser.subtitle')}
             </p>
           </motion.div>
 
@@ -185,13 +187,13 @@ export default function EditUserPage() {
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <User className="h-5 w-5 mr-2" />
-                  User Details
+                  {t('createUser.userDetails')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                   <div>
-                    <Label htmlFor="name">Full Name *</Label>
+                    <Label htmlFor="name">{t('createUser.fullName')} *</Label>
                     <div className="relative mt-1">
                       <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                       <Input
@@ -207,7 +209,7 @@ export default function EditUserPage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="email">Email Address *</Label>
+                    <Label htmlFor="email">{t('createUser.emailAddress')} *</Label>
                     <div className="relative mt-1">
                       <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                       <Input
@@ -224,7 +226,7 @@ export default function EditUserPage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="password">New Password (leave empty to keep current)</Label>
+                    <Label htmlFor="password">{t('editUser.newPassword')}</Label>
                     <div className="relative mt-1">
                       <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                       <Input
@@ -241,7 +243,7 @@ export default function EditUserPage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="role">Role *</Label>
+                    <Label htmlFor="role">{t('createUser.role')} *</Label>
                     <Select 
                       value={userData.role}
                       onValueChange={(value) => setValue('role', value as 'EDITOR' | 'ADMIN')}
@@ -257,8 +259,8 @@ export default function EditUserPage() {
                           <div className="flex items-center">
                             <Shield className="h-4 w-4 mr-2 text-blue-600" />
                             <div>
-                              <div className="font-medium">Editor</div>
-                              <div className="text-xs text-gray-500">Can create and edit articles</div>
+                              <div className="font-medium">{t('createUser.editorRole')}</div>
+                              <div className="text-xs text-gray-500">{t('createUser.editorDescription')}</div>
                             </div>
                           </div>
                         </SelectItem>
@@ -266,8 +268,8 @@ export default function EditUserPage() {
                           <div className="flex items-center">
                             <Shield className="h-4 w-4 mr-2 text-red-600" />
                             <div>
-                              <div className="font-medium">Admin</div>
-                              <div className="text-xs text-gray-500">Full system access</div>
+                              <div className="font-medium">{t('createUser.adminRole')}</div>
+                              <div className="text-xs text-gray-500">{t('createUser.adminDescription')}</div>
                             </div>
                           </div>
                         </SelectItem>
@@ -276,21 +278,21 @@ export default function EditUserPage() {
                   </div>
 
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-medium text-gray-900 mb-2">User Statistics</h4>
+                    <h4 className="font-medium text-gray-900 mb-2">{t('editUser.userStatistics')}</h4>
                     <div className="text-sm text-gray-600">
-                      <p>Created: {new Date(userData.createdAt).toLocaleDateString()}</p>
-                      <p>Articles written: {userData._count.articles}</p>
+                      <p>{t('dashboard.created')}: {new Date(userData.createdAt).toLocaleDateString()}</p>
+                      <p>{t('editUser.articlesWritten')}: {userData._count.articles}</p>
                     </div>
                   </div>
 
                   <div className="flex gap-4 pt-4">
                     <Button type="submit" disabled={saving} className="flex-1">
                       <Save className="h-4 w-4 mr-2" />
-                      {saving ? 'Updating...' : 'Update User'}
+                      {saving ? t('editUser.updating') : t('editUser.updateUser')}
                     </Button>
                     <Link href="/admin/users" className="flex-1">
                       <Button type="button" variant="outline" className="w-full">
-                        Cancel
+                        {t('common.cancel')}
                       </Button>
                     </Link>
                   </div>

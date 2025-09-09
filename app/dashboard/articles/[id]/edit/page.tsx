@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Save, Eye } from 'lucide-react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
@@ -56,6 +57,7 @@ export default function EditArticlePage() {
   const [tagInput, setTagInput] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [coverImage, setCoverImage] = useState('');
+  const { t } = useTranslation();
   const { user } = useAuth();
   const params = useParams();
   const router = useRouter();
@@ -91,7 +93,7 @@ export default function EditArticlePage() {
         
         // Check if user can edit this article
         if (user?.role !== 'ADMIN' && articleData.author.id !== user?.id) {
-          toast.error('You do not have permission to edit this article');
+          toast.error(t('editArticle.noPermission'));
           router.push('/dashboard');
           return;
         }
@@ -112,11 +114,11 @@ export default function EditArticlePage() {
           coverImage: articleData.coverImage || '',
         });
       } else {
-        toast.error('Article not found');
+        toast.error(t('viewArticle.articleNotFound'));
         router.push('/dashboard');
       }
     } catch (error) {
-      toast.error('Failed to fetch article');
+      toast.error(t('editArticle.failedToUpdate'));
       router.push('/dashboard');
     } finally {
       setLoading(false);
@@ -147,7 +149,7 @@ export default function EditArticlePage() {
 
   const onSubmit = async (data: ArticleFormData) => {
     if (!content.trim()) {
-      toast.error('Content is required');
+      toast.error(t('createArticle.contentRequired'));
       return;
     }
 
@@ -169,14 +171,14 @@ export default function EditArticlePage() {
       });
 
       if (response.ok) {
-        toast.success('Article updated successfully!');
+        toast.success(t('editArticle.articleUpdated'));
         router.push(`/dashboard/articles/${articleId}`);
       } else {
         const error = await response.json();
-        toast.error(error.error || 'Failed to update article');
+        toast.error(error.error || t('editArticle.failedToUpdate'));
       }
     } catch (error) {
-      toast.error('Failed to update article');
+      toast.error(t('editArticle.failedToUpdate'));
     } finally {
       setSaving(false);
     }
@@ -230,14 +232,14 @@ export default function EditArticlePage() {
               className="inline-flex items-center text-blue-600 hover:text-blue-500 mb-6 transition-colors"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Article
+              {t('editArticle.backToArticle')}
             </Link>
 
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-              Edit Article
+              {t('editArticle.title')}
             </h1>
             <p className="text-gray-600">
-              Update your article content and settings.
+              {t('editArticle.subtitle')}
             </p>
           </motion.div>
 
@@ -250,11 +252,11 @@ export default function EditArticlePage() {
             >
               <Card className="glass-card">
                 <CardHeader>
-                  <CardTitle>Article Details</CardTitle>
+                  <CardTitle>{t('createArticle.articleDetails')}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div>
-                    <Label htmlFor="title">Title *</Label>
+                    <Label htmlFor="title">{t('createArticle.title_field')} *</Label>
                     <Input
                       id="title"
                       {...register('title')}
@@ -267,7 +269,7 @@ export default function EditArticlePage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="excerpt">Excerpt</Label>
+                    <Label htmlFor="excerpt">{t('createArticle.excerpt')}</Label>
                     <Textarea
                       id="excerpt"
                       {...register('excerpt')}
@@ -282,13 +284,13 @@ export default function EditArticlePage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <Label htmlFor="country">Country</Label>
+                      <Label htmlFor="country">{t('createArticle.country')}</Label>
                       <Select 
                         value={watch('country')} 
                         onValueChange={(value) => setValue('country', value)}
                       >
                         <SelectTrigger className="mt-1">
-                          <SelectValue placeholder="Select country" />
+                          <SelectValue placeholder={t('createArticle.selectCountry')} />
                         </SelectTrigger>
                         <SelectContent>
                           {countries.map((country) => (
@@ -301,7 +303,7 @@ export default function EditArticlePage() {
                     </div>
 
                     <div>
-                      <Label htmlFor="status">Status</Label>
+                      <Label htmlFor="status">{t('createArticle.status')}</Label>
                       <Select 
                         value={watch('status')}
                         onValueChange={(value) => setValue('status', value as 'DRAFT' | 'PENDING' | 'PUBLISHED')}
@@ -310,10 +312,10 @@ export default function EditArticlePage() {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="DRAFT">Draft</SelectItem>
-                          <SelectItem value="PENDING">Pending Review</SelectItem>
+                          <SelectItem value="DRAFT">{t('dashboard.draft')}</SelectItem>
+                          <SelectItem value="PENDING">{t('dashboard.pending')}</SelectItem>
                           {user?.role === 'ADMIN' && (
-                            <SelectItem value="PUBLISHED">Published</SelectItem>
+                            <SelectItem value="PUBLISHED">{t('dashboard.published')}</SelectItem>
                           )}
                         </SelectContent>
                       </Select>
@@ -321,7 +323,7 @@ export default function EditArticlePage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="coverImage">Cover Image URL</Label>
+                    <Label htmlFor="coverImage">{t('createArticle.coverImageUrl')}</Label>
                     <Input
                       id="coverImage"
                       value={coverImage}
@@ -336,7 +338,7 @@ export default function EditArticlePage() {
                       <div className="mt-2">
                         <img
                           src={coverImage}
-                          alt="Cover preview"
+                          alt={t('createArticle.coverPreview')}
                           className="w-full h-32 object-cover rounded-lg"
                           onError={() => setCoverImage('')}
                         />
@@ -345,17 +347,17 @@ export default function EditArticlePage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="tags">Tags</Label>
+                    <Label htmlFor="tags">{t('createArticle.tags')}</Label>
                     <div className="mt-1 space-y-2">
                       <div className="flex gap-2">
                         <Input
                           value={tagInput}
                           onChange={(e) => setTagInput(e.target.value)}
                           onKeyPress={handleKeyPress}
-                          placeholder="Add tags..."
+                          placeholder={t('createArticle.addTags')}
                         />
                         <Button type="button" onClick={addTag} variant="outline">
-                          Add
+                          {t('createArticle.add')}
                         </Button>
                       </div>
                       {tags.length > 0 && (
@@ -388,16 +390,16 @@ export default function EditArticlePage() {
             >
               <Card className="glass-card">
                 <CardHeader>
-                  <CardTitle>Content *</CardTitle>
+                  <CardTitle>{t('createArticle.content')} *</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <HtmlTextEditor
                     value={content}
                     onChange={setContent}
-                    placeholder="Write your article content here..."
+                    placeholder={t('createArticle.contentPlaceholder')}
                   />
                   {!content.trim() && (
-                    <p className="text-sm text-red-600 mt-2">Content is required</p>
+                    <p className="text-sm text-red-600 mt-2">{t('createArticle.contentRequired')}</p>
                   )}
                 </CardContent>
               </Card>
@@ -420,7 +422,7 @@ export default function EditArticlePage() {
                         disabled={saving}
                       >
                         <Save className="h-4 w-4 mr-2" />
-                        Save as Draft
+                        {t('createArticle.saveAsDraft')}
                       </Button>
                       
                       {user?.role === 'ADMIN' ? (
@@ -430,7 +432,7 @@ export default function EditArticlePage() {
                           disabled={saving}
                         >
                           <Eye className="h-4 w-4 mr-2" />
-                          Publish
+                          {t('createArticle.publish')}
                         </Button>
                       ) : (
                         <Button
@@ -442,13 +444,13 @@ export default function EditArticlePage() {
                           disabled={saving}
                         >
                           <Eye className="h-4 w-4 mr-2" />
-                          Submit for Review
+                          {t('createArticle.submitForReview')}
                         </Button>
                       )}
                     </div>
 
                     <div className="text-sm text-gray-500">
-                      Author: {article.author.name}
+                      {t('createArticle.author')}: {article.author.name}
                     </div>
                   </div>
                 </CardContent>

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Save, User, Mail, Lock, Shield } from 'lucide-react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
@@ -28,6 +29,7 @@ type UserFormData = z.infer<typeof userSchema>;
 
 export default function NewUserPage() {
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
   const { user, isAuthenticated, hasRole } = useAuth();
   const router = useRouter();
 
@@ -62,14 +64,14 @@ export default function NewUserPage() {
       });
 
       if (response.ok) {
-        toast.success('User created successfully!');
+        toast.success(t('createUser.userCreated'));
         router.push('/admin/users');
       } else {
         const error = await response.json();
-        toast.error(error.error || 'Failed to create user');
+        toast.error(error.error || t('createUser.failedToCreate'));
       }
     } catch (error) {
-      toast.error('Failed to create user');
+      toast.error(t('createUser.failedToCreate'));
     } finally {
       setLoading(false);
     }
@@ -92,14 +94,14 @@ export default function NewUserPage() {
               className="inline-flex items-center text-blue-600 hover:text-blue-500 mb-6 transition-colors"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Users
+              {t('createUser.backToUsers')}
             </Link>
 
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-              Create New User
+              {t('createUser.title')}
             </h1>
             <p className="text-gray-600">
-              Add a new user to the system with appropriate permissions.
+              {t('createUser.subtitle')}
             </p>
           </motion.div>
 
@@ -112,13 +114,13 @@ export default function NewUserPage() {
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <User className="h-5 w-5 mr-2" />
-                  User Details
+                  {t('createUser.userDetails')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                   <div>
-                    <Label htmlFor="name">Full Name *</Label>
+                    <Label htmlFor="name">{t('createUser.fullName')} *</Label>
                     <div className="relative mt-1">
                       <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                       <Input
@@ -134,7 +136,7 @@ export default function NewUserPage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="email">Email Address *</Label>
+                    <Label htmlFor="email">{t('createUser.emailAddress')} *</Label>
                     <div className="relative mt-1">
                       <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                       <Input
@@ -151,7 +153,7 @@ export default function NewUserPage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="password">Password *</Label>
+                    <Label htmlFor="password">{t('common.password')} *</Label>
                     <div className="relative mt-1">
                       <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                       <Input
@@ -168,7 +170,7 @@ export default function NewUserPage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="role">Role *</Label>
+                    <Label htmlFor="role">{t('createUser.role')} *</Label>
                     <Select 
                       defaultValue="EDITOR"
                       onValueChange={(value) => setValue('role', value as 'EDITOR' | 'ADMIN')}
@@ -184,8 +186,8 @@ export default function NewUserPage() {
                           <div className="flex items-center">
                             <Shield className="h-4 w-4 mr-2 text-blue-600" />
                             <div>
-                              <div className="font-medium">Editor</div>
-                              <div className="text-xs text-gray-500">Can create and edit articles</div>
+                              <div className="font-medium">{t('createUser.editorRole')}</div>
+                              <div className="text-xs text-gray-500">{t('createUser.editorDescription')}</div>
                             </div>
                           </div>
                         </SelectItem>
@@ -193,8 +195,8 @@ export default function NewUserPage() {
                           <div className="flex items-center">
                             <Shield className="h-4 w-4 mr-2 text-red-600" />
                             <div>
-                              <div className="font-medium">Admin</div>
-                              <div className="text-xs text-gray-500">Full system access</div>
+                              <div className="font-medium">{t('createUser.adminRole')}</div>
+                              <div className="text-xs text-gray-500">{t('createUser.adminDescription')}</div>
                             </div>
                           </div>
                         </SelectItem>
@@ -205,11 +207,11 @@ export default function NewUserPage() {
                   <div className="flex gap-4 pt-4">
                     <Button type="submit" disabled={loading} className="flex-1">
                       <Save className="h-4 w-4 mr-2" />
-                      {loading ? 'Creating...' : 'Create User'}
+                      {loading ? t('createUser.creating') : t('createUser.createUser')}
                     </Button>
                     <Link href="/admin/users" className="flex-1">
                       <Button type="button" variant="outline" className="w-full">
-                        Cancel
+                        {t('common.cancel')}
                       </Button>
                     </Link>
                   </div>

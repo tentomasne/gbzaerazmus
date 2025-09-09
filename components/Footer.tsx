@@ -1,6 +1,11 @@
+"use client"
+
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
+    const { t } = useTranslation();
+
     return (
 
         <footer className="bg-gray-900 text-white py-12">
@@ -14,19 +19,19 @@ export default function Footer() {
                 <span className="font-bold text-xl">Erasmus GBZA</span>
               </div>
               <p className="text-gray-400">
-                Showcasing the excellence of selected GBZA students across Europe.
+                {t('footer.description')}
               </p>
             </div>
             <div>
-              <h3 className="font-semibold mb-4">Explore</h3>
+              <h3 className="font-semibold mb-4">{t('footer.explore')}</h3>
               <div className="space-y-2">
-                <Link href="/countries" className="text-gray-400 hover:text-white block">Destinations</Link>
-                <Link href="/news" className="text-gray-400 hover:text-white block">Student Stories</Link>
-                <Link href="/managers" className="text-gray-400 hover:text-white block">Our Team</Link>
+                <Link href="/countries" className="text-gray-400 hover:text-white block">{t('footer.destinations')}</Link>
+                <Link href="/news" className="text-gray-400 hover:text-white block">{t('footer.studentStories')}</Link>
+                <Link href="/managers" className="text-gray-400 hover:text-white block">{t('footer.ourTeam')}</Link>
               </div>
             </div>
             <div>
-              <h3 className="font-semibold mb-4">Contact</h3>
+              <h3 className="font-semibold mb-4">{t('footer.contact')}</h3>
               <p className="text-gray-400">
                 gbza-erasmus@davidik.fr
               </p>
@@ -34,7 +39,7 @@ export default function Footer() {
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center">
             <p className="text-gray-400">
-              © 2024 Erasmus GBZA. Celebrating student excellence across Europe.
+              {t('footer.copyright')}
             </p>
           </div>
         </div>

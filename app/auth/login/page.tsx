@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Eye, EyeOff, LogIn, ArrowLeft } from 'lucide-react';
@@ -18,6 +19,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
   const { login, isAuthenticated, loading: authLoading } = useAuth();
   const router = useRouter();
 
@@ -49,13 +51,13 @@ export default function LoginPage() {
     try {
       const success = await login(email, password);
       if (success) {
-        toast.success('Welcome back!');
+        toast.success(t('auth.welcomeBack'));
         router.push('/dashboard');
       } else {
-        toast.error('Invalid credentials');
+        toast.error(t('auth.invalidCredentials'));
       }
     } catch (error) {
-      toast.error('Login failed');
+      toast.error(t('auth.loginFailed'));
     } finally {
       setLoading(false);
     }
@@ -72,7 +74,7 @@ export default function LoginPage() {
         <div className="mb-6">
           <Link href="/" className="inline-flex items-center text-blue-600 hover:text-blue-500 transition-colors">
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Website
+            {t('auth.backToWebsite')}
           </Link>
         </div>
 
@@ -81,13 +83,13 @@ export default function LoginPage() {
             <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4">
               <LogIn className="h-8 w-8 text-white" />
             </div>
-            <CardTitle className="text-2xl font-bold">Staff Login</CardTitle>
-            <CardDescription>Access your Erasmus GBZA dashboard</CardDescription>
+            <CardTitle className="text-2xl font-bold">{t('auth.staffLogin')}</CardTitle>
+            <CardDescription>{t('auth.accessDashboard')}</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t('auth.email')}</Label>
                 <Input
                   id="email"
                   type="email"
@@ -99,7 +101,7 @@ export default function LoginPage() {
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t('auth.password')}</Label>
                 <div className="relative">
                   <Input
                     id="password"
@@ -122,13 +124,13 @@ export default function LoginPage() {
               </div>
 
               <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? 'Signing in...' : 'Sign In'}
+                {loading ? t('auth.signingIn') : t('auth.signIn')}
               </Button>
             </form>
 
             {/* Demo credentials for development */}
             <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-              <p className="text-sm font-medium text-blue-800 mb-2">Demo Credentials:</p>
+              <p className="text-sm font-medium text-blue-800 mb-2">{t('auth.demoCredentials')}</p>
               <div className="space-y-1 text-sm text-blue-700">
                 <p>Editor: editor@gbza.ch / password</p>
                 <p>Admin: admin@gbza.ch / password</p>

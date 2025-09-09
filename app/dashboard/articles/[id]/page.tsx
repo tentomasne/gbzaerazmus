@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Edit, Trash2, Eye, Calendar, User, Tag, Globe } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
@@ -36,6 +37,7 @@ export default function ArticleViewPage() {
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState(false);
+  const { t } = useTranslation();
   const { user } = useAuth();
   const params = useParams();
   const router = useRouter();
@@ -56,11 +58,11 @@ export default function ArticleViewPage() {
         const data = await response.json();
         setArticle(data.article);
       } else {
-        toast.error('Article not found');
+        toast.error(t('viewArticle.articleNotFound'));
         router.push('/dashboard');
       }
     } catch (error) {
-      toast.error('Failed to fetch article');
+      toast.error(t('editArticle.failedToUpdate'));
       router.push('/dashboard');
     } finally {
       setLoading(false);
@@ -68,7 +70,7 @@ export default function ArticleViewPage() {
   };
 
   const handleDelete = async () => {
-    if (!confirm('Are you sure you want to delete this article?')) return;
+    if (!confirm(t('viewArticle.deleteConfirm'))) return;
 
     setDeleting(true);
     try {
@@ -79,13 +81,13 @@ export default function ArticleViewPage() {
       });
 
       if (response.ok) {
-        toast.success('Article deleted successfully');
+        toast.success(t('viewArticle.articleDeleted'));
         router.push('/dashboard');
       } else {
-        toast.error('Failed to delete article');
+        toast.error(t('viewArticle.failedToDelete'));
       }
     } catch (error) {
-      toast.error('Failed to delete article');
+      toast.error(t('viewArticle.failedToDelete'));
     } finally {
       setDeleting(false);
     }
@@ -129,9 +131,9 @@ export default function ArticleViewPage() {
         <Navbar />
         <div className="section-padding pt-24">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-2xl font-bold mb-4">Article not found</h1>
+            <h1 className="text-2xl font-bold mb-4">{t('viewArticle.articleNotFound')}</h1>
             <Link href="/dashboard">
-              <Button>Back to Dashboard</Button>
+              <Button>{t('viewArticle.backToDashboard')}</Button>
             </Link>
           </div>
         </div>
@@ -156,7 +158,7 @@ export default function ArticleViewPage() {
               className="inline-flex items-center text-blue-600 hover:text-blue-500 mb-6 transition-colors"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Dashboard
+              {t('viewArticle.backToDashboard')}
             </Link>
 
             <div className="flex justify-between items-start mb-6">
@@ -187,7 +189,7 @@ export default function ArticleViewPage() {
                   <Link href={`/dashboard/articles/${article.id}/edit`}>
                     <Button variant="outline" size="sm">
                       <Edit className="h-4 w-4 mr-2" />
-                      Edit
+                      {t('common.edit')}
                     </Button>
                   </Link>
                   <Button
@@ -198,7 +200,7 @@ export default function ArticleViewPage() {
                     className="text-red-600 hover:text-red-700"
                   >
                     <Trash2 className="h-4 w-4 mr-2" />
-                    Delete
+                    {t('common.delete')}
                   </Button>
                 </div>
               )}
@@ -254,24 +256,24 @@ export default function ArticleViewPage() {
           >
             <Card className="glass-card">
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Article Information</h3>
+                <h3 className="font-semibold mb-4">{t('viewArticle.articleInformation')}</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                   <div>
-                    <span className="font-medium">Created:</span>{' '}
+                    <span className="font-medium">{t('dashboard.created')}:</span>{' '}
                     {format(new Date(article.createdAt), 'PPP')}
                   </div>
                   <div>
-                    <span className="font-medium">Last Updated:</span>{' '}
+                    <span className="font-medium">{t('viewArticle.lastUpdated')}:</span>{' '}
                     {format(new Date(article.updatedAt), 'PPP')}
                   </div>
                   {article.publishedAt && (
                     <div>
-                      <span className="font-medium">Published:</span>{' '}
+                      <span className="font-medium">{t('dashboard.published')}:</span>{' '}
                       {format(new Date(article.publishedAt), 'PPP')}
                     </div>
                   )}
                   <div>
-                    <span className="font-medium">Author:</span>{' '}
+                    <span className="font-medium">{t('viewArticle.author')}:</span>{' '}
                     {article.author.name} ({article.author.email})
                   </div>
                 </div>

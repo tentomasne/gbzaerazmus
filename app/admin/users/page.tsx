@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { Plus, Edit, Trash2, Search, Filter, User, Mail, Calendar, Shield } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
@@ -30,6 +31,7 @@ export default function UsersPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState('all');
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
   const { user, isAuthenticated, hasRole } = useAuth();
 
   useEffect(() => {
@@ -57,7 +59,7 @@ export default function UsersPage() {
   };
 
   const deleteUser = async (userId: string) => {
-    if (!confirm('Are you sure you want to delete this user?')) return;
+    if (!confirm(t('userManagement.deleteConfirm'))) return;
 
     try {
       const token = localStorage.getItem('token');
@@ -67,14 +69,14 @@ export default function UsersPage() {
       });
 
       if (response.ok) {
-        toast.success('User deleted successfully');
+        toast.success(t('userManagement.userDeleted'));
         fetchUsers();
       } else {
         const error = await response.json();
-        toast.error(error.error || 'Failed to delete user');
+        toast.error(error.error || t('userManagement.failedToDelete'));
       }
     } catch (error) {
-      toast.error('Failed to delete user');
+      toast.error(t('userManagement.failedToDelete'));
     }
   };
 
@@ -126,16 +128,16 @@ export default function UsersPage() {
             <div className="flex justify-between items-center">
               <div>
                 <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-                  User Management
+                  {t('userManagement.title')}
                 </h1>
                 <p className="text-gray-600">
-                  Manage system users and their permissions.
+                  {t('userManagement.subtitle')}
                 </p>
               </div>
               <Link href="/admin/users/new">
                 <Button className="group">
                   <Plus className="h-4 w-4 mr-2 group-hover:rotate-90 transition-transform" />
-                  New User
+                  {t('userManagement.newUser')}
                 </Button>
               </Link>
             </div>
@@ -149,9 +151,9 @@ export default function UsersPage() {
             className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
           >
             {[
-              { label: 'Total Users', value: users.length, color: 'text-blue-600' },
-              { label: 'Admins', value: users.filter(u => u.role === 'ADMIN').length, color: 'text-red-600' },
-              { label: 'Editors', value: users.filter(u => u.role === 'EDITOR').length, color: 'text-green-600' },
+              { label: t('admin.totalUsers'), value: users.length, color: 'text-blue-600' },
+              { label: t('admin.admins'), value: users.filter(u => u.role === 'ADMIN').length, color: 'text-red-600' },
+              { label: t('admin.editors'), value: users.filter(u => u.role === 'EDITOR').length, color: 'text-green-600' },
             ].map((stat, index) => (
               <Card key={stat.label} className="glass-card">
                 <CardContent className="p-6">
@@ -177,7 +179,7 @@ export default function UsersPage() {
                   <div className="flex-1 relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                     <Input
-                      placeholder="Search users by name or email..."
+                      placeholder={t('userManagement.searchPlaceholder')}
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="pl-10"
@@ -186,12 +188,12 @@ export default function UsersPage() {
                   <Select value={roleFilter} onValueChange={setRoleFilter}>
                     <SelectTrigger className="md:w-48">
                       <Filter className="h-4 w-4 mr-2" />
-                      <SelectValue placeholder="Filter by role" />
+                      <SelectValue placeholder={t('userManagement.filterByRole')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All Roles</SelectItem>
-                      <SelectItem value="ADMIN">Admin</SelectItem>
-                      <SelectItem value="EDITOR">Editor</SelectItem>
+                      <SelectItem value="all">{t('userManagement.allRoles')}</SelectItem>
+                      <SelectItem value="ADMIN">{t('userManagement.admin')}</SelectItem>
+                      <SelectItem value="EDITOR">{t('userManagement.editor')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -207,32 +209,32 @@ export default function UsersPage() {
           >
             <Card className="glass-card">
               <CardHeader>
-                <CardTitle>Users ({filteredUsers.length})</CardTitle>
+                <CardTitle>{t('userManagement.users')} ({filteredUsers.length})</CardTitle>
               </CardHeader>
               <CardContent>
                 {loading ? (
                   <div className="text-center py-8">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                    <p className="text-gray-600 mt-2">Loading users...</p>
+                    <p className="text-gray-600 mt-2">{t('userManagement.loadingUsers')}</p>
                   </div>
                 ) : filteredUsers.length === 0 ? (
                   searchTerm || roleFilter !== 'all' ? (
                     <div className="text-center py-8">
-                      <p className="text-gray-600 mb-4">No users match your search criteria.</p>
+                      <p className="text-gray-600 mb-4">{t('userManagement.noUsersMatch')}</p>
                       <Button 
                         variant="outline" 
                         onClick={() => { setSearchTerm(''); setRoleFilter('all'); }}
                       >
-                        Clear Filters
+                        {t('dashboard.clearFilters')}
                       </Button>
                     </div>
                   ) : (
                     <div className="text-center py-8">
-                      <p className="text-gray-600 mb-4">No users found.</p>
+                      <p className="text-gray-600 mb-4">{t('userManagement.noUsersFound')}</p>
                       <Link href="/admin/users/new">
                         <Button>
                           <Plus className="h-4 w-4 mr-2" />
-                          Create User
+                          {t('userManagement.createUser')}
                         </Button>
                       </Link>
                     </div>
@@ -260,11 +262,11 @@ export default function UsersPage() {
                             </div>
                             <div className="flex items-center">
                               <Calendar className="h-4 w-4 mr-1" />
-                              Joined {format(new Date(userData.createdAt), 'MMM dd, yyyy')}
+                              {t('userManagement.joined')} {format(new Date(userData.createdAt), 'MMM dd, yyyy')}
                             </div>
                           </div>
                           <div className="text-xs text-gray-500">
-                            {userData._count.articles} articles written
+                            {userData._count.articles} {t('admin.articlesWritten')}
                           </div>
                         </div>
                         <div className="flex items-center gap-2 ml-4">

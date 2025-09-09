@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -20,41 +21,42 @@ const countries: Country[] = [
     id: 'spain',
     name: 'Spain',
     flag: '🇪🇸',
-    description: 'Our selected students discover rich culture and vibrant traditions',
+    description: 'countries_data.spain.description',
     image: 'https://images.pexels.com/photos/1388030/pexels-photo-1388030.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop'
   },
   {
     id: 'italy',
     name: 'Italy',
     flag: '🇮🇹',
-    description: 'GBZA students experience art, history, and Renaissance culture',
+    description: 'countries_data.italy.description',
     image: 'https://images.pexels.com/photos/2225617/pexels-photo-2225617.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop'
   },
   {
     id: 'france',
     name: 'France',
     flag: '🇫🇷',
-    description: 'Selected students immerse in French culture and language',
+    description: 'countries_data.france.description',
     image: 'https://images.pexels.com/photos/161853/eiffel-tower-paris-france-tower-161853.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop'
   },
   {
     id: 'germany',
     name: 'Germany',
     flag: '🇩🇪',
-    description: 'Our students explore innovation and tradition in Germany',
+    description: 'countries_data.germany.description',
     image: 'https://images.pexels.com/photos/109629/pexels-photo-109629.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop'
   },
   {
     id: 'portugal',
     name: 'Portugal',
     flag: '🇵🇹',
-    description: 'GBZA students discover coastal beauty and warm hospitality',
+    description: 'countries_data.portugal.description',
     image: 'https://images.pexels.com/photos/2049422/pexels-photo-2049422.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop'
   }
 ];
 
 export function HeroCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -109,27 +111,26 @@ export function HeroCarousel() {
                 </motion.div>
                 
                 <h1 className="text-4xl md:text-7xl font-bold mb-6 leading-tight">
-                  Showcasing{' '}
+                  {t('hero.showcasing')}{' '}
                   <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                    GBZA Excellence
+                    {t('hero.excellence')}
                   </span>
-                  {' '}in {countries[currentIndex].name}
+                  {' '}{t('hero.in')} {countries[currentIndex].name}
                 </h1>
                 
                 <p className="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed max-w-4xl mx-auto">
-                  Every year, Gymnasium Bilingválne carefully selects exceptional students for 
-                  transformative Erasmus+ experiences across Europe. {countries[currentIndex].description}.
+                  {t('hero.description')} {t(countries[currentIndex].description)}.
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100 text-lg px-8 py-3" asChild>
                     <Link href={`/countries/${countries[currentIndex].id}`}>
-                      Explore {countries[currentIndex].name}
+                      {t('hero.explore')} {countries[currentIndex].name}
                     </Link>
                   </Button>
                   <Button size="lg" variant="outline" className="bg-white/10 text-white border-white/30 hover:bg-white/20 text-lg px-8 py-3" asChild>
                     <Link href="/news">
-                      Read Student Stories
+                      {t('hero.readStudentStories')}
                     </Link>
                   </Button>
                 </div>

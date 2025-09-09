@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Save, Eye } from 'lucide-react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
@@ -40,6 +41,7 @@ export default function NewArticlePage() {
   const [tagInput, setTagInput] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [coverImage, setCoverImage] = useState('');
+  const { t } = useTranslation();
   const { user } = useAuth();
   const router = useRouter();
 
@@ -83,7 +85,7 @@ export default function NewArticlePage() {
 
   const onSubmit = async (data: ArticleFormData) => {
     if (!content.trim()) {
-      toast.error('Content is required');
+      toast.error(t('createArticle.contentRequired'));
       return;
     }
 
@@ -106,14 +108,14 @@ export default function NewArticlePage() {
 
       if (response.ok) {
         const result = await response.json();
-        toast.success('Article created successfully!');
+        toast.success(t('createArticle.articleCreated'));
         router.push(`/dashboard/articles/${result.article.id}`);
       } else {
         const error = await response.json();
-        toast.error(error.error || 'Failed to create article');
+        toast.error(error.error || t('createArticle.failedToCreate'));
       }
     } catch (error) {
-      toast.error('Failed to create article');
+      toast.error(t('createArticle.failedToCreate'));
     } finally {
       setLoading(false);
     }
@@ -146,14 +148,14 @@ export default function NewArticlePage() {
               className="inline-flex items-center text-blue-600 hover:text-blue-500 mb-6 transition-colors"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Dashboard
+              {t('createArticle.backToDashboard')}
             </Link>
 
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-              Create New Article
+              {t('createArticle.title')}
             </h1>
             <p className="text-gray-600">
-              Share your Erasmus experience with the community.
+              {t('createArticle.subtitle')}
             </p>
           </motion.div>
 
@@ -166,15 +168,15 @@ export default function NewArticlePage() {
             >
               <Card className="glass-card">
                 <CardHeader>
-                  <CardTitle>Article Details</CardTitle>
+                  <CardTitle>{t('createArticle.articleDetails')}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div>
-                    <Label htmlFor="title">Title *</Label>
+                    <Label htmlFor="title">{t('createArticle.title_field')} *</Label>
                     <Input
                       id="title"
                       {...register('title')}
-                      placeholder="Enter article title..."
+                      placeholder={t('createArticle.title_field')}
                       className="mt-1"
                     />
                     {errors.title && (
@@ -183,11 +185,11 @@ export default function NewArticlePage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="excerpt">Excerpt</Label>
+                    <Label htmlFor="excerpt">{t('createArticle.excerpt')}</Label>
                     <Textarea
                       id="excerpt"
                       {...register('excerpt')}
-                      placeholder="Brief summary of your article..."
+                      placeholder={t('createArticle.excerptPlaceholder')}
                       rows={3}
                       className="mt-1"
                     />
@@ -198,10 +200,10 @@ export default function NewArticlePage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <Label htmlFor="country">Country</Label>
+                      <Label htmlFor="country">{t('createArticle.country')}</Label>
                       <Select onValueChange={(value) => setValue('country', value)}>
                         <SelectTrigger className="mt-1">
-                          <SelectValue placeholder="Select country" />
+                          <SelectValue placeholder={t('createArticle.selectCountry')} />
                         </SelectTrigger>
                         <SelectContent>
                           {countries.map((country) => (
@@ -214,7 +216,7 @@ export default function NewArticlePage() {
                     </div>
 
                     <div>
-                      <Label htmlFor="status">Status</Label>
+                      <Label htmlFor="status">{t('createArticle.status')}</Label>
                       <Select 
                         defaultValue="DRAFT"
                         onValueChange={(value) => setValue('status', value as 'DRAFT' | 'PENDING' | 'PUBLISHED')}
@@ -223,10 +225,10 @@ export default function NewArticlePage() {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="DRAFT">Draft</SelectItem>
-                          <SelectItem value="PENDING">Pending Review</SelectItem>
+                          <SelectItem value="DRAFT">{t('dashboard.draft')}</SelectItem>
+                          <SelectItem value="PENDING">{t('dashboard.pending')}</SelectItem>
                           {user?.role === 'ADMIN' && (
-                            <SelectItem value="PUBLISHED">Published</SelectItem>
+                            <SelectItem value="PUBLISHED">{t('dashboard.published')}</SelectItem>
                           )}
                         </SelectContent>
                       </Select>
@@ -234,7 +236,7 @@ export default function NewArticlePage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="coverImage">Cover Image URL</Label>
+                    <Label htmlFor="coverImage">{t('createArticle.coverImageUrl')}</Label>
                     <Input
                       id="coverImage"
                       value={coverImage}
@@ -249,7 +251,7 @@ export default function NewArticlePage() {
                       <div className="mt-2">
                         <img
                           src={coverImage}
-                          alt="Cover preview"
+                          alt={t('createArticle.coverPreview')}
                           className="w-full h-32 object-cover rounded-lg"
                           onError={() => setCoverImage('')}
                         />
@@ -258,17 +260,17 @@ export default function NewArticlePage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="tags">Tags</Label>
+                    <Label htmlFor="tags">{t('createArticle.tags')}</Label>
                     <div className="mt-1 space-y-2">
                       <div className="flex gap-2">
                         <Input
                           value={tagInput}
                           onChange={(e) => setTagInput(e.target.value)}
                           onKeyPress={handleKeyPress}
-                          placeholder="Add tags..."
+                          placeholder={t('createArticle.addTags')}
                         />
                         <Button type="button" onClick={addTag} variant="outline">
-                          Add
+                          {t('createArticle.add')}
                         </Button>
                       </div>
                       {tags.length > 0 && (
@@ -301,16 +303,16 @@ export default function NewArticlePage() {
             >
               <Card className="glass-card">
                 <CardHeader>
-                  <CardTitle>Content *</CardTitle>
+                  <CardTitle>{t('createArticle.content')} *</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <HtmlTextEditor
                     value={content}
                     onChange={setContent}
-                    placeholder="Write your article content here..."
+                    placeholder={t('createArticle.contentPlaceholder')}
                   />
                   {!content.trim() && (
-                    <p className="text-sm text-red-600 mt-2">Content is required</p>
+                    <p className="text-sm text-red-600 mt-2">{t('createArticle.contentRequired')}</p>
                   )}
                 </CardContent>
               </Card>
@@ -333,7 +335,7 @@ export default function NewArticlePage() {
                         disabled={loading}
                       >
                         <Save className="h-4 w-4 mr-2" />
-                        Save as Draft
+                        {t('createArticle.saveAsDraft')}
                       </Button>
                       
                       {user?.role === 'ADMIN' ? (
@@ -343,7 +345,7 @@ export default function NewArticlePage() {
                           disabled={loading}
                         >
                           <Eye className="h-4 w-4 mr-2" />
-                          Publish
+                          {t('createArticle.publish')}
                         </Button>
                       ) : (
                         <Button
@@ -355,13 +357,13 @@ export default function NewArticlePage() {
                           disabled={loading}
                         >
                           <Eye className="h-4 w-4 mr-2" />
-                          Submit for Review
+                          {t('createArticle.submitForReview')}
                         </Button>
                       )}
                     </div>
 
                     <div className="text-sm text-gray-500">
-                      Author: {user?.name}
+                      {t('createArticle.author')}: {user?.name}
                     </div>
                   </div>
                 </CardContent>

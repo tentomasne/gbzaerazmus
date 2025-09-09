@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { Plus, Edit, Trash2, Eye, Clock, CheckCircle, XCircle, Search, Filter } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
@@ -33,6 +34,7 @@ export default function DashboardPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
   const { user, isAuthenticated } = useAuth();
 
   useEffect(() => {
@@ -144,16 +146,16 @@ export default function DashboardPage() {
             <div className="flex justify-between items-center">
               <div>
                 <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-                  Welcome back, {user?.name}
+                  {t('dashboard.welcomeBack')} {user?.name}
                 </h1>
                 <p className="text-gray-600">
-                  Manage your articles and content from your dashboard.
+                  {t('dashboard.manageArticles')}
                 </p>
               </div>
               <Link href="/dashboard/articles/new">
                 <Button className="group">
                   <Plus className="h-4 w-4 mr-2 group-hover:rotate-90 transition-transform" />
-                  New Article
+                  {t('dashboard.newArticle')}
                 </Button>
               </Link>
             </div>
@@ -167,10 +169,10 @@ export default function DashboardPage() {
             className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8"
           >
             {[
-              { label: 'Total Articles', value: articles.length, color: 'text-blue-600' },
-              { label: 'Published', value: articles.filter(a => a.status === 'PUBLISHED').length, color: 'text-green-600' },
-              { label: 'Pending', value: articles.filter(a => a.status === 'PENDING').length, color: 'text-yellow-600' },
-              { label: 'Drafts', value: articles.filter(a => a.status === 'DRAFT').length, color: 'text-gray-600' },
+              { label: t('dashboard.totalArticles'), value: articles.length, color: 'text-blue-600' },
+              { label: t('dashboard.published'), value: articles.filter(a => a.status === 'PUBLISHED').length, color: 'text-green-600' },
+              { label: t('dashboard.pending'), value: articles.filter(a => a.status === 'PENDING').length, color: 'text-yellow-600' },
+              { label: t('dashboard.drafts'), value: articles.filter(a => a.status === 'DRAFT').length, color: 'text-gray-600' },
             ].map((stat, index) => (
               <Card key={stat.label} className="glass-card">
                 <CardContent className="p-6">
@@ -196,7 +198,7 @@ export default function DashboardPage() {
                   <div className="flex-1 relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                     <Input
-                      placeholder="Search articles by title, excerpt, or country..."
+                      placeholder={t('dashboard.searchPlaceholder')}
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="pl-10"
@@ -205,14 +207,14 @@ export default function DashboardPage() {
                   <Select value={statusFilter} onValueChange={setStatusFilter}>
                     <SelectTrigger className="md:w-48">
                       <Filter className="h-4 w-4 mr-2" />
-                      <SelectValue placeholder="Filter by status" />
+                      <SelectValue placeholder={t('dashboard.filterByStatus')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All Status</SelectItem>
-                      <SelectItem value="PUBLISHED">Published</SelectItem>
-                      <SelectItem value="PENDING">Pending</SelectItem>
-                      <SelectItem value="DRAFT">Draft</SelectItem>
-                      <SelectItem value="REJECTED">Rejected</SelectItem>
+                      <SelectItem value="all">{t('dashboard.allStatus')}</SelectItem>
+                      <SelectItem value="PUBLISHED">{t('dashboard.published')}</SelectItem>
+                      <SelectItem value="PENDING">{t('dashboard.pending')}</SelectItem>
+                      <SelectItem value="DRAFT">{t('dashboard.draft')}</SelectItem>
+                      <SelectItem value="REJECTED">{t('dashboard.rejected')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -228,32 +230,32 @@ export default function DashboardPage() {
           >
             <Card className="glass-card">
               <CardHeader>
-                <CardTitle>Your Articles ({filteredArticles.length})</CardTitle>
+                <CardTitle>{t('dashboard.yourArticles')} ({filteredArticles.length})</CardTitle>
               </CardHeader>
               <CardContent>
                 {loading ? (
                   <div className="text-center py-8">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                    <p className="text-gray-600 mt-2">Loading articles...</p>
+                    <p className="text-gray-600 mt-2">{t('common.loading')}</p>
                   </div>
                 ) : filteredArticles.length === 0 ? (
                   searchTerm || statusFilter !== 'all' ? (
                     <div className="text-center py-8">
-                      <p className="text-gray-600 mb-4">No articles match your search criteria.</p>
+                      <p className="text-gray-600 mb-4">{t('dashboard.noArticlesMatch')}</p>
                       <Button 
                         variant="outline" 
                         onClick={() => { setSearchTerm(''); setStatusFilter('all'); }}
                       >
-                        Clear Filters
+                        {t('dashboard.clearFilters')}
                       </Button>
                     </div>
                   ) : (
                   <div className="text-center py-8">
-                    <p className="text-gray-600 mb-4">No articles yet. Create your first article!</p>
+                    <p className="text-gray-600 mb-4">{t('dashboard.noArticlesYet')}</p>
                     <Link href="/dashboard/articles/new">
                       <Button>
                         <Plus className="h-4 w-4 mr-2" />
-                        Create Article
+                        {t('dashboard.createArticle')}
                       </Button>
                     </Link>
                   </div>
@@ -280,8 +282,8 @@ export default function DashboardPage() {
                             {article.excerpt}
                           </p>
                           <div className="text-xs text-gray-500">
-                            Created {format(new Date(article.createdAt), 'MMM dd, yyyy')} • 
-                            Updated {format(new Date(article.updatedAt), 'MMM dd, yyyy')}
+                            {t('dashboard.created')} {format(new Date(article.createdAt), 'MMM dd, yyyy')} • 
+                            {t('dashboard.updated')} {format(new Date(article.updatedAt), 'MMM dd, yyyy')}
                           </div>
                         </div>
                         <div className="flex items-center gap-2 ml-4">

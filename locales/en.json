@@ -1,0 +1,403 @@
+{
+  "nav": {
+    "home": "Home",
+    "destinations": "Destinations",
+    "studentNews": "Student News",
+    "ourTeam": "Our Team",
+    "dashboard": "Dashboard",
+    "adminPanel": "Admin Panel",
+    "signOut": "Sign Out"
+  },
+  "hero": {
+    "showcasing": "Showcasing",
+    "excellence": "GBZA Excellence",
+    "in": "in",
+    "description": "Every year, Gymnasium Bilingválne carefully selects exceptional students for transformative Erasmus+ experiences across Europe.",
+    "explore": "Explore",
+    "readStudentStories": "Read Student Stories"
+  },
+  "features": {
+    "title": "Why Our Students Excel in Europe",
+    "subtitle": "Our rigorous selection process ensures that only the most dedicated and capable GBZA students represent our school in prestigious European institutions.",
+    "academicExcellence": {
+      "title": "Academic Excellence",
+      "description": "Our selected students maintain outstanding academic performance at top European universities."
+    },
+    "culturalAmbassadors": {
+      "title": "Cultural Ambassadors", 
+      "description": "GBZA students represent Swiss values while embracing diverse European cultures."
+    },
+    "prestigiousPartnerships": {
+      "title": "Prestigious Partnerships",
+      "description": "Carefully curated partnerships with leading European institutions ensure quality education."
+    },
+    "lifelongNetworks": {
+      "title": "Lifelong Networks",
+      "description": "Our students build valuable connections with peers and educators across Europe."
+    },
+    "fiveDestinations": {
+      "title": "Five Destinations",
+      "description": "Students experience excellence in Spain, Italy, France, Germany, and Portugal."
+    },
+    "provenSuccess": {
+      "title": "Proven Success",
+      "description": "Over a decade of successful student placements and outstanding outcomes."
+    }
+  },
+  "news": {
+    "title": "Latest News from",
+    "ourStudents": "Our Students",
+    "subtitle": "Read the latest updates, experiences, and achievements shared by our GBZA students currently studying across Europe.",
+    "searchPlaceholder": "Search articles, tags, or topics...",
+    "filterByCountry": "Filter by country",
+    "allCountries": "All Countries",
+    "readMore": "Read More",
+    "viewAllNews": "View All Student News",
+    "by": "By",
+    "noArticlesFound": "No articles found",
+    "tryAdjusting": "Try adjusting your search terms or filters to find more articles.",
+    "clearFilters": "Clear Filters",
+    "backToNews": "Back to News",
+    "share": "Share",
+    "relatedStories": "Related Stories"
+  },
+  "cta": {
+    "celebratingTitle": "Celebrating Student Achievement",
+    "celebratingSubtitle": "Follow the remarkable journeys of our carefully selected GBZA students through their own stories and updates from European academic environments.",
+    "exploreDestinations": "Explore Destinations",
+    "readStudentStories": "Read Student Stories"
+  },
+  "countries": {
+    "title": "Discover Your Next",
+    "destination": "Destination",
+    "subtitle": "Choose from our partner countries across Europe. Each destination offers unique cultural experiences and world-class educational opportunities.",
+    "learnMore": "Learn More",
+    "cantDecide": "Can't Decide? We're Here to Help!",
+    "cantDecideSubtitle": "Our Erasmus coordinators can help you choose the perfect destination based on your academic goals and personal interests.",
+    "contactOurTeam": "Contact Our Team",
+    "backToCountries": "Back to Countries",
+    "countryNotFound": "Country not found",
+    "countryInformation": "Country Information",
+    "capital": "Capital",
+    "language": "Language",
+    "currency": "Currency",
+    "population": "Population",
+    "timeZone": "Time Zone",
+    "programHighlights": "Program Highlights",
+    "availableSubjects": "Available Subjects",
+    "programDetails": "Program Details",
+    "duration": "Duration",
+    "accommodation": "Accommodation",
+    "requirements": "Requirements",
+    "readyToApply": "Ready to Apply?",
+    "readyToApplySubtitle": "Contact our Erasmus coordinators to start your application process.",
+    "contactCoordinators": "Contact Coordinators"
+  },
+  "managers": {
+    "title": "Meet Our",
+    "erasmusTeam": "Erasmus Team",
+    "subtitle": "Our dedicated coordinators work tirelessly to select exceptional GBZA students and ensure they have transformative experiences across Europe.",
+    "specializations": "Specializations",
+    "languages": "Languages",
+    "contact": "Contact",
+    "generalInformation": "General Information",
+    "officeHours": "Office Hours",
+    "mondayFriday": "Monday - Friday",
+    "timeRange": "8:00 AM - 5:00 PM",
+    "appointmentsRecommended": "Appointments recommended",
+    "location": "Location",
+    "generalContact": "General Contact"
+  },
+  "auth": {
+    "staffLogin": "Staff Login",
+    "accessDashboard": "Access your Erasmus GBZA dashboard",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign In",
+    "signingIn": "Signing in...",
+    "backToWebsite": "Back to Website",
+    "demoCredentials": "Demo Credentials:",
+    "welcomeBack": "Welcome back!",
+    "invalidCredentials": "Invalid credentials",
+    "loginFailed": "Login failed"
+  },
+  "dashboard": {
+    "welcomeBack": "Welcome back,",
+    "manageArticles": "Manage your articles and content from your dashboard.",
+    "newArticle": "New Article",
+    "totalArticles": "Total Articles",
+    "published": "Published",
+    "pending": "Pending",
+    "drafts": "Drafts",
+    "searchPlaceholder": "Search articles by title, excerpt, or country...",
+    "filterByStatus": "Filter by status",
+    "allStatus": "All Status",
+    "draft": "Draft",
+    "rejected": "Rejected",
+    "yourArticles": "Your Articles",
+    "noArticlesYet": "No articles yet. Create your first article!",
+    "createArticle": "Create Article",
+    "noArticlesMatch": "No articles match your search criteria.",
+    "clearFilters": "Clear Filters",
+    "created": "Created",
+    "updated": "Updated"
+  },
+  "admin": {
+    "adminDashboard": "Admin Dashboard",
+    "manageUsers": "Manage users, content, and system settings.",
+    "totalUsers": "Total Users",
+    "admins": "Admins",
+    "editors": "Editors",
+    "totalImages": "Images",
+    "quickActions": "Quick Actions",
+    "manageAnnouncements": "Manage Announcements",
+    "addNewUser": "Add New User",
+    "userManagement": "User Management",
+    "manage": "Manage",
+    "allArticles": "All Articles",
+    "articlesWritten": "articles",
+    "viewAllUsers": "View All Users",
+    "viewAllArticles": "View All Your Articles",
+    "showingOf": "Showing 5 of",
+    "articles": "articles"
+  },
+  "userManagement": {
+    "title": "User Management",
+    "subtitle": "Manage system users and their permissions.",
+    "newUser": "New User",
+    "searchPlaceholder": "Search users by name or email...",
+    "filterByRole": "Filter by role",
+    "allRoles": "All Roles",
+    "admin": "Admin",
+    "editor": "Editor",
+    "users": "Users",
+    "loadingUsers": "Loading users...",
+    "noUsersMatch": "No users match your search criteria.",
+    "noUsersFound": "No users found.",
+    "createUser": "Create User",
+    "joined": "Joined",
+    "deleteConfirm": "Are you sure you want to delete this user?",
+    "userDeleted": "User deleted successfully",
+    "failedToDelete": "Failed to delete user"
+  },
+  "createUser": {
+    "title": "Create New User",
+    "subtitle": "Add a new user to the system with appropriate permissions.",
+    "backToUsers": "Back to Users",
+    "userDetails": "User Details",
+    "fullName": "Full Name",
+    "emailAddress": "Email Address",
+    "role": "Role",
+    "editorRole": "Editor",
+    "editorDescription": "Can create and edit articles",
+    "adminRole": "Admin",
+    "adminDescription": "Full system access",
+    "creating": "Creating...",
+    "createUser": "Create User",
+    "cancel": "Cancel",
+    "userCreated": "User created successfully!",
+    "userExists": "User already exists",
+    "failedToCreate": "Failed to create user"
+  },
+  "editUser": {
+    "title": "Edit User",
+    "subtitle": "Update user information and permissions.",
+    "newPassword": "New Password (leave empty to keep current)",
+    "userStatistics": "User Statistics",
+    "articlesWritten": "Articles written",
+    "updating": "Updating...",
+    "updateUser": "Update User",
+    "userUpdated": "User updated successfully!",
+    "failedToUpdate": "Failed to update user",
+    "userNotFound": "User not found"
+  },
+  "createArticle": {
+    "title": "Create New Article",
+    "subtitle": "Share your Erasmus experience with the community.",
+    "backToDashboard": "Back to Dashboard",
+    "articleDetails": "Article Details",
+    "title_field": "Title",
+    "excerpt": "Excerpt",
+    "excerptPlaceholder": "Brief summary of your article...",
+    "country": "Country",
+    "selectCountry": "Select country",
+    "status": "Status",
+    "coverImageUrl": "Cover Image URL",
+    "coverPreview": "Cover preview",
+    "tags": "Tags",
+    "addTags": "Add tags...",
+    "add": "Add",
+    "content": "Content",
+    "contentPlaceholder": "Write your article content here...",
+    "contentRequired": "Content is required",
+    "saveAsDraft": "Save as Draft",
+    "publish": "Publish",
+    "submitForReview": "Submit for Review",
+    "author": "Author",
+    "articleCreated": "Article created successfully!",
+    "failedToCreate": "Failed to create article"
+  },
+  "editArticle": {
+    "title": "Edit Article",
+    "subtitle": "Update your article content and settings.",
+    "backToArticle": "Back to Article",
+    "updating": "Updating...",
+    "updateArticle": "Update Article",
+    "articleUpdated": "Article updated successfully!",
+    "failedToUpdate": "Failed to update article",
+    "noPermission": "You do not have permission to edit this article"
+  },
+  "viewArticle": {
+    "articleNotFound": "Article not found",
+    "backToDashboard": "Back to Dashboard",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteConfirm": "Are you sure you want to delete this article?",
+    "articleDeleted": "Article deleted successfully",
+    "failedToDelete": "Failed to delete article",
+    "articleInformation": "Article Information",
+    "lastUpdated": "Last Updated",
+    "author": "Author"
+  },
+  "announcements": {
+    "title": "Announcement Management",
+    "subtitle": "Configure the announcement banner that appears on the homepage.",
+    "announcementSettings": "Announcement Settings",
+    "announcementText": "Announcement Text",
+    "announcementPlaceholder": "Enter your announcement message...",
+    "characters": "characters",
+    "backgroundColor": "Background Color",
+    "activeStatus": "Active Status",
+    "activeDescription": "Show this announcement on the homepage",
+    "saving": "Saving...",
+    "updateAnnouncement": "Update Announcement",
+    "createAnnouncement": "Create Announcement",
+    "livePreview": "Live Preview",
+    "previewDescription": "This is how your announcement will appear on the homepage:",
+    "announcementPlaceholder_preview": "Your announcement text will appear here...",
+    "announcementDisabled": "Announcement is disabled",
+    "currentAnnouncement": "Current Announcement",
+    "text": "Text",
+    "color": "Color",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "lastUpdated": "Last Updated",
+    "announcementUpdated": "Announcement updated successfully!",
+    "failedToUpdate": "Failed to update announcement"
+  },
+  "notFound": {
+    "title": "Oops! Page Not Found",
+    "description": "The page you're looking for seems to have wandered off with our students on their European adventure.",
+    "dontWorry": "Don't worry, we'll help you find your way back to reading our students' stories!",
+    "backToHome": "Back to Home",
+    "exploreDestinations": "Explore Destinations"
+  },
+  "footer": {
+    "description": "Showcasing the excellence of selected GBZA students across Europe.",
+    "explore": "Explore",
+    "destinations": "Destinations",
+    "studentStories": "Student Stories",
+    "ourTeam": "Our Team",
+    "contact": "Contact",
+    "copyright": "© 2024 Erasmus GBZA. Celebrating student excellence across Europe."
+  },
+  "map": {
+    "title": "European",
+    "connectivity": "Connectivity",
+    "subtitle": "GBZA´s Erasmus journey across Europe, connecting cities and cultures. Fascinating!"
+  },
+  "cookieConsent": {
+    "title": "Cookie Consent",
+    "description": "We use cookies to enhance your browsing experience and analyze website traffic. Your privacy matters to us.",
+    "accept": "Accept",
+    "decline": "Decline"
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "view": "View",
+    "search": "Search",
+    "filter": "Filter",
+    "all": "All",
+    "yes": "Yes",
+    "no": "No",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "required": "Required",
+    "optional": "Optional",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "role": "Role",
+    "date": "Date",
+    "time": "Time",
+    "phone": "Phone",
+    "address": "Address"
+  },
+  "countries_data": {
+    "spain": {
+      "description": "Discover the rich culture, vibrant traditions, and warm hospitality of Spain while studying in world-renowned institutions.",
+      "highlights": [
+        "Study at prestigious universities in Madrid and Barcelona",
+        "Experience Flamenco dancing and Spanish cuisine", 
+        "Visit iconic landmarks like Sagrada Familia and Alhambra",
+        "Practice Spanish with native speakers daily"
+      ]
+    },
+    "italy": {
+      "description": "Experience the birthplace of Renaissance art, incredible cuisine, and timeless architecture in this culturally rich destination.",
+      "highlights": [
+        "Study in historic cities like Rome, Florence, and Venice",
+        "Learn from world-class professors in art and humanities",
+        "Explore ancient Roman ruins and Renaissance masterpieces",
+        "Enjoy authentic Italian cuisine and wine culture"
+      ]
+    },
+    "france": {
+      "description": "Immerse yourself in French culture, language, and intellectual tradition in the heart of Europe.",
+      "highlights": [
+        "Study at prestigious Sorbonne University in Paris",
+        "Experience French café culture and gastronomy",
+        "Visit world-famous museums like the Louvre and Musée d'Orsay",
+        "Explore châteaux of the Loire Valley"
+      ]
+    },
+    "germany": {
+      "description": "Explore innovation, tradition, and academic excellence in the economic powerhouse of Europe.",
+      "highlights": [
+        "Study at top-ranked German universities",
+        "Experience Christmas markets and Oktoberfest",
+        "Visit historic Berlin Wall and Brandenburg Gate",
+        "Explore Bavaria's castles and the Black Forest"
+      ]
+    },
+    "portugal": {
+      "description": "Discover the coastal beauty, warm hospitality, and rich maritime history of Portugal.",
+      "highlights": [
+        "Study in beautiful coastal cities like Porto and Lisbon",
+        "Experience Portuguese Fado music and culture",
+        "Explore stunning beaches of the Algarve",
+        "Discover historic monasteries and palaces"
+      ]
+    }
+  },
+  "validation": {
+    "nameRequired": "Name must be at least 2 characters",
+    "emailInvalid": "Invalid email address",
+    "passwordMinLength": "Password must be at least 6 characters",
+    "titleRequired": "Title is required",
+    "titleMaxLength": "Title must be less than 200 characters",
+    "excerptMaxLength": "Excerpt must be less than 500 characters",
+    "contentRequired": "Content is required",
+    "textRequired": "Text is required",
+    "textMaxLength": "Text must be less than 500 characters",
+    "invalidColor": "Invalid color format"
+  }
+}

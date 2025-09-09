@@ -2,6 +2,7 @@
 import { ArrowRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import { Calendar, User, Tag, Search, Filter } from 'lucide-react';
 import { format } from 'date-fns';
@@ -48,6 +49,7 @@ export default function NewsPage() {
   const [articles, setArticles] = useState<NewsArticle[]>([]);
   const [filteredArticles, setFilteredArticles] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
 
       useEffect(() => {
     const lenis = new Lenis();
@@ -116,14 +118,13 @@ export default function NewsPage() {
             className="text-center mb-16"
           >
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Student{' '}
+              {t('nav.studentNews')}{' '}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                News & Stories
+                & Stories
               </span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Read the latest stories, experiences, and updates shared by our 
-              GBZA students currently studying across Europe.
+              {t('news.subtitle')}
             </p>
           </motion.div>
 
@@ -140,7 +141,7 @@ export default function NewsPage() {
                   <div className="flex-1 relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                     <Input
-                      placeholder="Search articles, tags, or topics..."
+                      placeholder={t('news.searchPlaceholder')}
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="pl-10"
@@ -149,10 +150,10 @@ export default function NewsPage() {
                   <Select value={selectedCountry} onValueChange={setSelectedCountry}>
                     <SelectTrigger className="md:w-48">
                       <Filter className="h-4 w-4 mr-2" />
-                      <SelectValue placeholder="Filter by country" />
+                      <SelectValue placeholder={t('news.filterByCountry')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All Countries</SelectItem>
+                      <SelectItem value="all">{t('news.allCountries')}</SelectItem>
                       {countries.map(country => (
                         <SelectItem key={country.id} value={country.name}>
                           {country.flag} {country.name}
@@ -238,7 +239,7 @@ export default function NewsPage() {
 
                       <Link href={`/news/${article.id}`}>
                         <Button className="w-full group">
-                          Read More
+                          {t('news.readMore')}
                         </Button>
                       </Link>
                     </CardContent>
@@ -257,10 +258,10 @@ export default function NewsPage() {
               <div className="glass-card rounded-3xl p-8 md:p-12">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">No articles found</h3>
                 <p className="text-gray-600 mb-6">
-                  Try adjusting your search terms or filters to find more articles.
+                  {t('news.tryAdjusting')}
                 </p>
                 <Button onClick={() => { setSearchTerm(''); setSelectedCountry('all'); }}>
-                  Clear Filters
+                  {t('news.clearFilters')}
                 </Button>
               </div>
             </motion.div>
@@ -276,22 +277,21 @@ export default function NewsPage() {
           >
 
             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
-              Celebrating Student Achievement
+              {t('cta.celebratingTitle')}
             </h2>
             <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
-              Follow the remarkable journeys of our carefully selected GBZA students
-              through their own stories and updates from European academic environments.
+              {t('cta.celebratingSubtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/countries">
                 <Button size="lg" className="group">
-                  Explore Destinations
+                  {t('cta.exploreDestinations')}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link href="/news">
                 <Button size="lg" variant="outline">
-                  Read Student Stories
+                  {t('cta.readStudentStories')}
                 </Button>
               </Link>
             </div>

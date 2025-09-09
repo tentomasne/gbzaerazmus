@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { Save, Megaphone, Palette, Eye, EyeOff } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -48,6 +49,7 @@ export default function AnnouncementsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [announcement, setAnnouncement] = useState<Announcement | null>(null);
+  const { t } = useTranslation();
   const { user, isAuthenticated, hasRole } = useAuth();
 
   const {
@@ -122,13 +124,13 @@ export default function AnnouncementsPage() {
       if (response.ok) {
         const result = await response.json();
         setAnnouncement(result.announcement);
-        toast.success('Announcement updated successfully!');
+        toast.success(t('announcements.announcementUpdated'));
       } else {
         const error = await response.json();
-        toast.error(error.error || 'Failed to update announcement');
+        toast.error(error.error || t('announcements.failedToUpdate'));
       }
     } catch (error) {
-      toast.error('Failed to update announcement');
+      toast.error(t('announcements.failedToUpdate'));
     } finally {
       setSaving(false);
     }
@@ -151,10 +153,10 @@ export default function AnnouncementsPage() {
             className="mb-8"
           >
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-              Announcement Management
+              {t('announcements.title')}
             </h1>
             <p className="text-gray-600">
-              Configure the announcement banner that appears on the homepage.
+              {t('announcements.subtitle')}
             </p>
           </motion.div>
 
@@ -169,17 +171,17 @@ export default function AnnouncementsPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center">
                     <Megaphone className="h-5 w-5 mr-2" />
-                    Announcement Settings
+                    {t('announcements.announcementSettings')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                     <div>
-                      <Label htmlFor="text">Announcement Text *</Label>
+                      <Label htmlFor="text">{t('announcements.announcementText')} *</Label>
                       <Textarea
                         id="text"
                         {...register('text')}
-                        placeholder="Enter your announcement message..."
+                        placeholder={t('announcements.announcementPlaceholder')}
                         rows={3}
                         className="mt-1"
                       />
@@ -187,12 +189,12 @@ export default function AnnouncementsPage() {
                         <p className="text-sm text-red-600 mt-1">{errors.text.message}</p>
                       )}
                       <p className="text-xs text-gray-500 mt-1">
-                        {watchedText?.length || 0}/500 characters
+                        {watchedText?.length || 0}/500 {t('announcements.characters')}
                       </p>
                     </div>
 
                     <div>
-                      <Label htmlFor="color">Background Color *</Label>
+                      <Label htmlFor="color">{t('announcements.backgroundColor')} *</Label>
                       <div className="mt-2 space-y-3">
                         <div className="flex items-center gap-2">
                           <Input
@@ -232,9 +234,9 @@ export default function AnnouncementsPage() {
 
                     <div className="flex items-center justify-between">
                       <div>
-                        <Label htmlFor="isActive">Active Status</Label>
+                        <Label htmlFor="isActive">{t('announcements.activeStatus')}</Label>
                         <p className="text-sm text-gray-500">
-                          Show this announcement on the homepage
+                          {t('announcements.activeDescription')}
                         </p>
                       </div>
                       <Switch
@@ -246,7 +248,7 @@ export default function AnnouncementsPage() {
 
                     <Button type="submit" disabled={saving || loading} className="w-full">
                       <Save className="h-4 w-4 mr-2" />
-                      {saving ? 'Saving...' : announcement ? 'Update Announcement' : 'Create Announcement'}
+                      {saving ? t('announcements.saving') : announcement ? t('announcements.updateAnnouncement') : t('announcements.createAnnouncement')}
                     </Button>
                   </form>
                 </CardContent>
@@ -263,13 +265,13 @@ export default function AnnouncementsPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center">
                     <Eye className="h-5 w-5 mr-2" />
-                    Live Preview
+                    {t('announcements.livePreview')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     <div className="text-sm text-gray-600 mb-4">
-                      This is how your announcement will appear on the homepage:
+                      {t('announcements.previewDescription')}
                     </div>
                     
                     {watchedIsActive ? (
@@ -278,7 +280,7 @@ export default function AnnouncementsPage() {
                         style={{ backgroundColor: watchedColor }}
                       >
                         <p className="text-white drop-shadow-md text-center text-sm">
-                          {watchedText || 'Your announcement text will appear here...'}
+                          {watchedText || t('announcements.announcementPlaceholder_preview')}
                         </p>
                         <button className="absolute top-1/2 right-4 -translate-y-1/2 p-1 hover:bg-white/20 rounded-full transition-colors">
                           <svg
@@ -302,19 +304,19 @@ export default function AnnouncementsPage() {
                       <div className="flex items-center justify-center h-12 bg-gray-100 rounded-lg border-2 border-dashed border-gray-300">
                         <div className="flex items-center text-gray-500">
                           <EyeOff className="h-4 w-4 mr-2" />
-                          <span className="text-sm">Announcement is disabled</span>
+                          <span className="text-sm">{t('announcements.announcementDisabled')}</span>
                         </div>
                       </div>
                     )}
 
                     {announcement && (
                       <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-                        <h4 className="font-medium text-gray-900 mb-2">Current Announcement</h4>
+                        <h4 className="font-medium text-gray-900 mb-2">{t('announcements.currentAnnouncement')}</h4>
                         <div className="text-sm text-gray-600 space-y-1">
-                          <p><span className="font-medium">Text:</span> {announcement.text}</p>
-                          <p><span className="font-medium">Color:</span> {announcement.color}</p>
-                          <p><span className="font-medium">Status:</span> {announcement.isActive ? 'Active' : 'Inactive'}</p>
-                          <p><span className="font-medium">Last Updated:</span> {new Date(announcement.updatedAt).toLocaleDateString()}</p>
+                          <p><span className="font-medium">{t('announcements.text')}:</span> {announcement.text}</p>
+                          <p><span className="font-medium">{t('announcements.color')}:</span> {announcement.color}</p>
+                          <p><span className="font-medium">{t('announcements.status')}:</span> {announcement.isActive ? t('announcements.active') : t('announcements.inactive')}</p>
+                          <p><span className="font-medium">{t('announcements.lastUpdated')}:</span> {new Date(announcement.updatedAt).toLocaleDateString()}</p>
                         </div>
                       </div>
                     )}

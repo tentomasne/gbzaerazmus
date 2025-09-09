@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { ArrowRight, Globe, Users, BookOpen, Award, MapPin, Clock } from 'lucide-react';
 import Link from 'next/link';
 import Lenis from 'lenis'
@@ -32,6 +33,7 @@ const stagger = {
 
 export default function Home() {
   const [showNavbar, setShowNavbar] = useState(true)
+  const { t } = useTranslation()
 
   useEffect(() => {
     const lenis = new Lenis();
@@ -92,14 +94,13 @@ export default function Home() {
               variants={fadeInUp}
               className="text-3xl md:text-5xl font-bold text-gray-900 mb-6"
             >
-              Why Our Students Excel in Europe
+              {t('features.title')}
             </motion.h2>
             <motion.p
               variants={fadeInUp}
               className="text-lg text-gray-600 max-w-3xl mx-auto"
             >
-              Our rigorous selection process ensures that only the most dedicated and capable
-              GBZA students represent our school in prestigious European institutions.
+              {t('features.subtitle')}
             </motion.p>
           </motion.div>
 
@@ -115,33 +116,33 @@ export default function Home() {
             {[
               {
                 icon: Award,
-                title: 'Academic Excellence',
-                description: 'Our selected students maintain outstanding academic performance at top European universities.'
+                title: t('features.academicExcellence.title'),
+                description: t('features.academicExcellence.description')
               },
               {
                 icon: Globe,
-                title: 'Cultural Ambassadors',
-                description: 'GBZA students represent Swiss values while embracing diverse European cultures.'
+                title: t('features.culturalAmbassadors.title'),
+                description: t('features.culturalAmbassadors.description')
               },
               {
                 icon: BookOpen,
-                title: 'Prestigious Partnerships',
-                description: 'Carefully curated partnerships with leading European institutions ensure quality education.'
+                title: t('features.prestigiousPartnerships.title'),
+                description: t('features.prestigiousPartnerships.description')
               },
               {
                 icon: Users,
-                title: 'Lifelong Networks',
-                description: 'Our students build valuable connections with peers and educators across Europe.'
+                title: t('features.lifelongNetworks.title'),
+                description: t('features.lifelongNetworks.description')
               },
               {
                 icon: MapPin,
-                title: 'Five Destinations',
-                description: 'Students experience excellence in Spain, Italy, France, Germany, and Portugal.'
+                title: t('features.fiveDestinations.title'),
+                description: t('features.fiveDestinations.description')
               },
               {
                 icon: Clock,
-                title: 'Proven Success',
-                description: 'Over a decade of successful student placements and outstanding outcomes.'
+                title: t('features.provenSuccess.title'),
+                description: t('features.provenSuccess.description')
               }
             ].map((feature, index) => (
               <motion.div key={index} variants={fadeInUp}>
@@ -175,14 +176,13 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 mx-auto max-w-lg font-bold tracking-tight text-center">
-              Latest News from
+              {t('news.title')}
               <PointerHighlight containerClassName="inline-block md:inline">
-              <span className="text-blue-600 md:ml-2 block md:inline"> Our Students</span>
+              <span className="text-blue-600 md:ml-2 block md:inline"> {t('news.ourStudents')}</span>
               </PointerHighlight>
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Read the latest updates, experiences, and achievements shared by our
-              GBZA students currently studying across Europe.
+              {t('news.subtitle')}
             </p>
           </motion.div>
 
@@ -231,7 +231,7 @@ export default function Home() {
 
                     <Link href={`/news/${article.id}`}>
                       <Button className="w-full group">
-                        Read More
+                        {t('news.readMore')}
                         <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                       </Button>
                     </Link>
@@ -250,7 +250,7 @@ export default function Home() {
           >
             <Link href="/news">
               <Button size="lg" variant="outline">
-                View All Student News
+                {t('news.viewAllNews')}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
@@ -274,22 +274,21 @@ export default function Home() {
           >
 
             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
-              Celebrating Student Achievement
+              {t('cta.celebratingTitle')}
             </h2>
             <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
-              Follow the remarkable journeys of our carefully selected GBZA students
-              through their own stories and updates from European academic environments.
+              {t('cta.celebratingSubtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/countries">
                 <Button size="lg" className="group">
-                  Explore Destinations
+                  {t('cta.exploreDestinations')}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link href="/news">
                 <Button size="lg" variant="outline">
-                  Read Student Stories
+                  {t('cta.readStudentStories')}
                 </Button>
               </Link>
             </div>

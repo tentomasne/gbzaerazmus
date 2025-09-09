@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'next/navigation';
 import { ArrowLeft, MapPin, Clock, Users, Globe, BookOpen, Home, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
@@ -17,6 +18,7 @@ export default function CountryPage() {
   const params = useParams();
   const countryId = params.id as string;
   const country = countries.find(c => c.id === countryId);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const lenis = new Lenis();
@@ -37,9 +39,9 @@ export default function CountryPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Country not found</h1>
+          <h1 className="text-2xl font-bold mb-4">{t('countries.countryNotFound')}</h1>
           <Link href="/countries">
-            <Button>Back to Countries</Button>
+            <Button>{t('countries.backToCountries')}</Button>
           </Link>
         </div>
       </div>
@@ -75,12 +77,12 @@ export default function CountryPage() {
               >
                 <Link href="/countries" className="inline-flex items-center text-white/80 hover:text-white mb-4 transition-colors">
                   <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back to Countries
+                  {t('countries.backToCountries')}
                 </Link>
                 <div className="text-6xl mb-4">{country.flag}</div>
                 <h1 className="text-5xl md:text-7xl font-bold mb-4">{country.name}</h1>
                 <p className="text-xl md:text-2xl text-gray-200 max-w-3xl">
-                  {country.description}
+                  {t(`countries_data.${country.id}.description`)}
                 </p>
               </motion.div>
             </div>
@@ -103,32 +105,32 @@ export default function CountryPage() {
                     <CardHeader>
                       <CardTitle className="flex items-center">
                         <Globe className="h-5 w-5 mr-2" />
-                        Country Information
+                        {t('countries.countryInformation')}
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-4">
                           <div>
-                            <div className="text-sm font-medium text-gray-500 mb-1">Capital</div>
+                            <div className="text-sm font-medium text-gray-500 mb-1">{t('countries.capital')}</div>
                             <div className="font-semibold">{country.details.capital}</div>
                           </div>
                           <div>
-                            <div className="text-sm font-medium text-gray-500 mb-1">Language</div>
+                            <div className="text-sm font-medium text-gray-500 mb-1">{t('countries.language')}</div>
                             <div className="font-semibold">{country.details.language}</div>
                           </div>
                           <div>
-                            <div className="text-sm font-medium text-gray-500 mb-1">Currency</div>
+                            <div className="text-sm font-medium text-gray-500 mb-1">{t('countries.currency')}</div>
                             <div className="font-semibold">{country.details.currency}</div>
                           </div>
                         </div>
                         <div className="space-y-4">
                           <div>
-                            <div className="text-sm font-medium text-gray-500 mb-1">Population</div>
+                            <div className="text-sm font-medium text-gray-500 mb-1">{t('countries.population')}</div>
                             <div className="font-semibold">{country.details.population}</div>
                           </div>
                           <div>
-                            <div className="text-sm font-medium text-gray-500 mb-1">Time Zone</div>
+                            <div className="text-sm font-medium text-gray-500 mb-1">{t('countries.timeZone')}</div>
                             <div className="font-semibold">{country.details.timeZone}</div>
                           </div>
                         </div>
@@ -145,11 +147,11 @@ export default function CountryPage() {
                 >
                   <Card className="glass-card">
                     <CardHeader>
-                      <CardTitle>Program Highlights</CardTitle>
+                      <CardTitle>{t('countries.programHighlights')}</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <ul className="space-y-3">
-                        {country.highlights.map((highlight, index) => (
+                        {t(`countries_data.${country.id}.highlights`, { returnObjects: true }).map((highlight: string, index: number) => (
                           <motion.li
                             key={index}
                             initial={{ opacity: 0, x: -20 }}
@@ -176,7 +178,7 @@ export default function CountryPage() {
                     <CardHeader>
                       <CardTitle className="flex items-center">
                         <BookOpen className="h-5 w-5 mr-2" />
-                        Available Subjects
+                        {t('countries.availableSubjects')}
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -209,13 +211,13 @@ export default function CountryPage() {
                 >
                   <Card className="glass-card">
                     <CardHeader>
-                      <CardTitle className="text-lg">Program Details</CardTitle>
+                      <CardTitle className="text-lg">{t('countries.programDetails')}</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div className="flex items-center">
                         <Clock className="h-4 w-4 text-gray-500 mr-3" />
                         <div>
-                          <div className="font-medium">Duration</div>
+                          <div className="font-medium">{t('countries.duration')}</div>
                           <div className="text-sm text-gray-600">{country.programInfo.duration}</div>
                         </div>
                       </div>
@@ -223,7 +225,7 @@ export default function CountryPage() {
                       <div className="flex items-center">
                         <Home className="h-4 w-4 text-gray-500 mr-3" />
                         <div>
-                          <div className="font-medium">Accommodation</div>
+                          <div className="font-medium">{t('countries.accommodation')}</div>
                           <div className="text-sm text-gray-600">{country.programInfo.accommodation}</div>
                         </div>
                       </div>
@@ -239,7 +241,7 @@ export default function CountryPage() {
                 >
                   <Card className="glass-card">
                     <CardHeader>
-                      <CardTitle className="text-lg">Requirements</CardTitle>
+                      <CardTitle className="text-lg">{t('countries.requirements')}</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <ul className="space-y-2">
@@ -262,13 +264,13 @@ export default function CountryPage() {
                 >
                   <Card className="glass-card bg-gradient-to-br from-blue-50 to-purple-50 border-blue-200">
                     <CardContent className="p-6 text-center">
-                      <h3 className="font-bold mb-2">Ready to Apply?</h3>
+                      <h3 className="font-bold mb-2">{t('countries.readyToApply')}</h3>
                       <p className="text-sm text-gray-600 mb-4">
-                        Contact our Erasmus coordinators to start your application process.
+                        {t('countries.readyToApplySubtitle')}
                       </p>
                       <Link href="/managers">
                         <Button className="w-full">
-                          Contact Coordinators
+                          {t('countries.contactCoordinators')}
                         </Button>
                       </Link>
                     </CardContent>

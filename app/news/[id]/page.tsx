@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'next/navigation';
 import { ArrowLeft, Calendar, User, Tag, Share2 } from 'lucide-react';
 import Link from 'next/link';
@@ -32,6 +33,7 @@ export default function NewsArticlePage() {
   const [article, setArticle] = useState<NewsArticle | null>(null);
   const [loading, setLoading] = useState(true);
   const [relatedArticles, setRelatedArticles] = useState<NewsArticle[]>([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const lenis = new Lenis();
@@ -97,9 +99,9 @@ export default function NewsArticlePage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Article not found</h1>
+          <h1 className="text-2xl font-bold mb-4">{t('viewArticle.articleNotFound')}</h1>
           <Link href="/news">
-            <Button>Back to News</Button>
+            <Button>{t('news.backToNews')}</Button>
           </Link>
         </div>
       </div>
@@ -122,7 +124,7 @@ export default function NewsArticlePage() {
               className="inline-flex items-center text-blue-600 hover:text-blue-500 mb-8 transition-colors"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to News
+              {t('news.backToNews')}
             </Link>
 
             {/* Article Header */}
@@ -157,7 +159,7 @@ export default function NewsArticlePage() {
                 </div>
                 <Button variant="ghost" size="sm" className="p-0 h-auto">
                   <Share2 className="h-4 w-4 mr-2" />
-                  Share
+                  {t('news.share')}
                 </Button>
               </div>
 
@@ -198,7 +200,7 @@ export default function NewsArticlePage() {
               transition={{ duration: 0.6 }}
               className="mt-16"
             >
-              <h3 className="text-2xl font-bold text-gray-900 mb-8">Related Stories</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-8">{t('news.relatedStories')}</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {relatedArticles.map((relatedArticle) => (
                     <Card key={relatedArticle.id} className="glass-card hover:shadow-lg transition-shadow duration-300">
@@ -217,7 +219,7 @@ export default function NewsArticlePage() {
                         </h4>
                         <Link href={`/news/${relatedArticle.id}`}>
                           <Button size="sm" variant="outline" className="w-full">
-                            Read More
+                            {t('news.readMore')}
                           </Button>
                         </Link>
                       </CardContent>

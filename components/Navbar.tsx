@@ -2,10 +2,12 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useTranslation } from "react-i18next"
 import { HoveredLink, Menu, MenuItem, ProductItem } from "@/components/ui/navbar-menu"
 import { cn } from "@/lib/utils"
 import { useAuth } from "@/contexts/AuthContext"
 import { LogOut, User, Settings } from "lucide-react"
+import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 
 export default function NavbarDemo({ showNavbar = true }: { showNavbar?: boolean }) {
   return (
@@ -18,6 +20,7 @@ export default function NavbarDemo({ showNavbar = true }: { showNavbar?: boolean
 function Navbar({ className, showNavbar = true }: { className?: string; showNavbar?: boolean }) {
   const [active, setActive] = useState<string | null>(null)
   const pathname = usePathname()
+  const { t } = useTranslation()
   const { user, isAuthenticated, logout } = useAuth()
 
   return (
@@ -34,7 +37,7 @@ function Navbar({ className, showNavbar = true }: { className?: string; showNavb
           "px-4 py-2 rounded-full text-sm font-medium transition-colors",
           pathname === "/" ? "bg-blue-100 text-blue-700" : "text-gray-700 hover:text-blue-600"
         )}>
-          Home
+          {t('nav.home')}
         </Link>
 
         {/* Destinations */}
@@ -42,7 +45,7 @@ function Navbar({ className, showNavbar = true }: { className?: string; showNavb
           "px-4 py-2 rounded-full text-sm font-medium transition-colors",
           pathname.startsWith("/countries") ? "bg-blue-100 text-blue-700" : "text-gray-700 hover:text-blue-600"
         )}>
-          Destinations
+          {t('nav.destinations')}
         </Link>
 
         {/* Student News */}
@@ -50,7 +53,7 @@ function Navbar({ className, showNavbar = true }: { className?: string; showNavb
           "px-4 py-2 rounded-full text-sm font-medium transition-colors",
           pathname.startsWith("/news") ? "bg-blue-100 text-blue-700" : "text-gray-700 hover:text-blue-600"
         )}>
-          Student News
+          {t('nav.studentNews')}
         </Link>
 
         {/* Our Team */}
@@ -58,8 +61,11 @@ function Navbar({ className, showNavbar = true }: { className?: string; showNavb
           "px-4 py-2 rounded-full text-sm font-medium transition-colors",
           pathname === "/managers" ? "bg-blue-100 text-blue-700" : "text-gray-700 hover:text-blue-600"
         )}>
-          Our Team
+          {t('nav.ourTeam')}
         </Link>
+
+        {/* Language Switcher */}
+        <LanguageSwitcher />
 
         {/* User Menu - Only show if authenticated */}
         {isAuthenticated && (
@@ -73,13 +79,13 @@ function Navbar({ className, showNavbar = true }: { className?: string; showNavb
               
               <HoveredLink href="/dashboard" className="flex items-center py-2">
                 <User className="h-4 w-4 mr-2" />
-                Dashboard
+                {t('nav.dashboard')}
               </HoveredLink>
               
               {user?.role === 'ADMIN' && (
                 <HoveredLink href="/admin" className="flex items-center py-2">
                   <Settings className="h-4 w-4 mr-2" />
-                  Admin Panel
+                  {t('nav.adminPanel')}
                 </HoveredLink>
               )}
               
@@ -88,7 +94,7 @@ function Navbar({ className, showNavbar = true }: { className?: string; showNavb
                 className="flex items-center text-red-600 hover:text-red-700 transition-colors text-left py-2 px-3 rounded-xl hover:bg-white/10"
               >
                 <LogOut className="h-4 w-4 mr-2" />
-                Sign Out
+                {t('nav.signOut')}
               </button>
             </div>
           </MenuItem>

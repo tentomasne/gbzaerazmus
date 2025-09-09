@@ -1,12 +1,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import { Home, ArrowLeft, Search, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
 export default function NotFound() {
+  const { t } = useTranslation();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center px-4">
       <motion.div
@@ -45,13 +48,13 @@ export default function NotFound() {
               className="mb-8"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Oops! Page Not Found
+                {t('notFound.title')}
               </h2>
               <p className="text-lg text-gray-600 mb-2">
-                The page you&apos;re looking for seems to have wandered off with our students on their European adventure.
+                {t('notFound.description')}
               </p>
               <p className="text-gray-500">
-                Don&apos;t worry, we&apos;ll help you find your way back to reading our students&apos; stories!
+                {t('notFound.dontWorry')}
               </p>
             </motion.div>
 
@@ -64,13 +67,13 @@ export default function NotFound() {
               <Link href="/">
                 <Button size="lg" className="group">
                   <Home className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" />
-                  Back to Home
+                  {t('notFound.backToHome')}
                 </Button>
               </Link>
               <Link href="/countries">
                 <Button size="lg" variant="outline" className="group">
                   <Search className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" />
-                  Explore Destinations
+                  {t('notFound.exploreDestinations')}
                 </Button>
               </Link>
             </motion.div>

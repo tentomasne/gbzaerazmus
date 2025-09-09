@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { X, Cookie } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
 export function CookieConsent() {
   const [showConsent, setShowConsent] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const consent = localStorage.getItem('cookie-consent');
@@ -41,17 +43,16 @@ export function CookieConsent() {
               <div className="flex items-start space-x-3">
                 <Cookie className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
-                  <h4 className="font-semibold text-sm mb-2">Cookie Consent</h4>
+                  <h4 className="font-semibold text-sm mb-2">{t('cookieConsent.title')}</h4>
                   <p className="text-sm text-gray-600 mb-3">
-                    We use cookies to enhance your browsing experience and analyze website traffic. 
-                    Your privacy matters to us.
+                    {t('cookieConsent.description')}
                   </p>
                   <div className="flex space-x-2">
                     <Button size="sm" onClick={acceptCookies} className="flex-1">
-                      Accept
+                      {t('cookieConsent.accept')}
                     </Button>
                     <Button size="sm" variant="outline" onClick={declineCookies} className="flex-1">
-                      Decline
+                      {t('cookieConsent.decline')}
                     </Button>
                   </div>
                 </div>

@@ -1,0 +1,403 @@
+{
+  "nav": {
+    "home": "Domov",
+    "destinations": "Destinácie",
+    "studentNews": "Študentské správy",
+    "ourTeam": "Náš tím",
+    "dashboard": "Dashboard",
+    "adminPanel": "Admin panel",
+    "signOut": "Odhlásiť sa"
+  },
+  "hero": {
+    "showcasing": "Prezentujeme",
+    "excellence": "GBZA excelentnosť",
+    "in": "v",
+    "description": "Každý rok Gymnasium Bilingválne starostlivo vyberá výnimočných študentov pre transformačné Erasmus+ skúsenosti po celej Európe.",
+    "explore": "Preskúmať",
+    "readStudentStories": "Čítať študentské príbehy"
+  },
+  "features": {
+    "title": "Prečo naši študenti vynikajú v Európe",
+    "subtitle": "Náš prísny výberový proces zabezpečuje, že iba najodhodlanejší a najschopnejší študenti GBZA reprezentujú našu školu na prestížnych európskych inštitúciách.",
+    "academicExcellence": {
+      "title": "Akademická excelentnosť",
+      "description": "Naši vybraní študenti udržiavajú vynikajúce akademické výsledky na popredných európskych univerzitách."
+    },
+    "culturalAmbassadors": {
+      "title": "Kultúrni veľvyslanci",
+      "description": "Študenti GBZA reprezentujú švajčiarske hodnoty a zároveň prijímajú rozmanité európske kultúry."
+    },
+    "prestigiousPartnerships": {
+      "title": "Prestížne partnerstvá",
+      "description": "Starostlivo vybrané partnerstvá s popredných európskymi inštitúciami zabezpečujú kvalitné vzdelanie."
+    },
+    "lifelongNetworks": {
+      "title": "Celoživotné siete",
+      "description": "Naši študenti budujú cenné spojenia s rovesníkmi a pedagógmi po celej Európe."
+    },
+    "fiveDestinations": {
+      "title": "Päť destinácií",
+      "description": "Študenti zažívajú excelentnosť v Španielsku, Taliansku, Francúzsku, Nemecku a Portugalsku."
+    },
+    "provenSuccess": {
+      "title": "Overený úspech",
+      "description": "Viac ako desaťročie úspešných študentských umiestnení a vynikajúcich výsledkov."
+    }
+  },
+  "news": {
+    "title": "Najnovšie správy od",
+    "ourStudents": "našich študentov",
+    "subtitle": "Čítajte najnovšie aktualizácie, skúsenosti a úspechy zdieľané našimi študentmi GBZA, ktorí momentálne študujú po celej Európe.",
+    "searchPlaceholder": "Hľadať články, tagy alebo témy...",
+    "filterByCountry": "Filtrovať podľa krajiny",
+    "allCountries": "Všetky krajiny",
+    "readMore": "Čítať viac",
+    "viewAllNews": "Zobraziť všetky študentské správy",
+    "by": "Od",
+    "noArticlesFound": "Nenašli sa žiadne články",
+    "tryAdjusting": "Skúste upraviť vyhľadávacie výrazy alebo filtre na nájdenie ďalších článkov.",
+    "clearFilters": "Vymazať filtre",
+    "backToNews": "Späť na správy",
+    "share": "Zdieľať",
+    "relatedStories": "Súvisiace príbehy"
+  },
+  "cta": {
+    "celebratingTitle": "Oslavujeme študentské úspechy",
+    "celebratingSubtitle": "Sledujte pozoruhodné cesty našich starostlivo vybraných študentov GBZA prostredníctvom ich vlastných príbehov a aktualizácií z európskych akademických prostredí.",
+    "exploreDestinations": "Preskúmať destinácie",
+    "readStudentStories": "Čítať študentské príbehy"
+  },
+  "countries": {
+    "title": "Objavte svoju ďalšiu",
+    "destination": "destináciu",
+    "subtitle": "Vyberte si z našich partnerských krajín po celej Európe. Každá destinácia ponúka jedinečné kultúrne zážitky a svetovej triedy vzdelávacie príležitosti.",
+    "learnMore": "Dozvedieť sa viac",
+    "cantDecide": "Nemôžete sa rozhodnúť? Sme tu, aby sme pomohli!",
+    "cantDecideSubtitle": "Naši Erasmus koordinátori vám môžu pomôcť vybrať perfektnú destináciu na základe vašich akademických cieľov a osobných záujmov.",
+    "contactOurTeam": "Kontaktovať náš tím",
+    "backToCountries": "Späť na krajiny",
+    "countryNotFound": "Krajina sa nenašla",
+    "countryInformation": "Informácie o krajine",
+    "capital": "Hlavné mesto",
+    "language": "Jazyk",
+    "currency": "Mena",
+    "population": "Populácia",
+    "timeZone": "Časové pásmo",
+    "programHighlights": "Hlavné body programu",
+    "availableSubjects": "Dostupné predmety",
+    "programDetails": "Detaily programu",
+    "duration": "Trvanie",
+    "accommodation": "Ubytovanie",
+    "requirements": "Požiadavky",
+    "readyToApply": "Pripravení na prihlásenie?",
+    "readyToApplySubtitle": "Kontaktujte našich Erasmus koordinátorov na začatie procesu prihlášky.",
+    "contactCoordinators": "Kontaktovať koordinátorov"
+  },
+  "managers": {
+    "title": "Spoznajte náš",
+    "erasmusTeam": "Erasmus tím",
+    "subtitle": "Naši oddaní koordinátori neúnavne pracujú na výbere výnimočných študentov GBZA a zabezpečujú im transformačné skúsenosti po celej Európe.",
+    "specializations": "Špecializácie",
+    "languages": "Jazyky",
+    "contact": "Kontakt",
+    "generalInformation": "Všeobecné informácie",
+    "officeHours": "Úradné hodiny",
+    "mondayFriday": "Pondelok - Piatok",
+    "timeRange": "8:00 - 17:00",
+    "appointmentsRecommended": "Odporúčame dohodnúť si stretnutie",
+    "location": "Umiestnenie",
+    "generalContact": "Všeobecný kontakt"
+  },
+  "auth": {
+    "staffLogin": "Prihlásenie zamestnancov",
+    "accessDashboard": "Prístup k vášmu Erasmus GBZA dashboardu",
+    "email": "Email",
+    "password": "Heslo",
+    "signIn": "Prihlásiť sa",
+    "signingIn": "Prihlasovanie...",
+    "backToWebsite": "Späť na webstránku",
+    "demoCredentials": "Demo prihlasovacie údaje:",
+    "welcomeBack": "Vitajte späť!",
+    "invalidCredentials": "Neplatné prihlasovacie údaje",
+    "loginFailed": "Prihlásenie zlyhalo"
+  },
+  "dashboard": {
+    "welcomeBack": "Vitajte späť,",
+    "manageArticles": "Spravujte svoje články a obsah z vášho dashboardu.",
+    "newArticle": "Nový článok",
+    "totalArticles": "Celkový počet článkov",
+    "published": "Publikované",
+    "pending": "Čakajúce",
+    "drafts": "Koncepty",
+    "searchPlaceholder": "Hľadať články podľa názvu, úryvku alebo krajiny...",
+    "filterByStatus": "Filtrovať podľa stavu",
+    "allStatus": "Všetky stavy",
+    "draft": "Koncept",
+    "rejected": "Zamietnuté",
+    "yourArticles": "Vaše články",
+    "noArticlesYet": "Zatiaľ žiadne články. Vytvorte svoj prvý článok!",
+    "createArticle": "Vytvoriť článok",
+    "noArticlesMatch": "Žiadne články nezodpovedajú vašim kritériám vyhľadávania.",
+    "clearFilters": "Vymazať filtre",
+    "created": "Vytvorené",
+    "updated": "Aktualizované"
+  },
+  "admin": {
+    "adminDashboard": "Admin Dashboard",
+    "manageUsers": "Spravujte používateľov, obsah a systémové nastavenia.",
+    "totalUsers": "Celkový počet používateľov",
+    "admins": "Administrátori",
+    "editors": "Editori",
+    "totalImages": "Obrázky",
+    "quickActions": "Rýchle akcie",
+    "manageAnnouncements": "Spravovať oznámenia",
+    "addNewUser": "Pridať nového používateľa",
+    "userManagement": "Správa používateľov",
+    "manage": "Spravovať",
+    "allArticles": "Všetky články",
+    "articlesWritten": "články",
+    "viewAllUsers": "Zobraziť všetkých používateľov",
+    "viewAllArticles": "Zobraziť všetky vaše články",
+    "showingOf": "Zobrazuje sa 5 z",
+    "articles": "článkov"
+  },
+  "userManagement": {
+    "title": "Správa používateľov",
+    "subtitle": "Spravujte systémových používateľov a ich oprávnenia.",
+    "newUser": "Nový používateľ",
+    "searchPlaceholder": "Hľadať používateľov podľa mena alebo emailu...",
+    "filterByRole": "Filtrovať podľa roly",
+    "allRoles": "Všetky roly",
+    "admin": "Administrátor",
+    "editor": "Editor",
+    "users": "Používatelia",
+    "loadingUsers": "Načítavanie používateľov...",
+    "noUsersMatch": "Žiadni používatelia nezodpovedajú vašim kritériám vyhľadávania.",
+    "noUsersFound": "Nenašli sa žiadni používatelia.",
+    "createUser": "Vytvoriť používateľa",
+    "joined": "Pripojený",
+    "deleteConfirm": "Ste si istí, že chcete vymazať tohto používateľa?",
+    "userDeleted": "Používateľ bol úspešne vymazaný",
+    "failedToDelete": "Nepodarilo sa vymazať používateľa"
+  },
+  "createUser": {
+    "title": "Vytvoriť nového používateľa",
+    "subtitle": "Pridajte nového používateľa do systému s príslušnými oprávneniami.",
+    "backToUsers": "Späť na používateľov",
+    "userDetails": "Detaily používateľa",
+    "fullName": "Celé meno",
+    "emailAddress": "Emailová adresa",
+    "role": "Rola",
+    "editorRole": "Editor",
+    "editorDescription": "Môže vytvárať a upravovať články",
+    "adminRole": "Administrátor",
+    "adminDescription": "Plný prístup k systému",
+    "creating": "Vytváranie...",
+    "createUser": "Vytvoriť používateľa",
+    "cancel": "Zrušiť",
+    "userCreated": "Používateľ bol úspešne vytvorený!",
+    "userExists": "Používateľ už existuje",
+    "failedToCreate": "Nepodarilo sa vytvoriť používateľa"
+  },
+  "editUser": {
+    "title": "Upraviť používateľa",
+    "subtitle": "Aktualizujte informácie o používateľovi a oprávnenia.",
+    "newPassword": "Nové heslo (nechajte prázdne pre zachovanie súčasného)",
+    "userStatistics": "Štatistiky používateľa",
+    "articlesWritten": "Napísané články",
+    "updating": "Aktualizovanie...",
+    "updateUser": "Aktualizovať používateľa",
+    "userUpdated": "Používateľ bol úspešne aktualizovaný!",
+    "failedToUpdate": "Nepodarilo sa aktualizovať používateľa",
+    "userNotFound": "Používateľ sa nenašiel"
+  },
+  "createArticle": {
+    "title": "Vytvoriť nový článok",
+    "subtitle": "Zdieľajte svoju Erasmus skúsenosť s komunitou.",
+    "backToDashboard": "Späť na Dashboard",
+    "articleDetails": "Detaily článku",
+    "title_field": "Názov",
+    "excerpt": "Úryvok",
+    "excerptPlaceholder": "Stručné zhrnutie vášho článku...",
+    "country": "Krajina",
+    "selectCountry": "Vybrať krajinu",
+    "status": "Stav",
+    "coverImageUrl": "URL titulného obrázka",
+    "coverPreview": "Náhľad titulky",
+    "tags": "Tagy",
+    "addTags": "Pridať tagy...",
+    "add": "Pridať",
+    "content": "Obsah",
+    "contentPlaceholder": "Napíšte obsah vášho článku sem...",
+    "contentRequired": "Obsah je povinný",
+    "saveAsDraft": "Uložiť ako koncept",
+    "publish": "Publikovať",
+    "submitForReview": "Odoslať na kontrolu",
+    "author": "Autor",
+    "articleCreated": "Článok bol úspešne vytvorený!",
+    "failedToCreate": "Nepodarilo sa vytvoriť článok"
+  },
+  "editArticle": {
+    "title": "Upraviť článok",
+    "subtitle": "Aktualizujte obsah a nastavenia vášho článku.",
+    "backToArticle": "Späť na článok",
+    "updating": "Aktualizovanie...",
+    "updateArticle": "Aktualizovať článok",
+    "articleUpdated": "Článok bol úspešne aktualizovaný!",
+    "failedToUpdate": "Nepodarilo sa aktualizovať článok",
+    "noPermission": "Nemáte oprávnenie upravovať tento článok"
+  },
+  "viewArticle": {
+    "articleNotFound": "Článok sa nenašiel",
+    "backToDashboard": "Späť na Dashboard",
+    "edit": "Upraviť",
+    "delete": "Vymazať",
+    "deleteConfirm": "Ste si istí, že chcete vymazať tento článok?",
+    "articleDeleted": "Článok bol úspešne vymazaný",
+    "failedToDelete": "Nepodarilo sa vymazať článok",
+    "articleInformation": "Informácie o článku",
+    "lastUpdated": "Posledná aktualizácia",
+    "author": "Autor"
+  },
+  "announcements": {
+    "title": "Správa oznámení",
+    "subtitle": "Nakonfigurujte banner oznámení, ktorý sa zobrazuje na domovskej stránke.",
+    "announcementSettings": "Nastavenia oznámení",
+    "announcementText": "Text oznámenia",
+    "announcementPlaceholder": "Zadajte správu vášho oznámenia...",
+    "characters": "znakov",
+    "backgroundColor": "Farba pozadia",
+    "activeStatus": "Aktívny stav",
+    "activeDescription": "Zobraziť toto oznámenie na domovskej stránke",
+    "saving": "Ukladanie...",
+    "updateAnnouncement": "Aktualizovať oznámenie",
+    "createAnnouncement": "Vytvoriť oznámenie",
+    "livePreview": "Živý náhľad",
+    "previewDescription": "Takto sa vaše oznámenie zobrazí na domovskej stránke:",
+    "announcementPlaceholder_preview": "Text vášho oznámenia sa zobrazí tu...",
+    "announcementDisabled": "Oznámenie je vypnuté",
+    "currentAnnouncement": "Súčasné oznámenie",
+    "text": "Text",
+    "color": "Farba",
+    "status": "Stav",
+    "active": "Aktívne",
+    "inactive": "Neaktívne",
+    "lastUpdated": "Posledná aktualizácia",
+    "announcementUpdated": "Oznámenie bolo úspešne aktualizované!",
+    "failedToUpdate": "Nepodarilo sa aktualizovať oznámenie"
+  },
+  "notFound": {
+    "title": "Ups! Stránka sa nenašla",
+    "description": "Stránka, ktorú hľadáte, sa zdá, že sa zatúlala s našimi študentmi na ich európskom dobrodružstve.",
+    "dontWorry": "Nebojte sa, pomôžeme vám nájsť cestu späť k čítaniu príbehov našich študentov!",
+    "backToHome": "Späť domov",
+    "exploreDestinations": "Preskúmať destinácie"
+  },
+  "footer": {
+    "description": "Prezentujeme excelentnosť vybraných študentov GBZA po celej Európe.",
+    "explore": "Preskúmať",
+    "destinations": "Destinácie",
+    "studentStories": "Študentské príbehy",
+    "ourTeam": "Náš tím",
+    "contact": "Kontakt",
+    "copyright": "© 2024 Erasmus GBZA. Oslavujeme študentskú excelentnosť po celej Európe."
+  },
+  "map": {
+    "title": "Európske",
+    "connectivity": "prepojenie",
+    "subtitle": "Erasmus cesta GBZA po Európe, spájajúca mestá a kultúry. Fascinujúce!"
+  },
+  "cookieConsent": {
+    "title": "Súhlas s cookies",
+    "description": "Používame cookies na zlepšenie vášho prehliadania a analýzu návštevnosti webstránky. Vaše súkromie je pre nás dôležité.",
+    "accept": "Prijať",
+    "decline": "Odmietnuť"
+  },
+  "common": {
+    "loading": "Načítavanie...",
+    "save": "Uložiť",
+    "cancel": "Zrušiť",
+    "edit": "Upraviť",
+    "delete": "Vymazať",
+    "view": "Zobraziť",
+    "search": "Hľadať",
+    "filter": "Filtrovať",
+    "all": "Všetko",
+    "yes": "Áno",
+    "no": "Nie",
+    "close": "Zavrieť",
+    "back": "Späť",
+    "next": "Ďalej",
+    "previous": "Predchádzajúce",
+    "submit": "Odoslať",
+    "required": "Povinné",
+    "optional": "Voliteľné",
+    "email": "Email",
+    "password": "Heslo",
+    "name": "Meno",
+    "role": "Rola",
+    "date": "Dátum",
+    "time": "Čas",
+    "phone": "Telefón",
+    "address": "Adresa"
+  },
+  "countries_data": {
+    "spain": {
+      "description": "Objavte bohatú kultúru, živé tradície a srdečnú pohostinnosť Španielska počas štúdia na svetovo uznávaných inštitúciách.",
+      "highlights": [
+        "Študujte na prestížnych univerzitách v Madride a Barcelone",
+        "Zažite flamenco tanec a španielsku kuchyňu",
+        "Navštívte ikonické pamiatky ako Sagrada Familia a Alhambra",
+        "Cvičte španielčinu s rodnými hovoriacimi denne"
+      ]
+    },
+    "italy": {
+      "description": "Zažite rodisko renesančného umenia, neuveriteľnej kuchyne a nadčasovej architektúry v tejto kultúrne bohatej destinácii.",
+      "highlights": [
+        "Študujte v historických mestách ako Rím, Florencia a Benátky",
+        "Učte sa od svetových profesorov v umení a humanitných vedách",
+        "Preskúmajte starovekú rímske ruiny a renesančné majstrovské diela",
+        "Vychutnajte si autentickú taliansku kuchyňu a vínnu kultúru"
+      ]
+    },
+    "france": {
+      "description": "Ponorte sa do francúzskej kultúry, jazyka a intelektuálnej tradície v srdci Európy.",
+      "highlights": [
+        "Študujte na prestížnej Sorbonne univerzite v Paríži",
+        "Zažite francúzsku kaviareňskú kultúru a gastronómiu",
+        "Navštívte svetoznáme múzeá ako Louvre a Musée d'Orsay",
+        "Preskúmajte zámky údolia Loire"
+      ]
+    },
+    "germany": {
+      "description": "Preskúmajte inovácie, tradície a akademickú excelentnosť v ekonomickej veľmoci Európy.",
+      "highlights": [
+        "Študujte na najlepšie hodnotených nemeckých univerzitách",
+        "Zažite vianočné trhy a Oktoberfest",
+        "Navštívte historický Berlínsky múr a Brandenburskú bránu",
+        "Preskúmajte bavorské zámky a Čierny les"
+      ]
+    },
+    "portugal": {
+      "description": "Objavte pobrežnú krásu, srdečnú pohostinnosť a bohatú námorníckú históriu Portugalska.",
+      "highlights": [
+        "Študujte v krásnych pobrežných mestách ako Porto a Lisabon",
+        "Zažite portugalské Fado hudbu a kultúru",
+        "Preskúmajte úžasné pláže Algarve",
+        "Objavte historické kláštory a paláce"
+      ]
+    }
+  },
+  "validation": {
+    "nameRequired": "Meno musí mať aspoň 2 znaky",
+    "emailInvalid": "Neplatná emailová adresa",
+    "passwordMinLength": "Heslo musí mať aspoň 6 znakov",
+    "titleRequired": "Názov je povinný",
+    "titleMaxLength": "Názov musí mať menej ako 200 znakov",
+    "excerptMaxLength": "Úryvok musí mať menej ako 500 znakov",
+    "contentRequired": "Obsah je povinný",
+    "textRequired": "Text je povinný",
+    "textMaxLength": "Text musí mať menej ako 500 znakov",
+    "invalidColor": "Neplatný formát farby"
+  }
+}

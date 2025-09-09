@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { Mail, Phone, MapPin, Globe, Users } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -25,6 +26,7 @@ const stagger = {
 };
 
 export default function ManagersPage() {
+  const { t } = useTranslation();
 
   useEffect(() => {
     const lenis = new Lenis();
@@ -54,14 +56,13 @@ export default function ManagersPage() {
             className="text-center mb-16"
           >
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Meet Our{' '}
+              {t('managers.title')}{' '}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Erasmus Team
+                {t('managers.erasmusTeam')}
               </span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our dedicated coordinators work tirelessly to select exceptional GBZA students
-              and ensure they have transformative experiences across Europe.
+              {t('managers.subtitle')}
             </p>
           </motion.div>
 
@@ -123,7 +124,7 @@ export default function ManagersPage() {
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-2 flex items-center">
                         <Users className="h-4 w-4 mr-2" />
-                        Specializations
+                        {t('managers.specializations')}
                       </h4>
                       <div className="flex flex-wrap gap-2">
                         {manager.specializations.map((spec) => (
@@ -138,7 +139,7 @@ export default function ManagersPage() {
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-2 flex items-center">
                         <Globe className="h-4 w-4 mr-2" />
-                        Languages
+                        {t('managers.languages')}
                       </h4>
                       <div className="flex flex-wrap gap-2">
                         {manager.languages.map((language) => (
@@ -154,7 +155,7 @@ export default function ManagersPage() {
                       onClick={() => window.location.href = `mailto:${manager.email}`}
                     >
                       <Mail className="h-4 w-4 mr-2 group-hover:translate-x-1 transition-transform" />
-                      Contact {manager.name.split(' ')[0]}
+                      {t('managers.contact')} {manager.name.split(' ')[0]}
                     </Button>
                   </CardContent>
                 </Card>
@@ -172,19 +173,19 @@ export default function ManagersPage() {
           >
             <div className="glass-card rounded-3xl p-8 md:p-12 text-center">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                General Information
+                {t('managers.generalInformation')}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Office Hours</h3>
+                  <h3 className="font-semibold text-gray-900 mb-2">{t('managers.officeHours')}</h3>
                   <p className="text-gray-600 text-sm">
-                    Monday - Friday<br />
-                    8:00 AM - 5:00 PM<br />
-                    Appointments recommended
+                    {t('managers.mondayFriday')}<br />
+                    {t('managers.timeRange')}<br />
+                    {t('managers.appointmentsRecommended')}
                   </p>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Location</h3>
+                  <h3 className="font-semibold text-gray-900 mb-2">{t('managers.location')}</h3>
                   <p className="text-gray-600 text-sm">
                     Gymnasium Bäumlihof<br />
                     Zu den Drei Linden 80<br />
@@ -192,7 +193,7 @@ export default function ManagersPage() {
                   </p>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">General Contact</h3>
+                  <h3 className="font-semibold text-gray-900 mb-2">{t('managers.generalContact')}</h3>
                   <p className="text-gray-600 text-sm">
                     Phone: +41 61 377 94 00<br />
                     Email: erasmus@gbza.ch<br />
