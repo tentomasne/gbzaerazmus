@@ -63,7 +63,7 @@ export function HeroCarousel() {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [currentIndex]);
 
   const goToPrevious = () => {
     setCurrentIndex((prevIndex) => 
