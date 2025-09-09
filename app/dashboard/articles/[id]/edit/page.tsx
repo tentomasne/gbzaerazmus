@@ -21,6 +21,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { countries } from '@/lib/countries';
 import HtmlTextEditor from '@/components/html-text-editor';
+import { ImageUpload } from '@/components/ImageUpload';
 
 const articleSchema = z.object({
   title: z.string().min(1, 'Title is required').max(200, 'Title must be less than 200 characters'),
@@ -322,29 +323,14 @@ export default function EditArticlePage() {
                     </div>
                   </div>
 
-                  <div>
-                    <Label htmlFor="coverImage">{t('createArticle.coverImageUrl')}</Label>
-                    <Input
-                      id="coverImage"
-                      value={coverImage}
-                      onChange={(e) => {
-                        setCoverImage(e.target.value);
-                        setValue('coverImage', e.target.value);
-                      }}
-                      placeholder="https://example.com/image.jpg"
-                      className="mt-1"
-                    />
-                    {coverImage && (
-                      <div className="mt-2">
-                        <img
-                          src={coverImage}
-                          alt={t('createArticle.coverPreview')}
-                          className="w-full h-32 object-cover rounded-lg"
-                          onError={() => setCoverImage('')}
-                        />
-                      </div>
-                    )}
-                  </div>
+                  <ImageUpload
+                    value={coverImage}
+                    onChange={(base64) => {
+                      setCoverImage(base64);
+                      setValue('coverImage', base64);
+                    }}
+                    label={t('createArticle.coverImageUrl')}
+                  />
 
                   <div>
                     <Label htmlFor="tags">{t('createArticle.tags')}</Label>

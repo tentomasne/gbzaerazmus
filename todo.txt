@@ -1,4 +1,3 @@
-cover image upload as base64
 navbar mobile fix and staff login
 navbar menu items
 
