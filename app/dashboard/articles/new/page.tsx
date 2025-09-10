@@ -32,6 +32,7 @@ const articleSchema = z.object({
   status: z.enum(['DRAFT', 'PENDING', 'PUBLISHED']),
   tags: z.array(z.string()).default([]),
   coverImage: z.string().optional(),
+  publishDate: z.string().optional(),
 });
 
 type ArticleFormData = z.infer<typeof articleSchema>;
@@ -42,6 +43,7 @@ export default function NewArticlePage() {
   const [tagInput, setTagInput] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [coverImage, setCoverImage] = useState('');
+  const [publishDate, setPublishDate] = useState('');
   const { t } = useTranslation();
   const { user } = useAuth();
   const router = useRouter();
@@ -57,10 +59,18 @@ export default function NewArticlePage() {
     defaultValues: {
       status: 'DRAFT',
       tags: [],
+      publishDate: new Date().toISOString().slice(0, 16), // Current date and time
     },
   });
 
   const watchedStatus = watch('status');
+
+  // Initialize publish date
+  useEffect(() => {
+    const now = new Date().toISOString().slice(0, 16);
+    setPublishDate(now);
+    setValue('publishDate', now);
+  }, [setValue]);
 
   const addTag = () => {
     if (tagInput.trim() && !tags.includes(tagInput.trim())) {
@@ -104,6 +114,7 @@ export default function NewArticlePage() {
           content,
           tags,
           coverImage,
+          publishDate,
         }),
       });
 
@@ -235,6 +246,25 @@ export default function NewArticlePage() {
                       </Select>
                     </div>
                   </div>
+
+                  {user?.role === 'ADMIN' && (
+                    <div>
+                      <Label htmlFor="publishDate">Publish Date & Time</Label>
+                      <Input
+                        id="publishDate"
+                        type="datetime-local"
+                        value={publishDate}
+                        onChange={(e) => {
+                          setPublishDate(e.target.value);
+                          setValue('publishDate', e.target.value);
+                        }}
+                        className="mt-1"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">
+                        This will set the creation, update, and publish dates for the article
+                      </p>
+                    </div>
+                  )}
 
                   <ImageUpload
                     value={coverImage}

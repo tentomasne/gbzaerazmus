@@ -58,6 +58,7 @@ function Navbar({ className, showNavbar = true }: { className?: string; showNavb
   const navItems = [
     { href: "/", label: t('nav.home') },
     { href: "/countries", label: t('nav.destinations') },
+    { href: "/timeline", label: "Timeline" },
     { href: "/news", label: t('nav.studentNews') },
     { href: "/managers", label: t('nav.ourTeam') },
   ]
@@ -126,6 +127,14 @@ function Navbar({ className, showNavbar = true }: { className?: string; showNavb
             pathname === "/managers" ? `${getActiveBackground()} ${getTextColor(true)}` : getTextColor(false)
           )}>
             {t('nav.ourTeam')}
+          </Link>
+
+          {/* Timeline */}
+          <Link href="/timeline" className={cn(
+            "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+            pathname === "/timeline" ? `${getActiveBackground()} ${getTextColor(true)}` : getTextColor(false)
+          )}>
+            Timeline
           </Link>
 
           {/* Language Switcher */}
@@ -231,6 +240,18 @@ function Navbar({ className, showNavbar = true }: { className?: string; showNavb
                     {item.label}
                   </Link>
                 ))}
+                <Link
+                  href="/timeline"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={cn(
+                    "flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-colors",
+                    isActivePath("/timeline")
+                      ? "bg-blue-50 text-blue-700 border border-blue-200"
+                      : "text-gray-700 hover:bg-gray-50 hover:text-blue-600"
+                  )}
+                >
+                  Timeline
+                </Link>
               </div>
 
               <Separator />

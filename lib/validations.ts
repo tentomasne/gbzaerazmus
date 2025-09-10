@@ -20,6 +20,7 @@ export const articleSchema = z.object({
   tags: z.array(z.string()).default([]),
   status: z.enum(['DRAFT', 'PENDING', 'PUBLISHED', 'REJECTED']).default('DRAFT'),
   coverImage: z.string().optional(),
+  publishDate: z.string().optional(),
 });
 
 export const userUpdateSchema = z.object({

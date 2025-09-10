@@ -5,6 +5,9 @@ import { useState, useRef, useCallback, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import {
     Bold,
     Italic,
@@ -19,6 +22,8 @@ import {
     Undo,
     Redo,
     Download,
+    Video,
+    Image as ImageIcon,
 } from "lucide-react"
 
 interface ToolbarPosition {
@@ -56,6 +61,8 @@ export default function HtmlTextEditor({
     const [toolbarPosition, setToolbarPosition] = useState<ToolbarPosition>({ top: 0, left: 0, show: false })
     const [selectedText, setSelectedText] = useState("")
     const [selectedImage, setSelectedImage] = useState<SelectedImage | null>(null)
+    const [youtubeDialogOpen, setYoutubeDialogOpen] = useState(false)
+    const [youtubeUrl, setYoutubeUrl] = useState("")
     const editorRef = useRef<HTMLDivElement>(null)
     const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -353,6 +360,46 @@ export default function HtmlTextEditor({
         }
     }
 
+    const extractYouTubeVideoId = (url: string): string | null => {
+        const patterns = [
+            /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
+            /youtube\.com\/watch\?.*v=([^&\n?#]+)/
+        ]
+        
+        for (const pattern of patterns) {
+            const match = url.match(pattern)
+            if (match) {
+                return match[1]
+            }
+        }
+        return null
+    }
+
+    const insertYouTubeVideo = () => {
+        if (!youtubeUrl.trim()) return
+        
+        const videoId = extractYouTubeVideoId(youtubeUrl)
+        if (!videoId) {
+            alert('Please enter a valid YouTube URL')
+            return
+        }
+        
+        const embedHtml = `
+            <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%; margin: 20px 0; border-radius: 8px; overflow: hidden;">
+                <iframe 
+                    src="https://www.youtube.com/embed/${videoId}" 
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+                    allowfullscreen
+                    title="YouTube video"
+                ></iframe>
+            </div>
+        `
+        
+        insertHtml(embedHtml)
+        setYoutubeUrl("")
+        setYoutubeDialogOpen(false)
+        updateContent()
+    }
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0]
         if (file && file.type.startsWith("image/")) {
@@ -505,6 +552,56 @@ export default function HtmlTextEditor({
                             <Button variant="ghost" size="sm" onClick={() => formatText("formatBlock", "blockquote")}>
                                 <Quote className="w-4 h-4" />
                             </Button>
+                        </div>
+
+                        <Separator orientation="vertical" className="h-8" />
+
+                        <div className="flex gap-1">
+                            <Button variant="ghost" size="sm" onClick={() => fileInputRef.current?.click()}>
+                                <ImageIcon className="h-4 w-4" />
+                            </Button>
+                            <Dialog open={youtubeDialogOpen} onOpenChange={setYoutubeDialogOpen}>
+                                <DialogTrigger asChild>
+                                    <Button variant="ghost" size="sm">
+                                        <Video className="h-4 w-4" />
+                                    </Button>
+                                </DialogTrigger>
+                                <DialogContent className="sm:max-w-md">
+                                    <DialogHeader>
+                                        <DialogTitle>Insert YouTube Video</DialogTitle>
+                                    </DialogHeader>
+                                    <div className="space-y-4">
+                                        <div>
+                                            <Label htmlFor="youtube-url">YouTube URL</Label>
+                                            <Input
+                                                id="youtube-url"
+                                                value={youtubeUrl}
+                                                onChange={(e) => setYoutubeUrl(e.target.value)}
+                                                placeholder="https://www.youtube.com/watch?v=..."
+                                                className="mt-1"
+                                            />
+                                            <p className="text-xs text-gray-500 mt-1">
+                                                Supports youtube.com/watch, youtu.be, and youtube.com/embed URLs
+                                            </p>
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <Button onClick={insertYouTubeVideo} className="flex-1">
+                                                Insert Video
+                                            </Button>
+                                            <Button 
+                                                variant="outline" 
+                                                onClick={() => {
+                                                    setYoutubeUrl("")
+                                                    setYoutubeDialogOpen(false)
+                                                }}
+                                                className="flex-1"
+                                            >
+                                                Cancel
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </DialogContent>
+                            </Dialog>
                         </div>
                     </div>
                 </Card>

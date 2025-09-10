@@ -16,6 +16,7 @@ import Navbar from '@/components/Navbar';
 import WorldMapDemo from '@/components/EuropeMap';
 import { PointerHighlight } from '@/components/ui/pointer-highlight';
 import { AnnouncementBanner } from '@/components/AnnouncementBanner';
+import { TimelinePreview } from '@/components/TimelinePreview';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -261,6 +262,8 @@ export default function Home() {
       {/* Map Section */}
       <WorldMapDemo />
 
+      {/* Timeline Preview Section */}
+      <TimelinePreview />
 
       <section className="section-padding">
 

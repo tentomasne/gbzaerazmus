@@ -59,4 +59,16 @@
   .section-padding {
     @apply px-4 sm:px-6 lg:px-8 py-16 sm:py-20;
   }
+  
+  .timeline-dot {
+    @apply relative w-4 h-4 bg-white border-4 border-blue-600 rounded-full;
+  }
+  
+  .timeline-line {
+    @apply absolute w-0.5 bg-gradient-to-b from-blue-600 to-purple-600;
+  }
+  
+  .timeline-card {
+    @apply glass-card overflow-hidden hover:shadow-xl transition-all duration-300;
+  }
 }

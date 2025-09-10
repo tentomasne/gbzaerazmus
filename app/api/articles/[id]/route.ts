@@ -59,6 +59,12 @@ export async function PUT(
     const body = await request.json();
     const validatedData = articleSchema.parse(body);
 
+    // Handle custom publish date for admins
+    let customDate = null;
+    if (authUser.role === 'ADMIN' && body.publishDate) {
+      customDate = new Date(body.publishDate);
+    }
+
     // Generate new slug if title changed
     let slug = article.slug;
     if (validatedData.title !== article.title) {
@@ -68,14 +74,29 @@ export async function PUT(
         .replace(/(^-|-$)/g, '');
     }
 
+    const updateData: any = {
+      ...validatedData,
+      slug,
+      tags: validatedData.tags,
+    };
+
+    // Set custom dates if admin provided them
+    if (customDate) {
+      updateData.createdAt = customDate;
+      updateData.updatedAt = customDate;
+      if (validatedData.status === 'PUBLISHED') {
+        updateData.publishedAt = customDate;
+      }
+    } else {
+      updateData.updatedAt = new Date();
+      if (validatedData.status === 'PUBLISHED' && !article.publishedAt) {
+        updateData.publishedAt = new Date();
+      }
+    }
+
     const updatedArticle = await prisma.article.update({
       where: { id: params.id },
-      data: {
-        ...validatedData,
-        slug,
-        tags: validatedData.tags,
-        publishedAt: validatedData.status === 'PUBLISHED' ? new Date() : article.publishedAt,
-      },
+      data: updateData,
       include: {
         author: {
           select: { id: true, name: true, email: true }

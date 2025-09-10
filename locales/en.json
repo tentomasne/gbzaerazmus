@@ -2,6 +2,7 @@
   "nav": {
     "home": "Home",
     "destinations": "Destinations",
+    "timeline": "Timeline",
     "studentNews": "Student News",
     "ourTeam": "Our Team",
     "dashboard": "Dashboard",
@@ -301,6 +302,28 @@
     "ourTeam": "Our Team",
     "contact": "Contact",
     "copyright": "© 2024 Erasmus GBZA. Celebrating student excellence across Europe."
+  },
+  "timeline": {
+    "title": "Our Timeline",
+    "subtitle": "Explore the remarkable journey of GBZA's Erasmus program from its inception to today, showcasing the milestones that have shaped our international education excellence.",
+    "filterByYear": "Filter by year",
+    "filterByCategory": "Filter by category",
+    "allYears": "All Years",
+    "allCategories": "All Categories",
+    "clearFilters": "Clear Filters",
+    "noEventsFound": "No events found",
+    "tryAdjusting": "Try adjusting your filters to see more timeline events.",
+    "ourImpact": "Our Impact in Numbers",
+    "yearsOfExcellence": "Years of Excellence",
+    "partnerUniversities": "Partner Universities",
+    "studentExchanges": "Student Exchanges",
+    "successRate": "Success Rate",
+    "categories": {
+      "achievement": "Achievement",
+      "partnership": "Partnership", 
+      "program": "Program",
+      "milestone": "Milestone"
+    }
   },
   "map": {
     "title": "European",

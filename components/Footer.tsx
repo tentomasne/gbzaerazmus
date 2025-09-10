@@ -26,6 +26,7 @@ export default function Footer() {
               <h3 className="font-semibold mb-4">{t('footer.explore')}</h3>
               <div className="space-y-2">
                 <Link href="/countries" className="text-gray-400 hover:text-white block">{t('footer.destinations')}</Link>
+                <Link href="/timeline" className="text-gray-400 hover:text-white block">Timeline</Link>
                 <Link href="/news" className="text-gray-400 hover:text-white block">{t('footer.studentStories')}</Link>
                 <Link href="/managers" className="text-gray-400 hover:text-white block">{t('footer.ourTeam')}</Link>
               </div>

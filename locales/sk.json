@@ -2,6 +2,7 @@
   "nav": {
     "home": "Domov",
     "destinations": "Destinácie",
+    "timeline": "Časová os",
     "studentNews": "Študentské správy",
     "ourTeam": "Náš tím",
     "dashboard": "Dashboard",
@@ -301,6 +302,28 @@
     "ourTeam": "Náš tím",
     "contact": "Kontakt",
     "copyright": "© 2024 Erasmus GBZA. Oslavujeme študentskú excelentnosť po celej Európe."
+  },
+  "timeline": {
+    "title": "Naša časová os",
+    "subtitle": "Preskúmajte pozoruhodnú cestu Erasmus programu GBZA od jeho začiatkov až po dnešok, prezentujúcu míľniky, ktoré formovali našu medzinárodnú vzdelávaciu excelentnosť.",
+    "filterByYear": "Filtrovať podľa roku",
+    "filterByCategory": "Filtrovať podľa kategórie",
+    "allYears": "Všetky roky",
+    "allCategories": "Všetky kategórie",
+    "clearFilters": "Vymazať filtre",
+    "noEventsFound": "Nenašli sa žiadne udalosti",
+    "tryAdjusting": "Skúste upraviť filtre na zobrazenie ďalších udalostí.",
+    "ourImpact": "Náš dopad v číslach",
+    "yearsOfExcellence": "Roky excelentnosti",
+    "partnerUniversities": "Partnerské univerzity",
+    "studentExchanges": "Študentské výmeny",
+    "successRate": "Miera úspešnosti",
+    "categories": {
+      "achievement": "Úspech",
+      "partnership": "Partnerstvo",
+      "program": "Program", 
+      "milestone": "Míľnik"
+    }
   },
   "map": {
     "title": "Európske",

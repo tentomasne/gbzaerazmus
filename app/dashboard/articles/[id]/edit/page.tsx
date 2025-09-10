@@ -31,6 +31,7 @@ const articleSchema = z.object({
   status: z.enum(['DRAFT', 'PENDING', 'PUBLISHED']),
   tags: z.array(z.string()).default([]),
   coverImage: z.string().optional(),
+  publishDate: z.string().optional(),
 });
 
 type ArticleFormData = z.infer<typeof articleSchema>;
@@ -44,6 +45,8 @@ interface Article {
   country: string;
   tags: string[];
   coverImage: string;
+  createdAt: string;
+  publishedAt: string | null;
   author: {
     id: string;
     name: string;
@@ -58,6 +61,7 @@ export default function EditArticlePage() {
   const [tagInput, setTagInput] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [coverImage, setCoverImage] = useState('');
+  const [publishDate, setPublishDate] = useState('');
   const { t } = useTranslation();
   const { user } = useAuth();
   const params = useParams();
@@ -104,6 +108,11 @@ export default function EditArticlePage() {
         setTags(articleData.tags || []);
         setCoverImage(articleData.coverImage || '');
         
+        // Set publish date from existing data
+        const dateToUse = articleData.publishedAt || articleData.createdAt;
+        const formattedDate = new Date(dateToUse).toISOString().slice(0, 16);
+        setPublishDate(formattedDate);
+        
         // Reset form with article data
         reset({
           title: articleData.title,
@@ -113,6 +122,7 @@ export default function EditArticlePage() {
           status: articleData.status,
           tags: articleData.tags || [],
           coverImage: articleData.coverImage || '',
+          publishDate: formattedDate,
         });
       } else {
         toast.error(t('viewArticle.articleNotFound'));
@@ -168,6 +178,7 @@ export default function EditArticlePage() {
           content,
           tags,
           coverImage,
+          publishDate,
         }),
       });
 
@@ -322,6 +333,25 @@ export default function EditArticlePage() {
                       </Select>
                     </div>
                   </div>
+
+                  {user?.role === 'ADMIN' && (
+                    <div>
+                      <Label htmlFor="publishDate">Publish Date & Time</Label>
+                      <Input
+                        id="publishDate"
+                        type="datetime-local"
+                        value={publishDate}
+                        onChange={(e) => {
+                          setPublishDate(e.target.value);
+                          setValue('publishDate', e.target.value);
+                        }}
+                        className="mt-1"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">
+                        This will update the creation, update, and publish dates for the article
+                      </p>
+                    </div>
+                  )}
 
                   <ImageUpload
                     value={coverImage}

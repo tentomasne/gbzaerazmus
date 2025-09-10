@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { countries } from '@/lib/countries';
 import Lenis from 'lenis'
+import { NewsYearFilter } from '@/components/NewsYearFilter';
 
 interface NewsArticle {
   id: string;
@@ -46,9 +47,11 @@ const stagger = {
 export default function NewsPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCountry, setSelectedCountry] = useState('all');
+  const [selectedYear, setSelectedYear] = useState('all');
   const [articles, setArticles] = useState<NewsArticle[]>([]);
   const [filteredArticles, setFilteredArticles] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
+  const [availableYears, setAvailableYears] = useState<number[]>([]);
   const { t } = useTranslation();
 
       useEffect(() => {
@@ -78,6 +81,12 @@ export default function NewsPage() {
         const data = await response.json();
         setArticles(data.articles || []);
         setFilteredArticles(data.articles || []);
+        
+        // Extract available years from articles
+        const years = [...new Set(data.articles.map((article: NewsArticle) => 
+          new Date(article.publishedAt).getFullYear()
+        ))].sort((a, b) => b - a);
+        setAvailableYears(years);
       }
     } catch (error) {
       console.error('Failed to fetch articles:', error);
@@ -102,8 +111,14 @@ export default function NewsPage() {
       filtered = filtered.filter(article => article.country === selectedCountry);
     }
 
+    if (selectedYear !== 'all') {
+      filtered = filtered.filter(article => 
+        new Date(article.publishedAt).getFullYear() === parseInt(selectedYear)
+      );
+    }
+
     setFilteredArticles(filtered);
-  }, [searchTerm, selectedCountry, articles]);
+  }, [searchTerm, selectedCountry, selectedYear, articles]);
 
   return (
     <div className="min-h-screen">
@@ -161,6 +176,12 @@ export default function NewsPage() {
                       ))}
                     </SelectContent>
                   </Select>
+                  
+                  <NewsYearFilter
+                    selectedYear={selectedYear}
+                    onYearChange={setSelectedYear}
+                    availableYears={availableYears}
+                  />
                 </div>
               </CardContent>
             </Card>
@@ -260,7 +281,7 @@ export default function NewsPage() {
                 <p className="text-gray-600 mb-6">
                   {t('news.tryAdjusting')}
                 </p>
-                <Button onClick={() => { setSearchTerm(''); setSelectedCountry('all'); }}>
+                <Button onClick={() => { setSearchTerm(''); setSelectedCountry('all'); setSelectedYear('all'); }}>
                   {t('news.clearFilters')}
                 </Button>
               </div>
