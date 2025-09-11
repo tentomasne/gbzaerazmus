@@ -1,3 +1,19 @@
+annoucement bar compataibilty height
+navbar login button 
+navbar for mobiles sidebar
+contact footer
+timeline months and not on mobile compataibilty
+studentske spravy - News and Storyes
+sprava pouzivatel vratit sa button to administracii
+
+
+1. Belgicko: https://www.providencechampion.be/ (6týždňov)
+2. Švédsko: https://www.westerlundska.nu/ (2 týždne)
+3. Fínsko: https://www.gradia.fi/hae-opiskelemaan/lukiot/schildtin-lukio (5 týždňov)
+4. Francúzsko: https://saint-jude.fr/ (10 týždňov)
+5. Francúzsko: https://www.lyceecdg52.com/ (7 týždňov)
+6. Luxembursko: https://www.lhce.lu/ (2 týždne)
+
 
 final:
 make it server sided

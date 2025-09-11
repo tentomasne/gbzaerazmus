@@ -298,18 +298,20 @@ export default function HtmlTextEditor({
                 currentElement = currentElement.parentElement!
             }
 
-            let listElement = currentElement
+            let listElement: Node | null = currentElement
             while (
                 listElement &&
                 listElement !== editorRef.current &&
                 !["UL", "OL"].includes((listElement as Element).tagName)
             ) {
-                listElement = listElement.parentElement
+                const parentElement: HTMLElement | null = (listElement as Element).parentElement
+                if (!parentElement) break
+                listElement = parentElement
             }
 
             if (listElement && ["UL", "OL"].includes((listElement as Element).tagName) && listElement.parentNode) {
                 if ((listElement as Element).tagName.toLowerCase() === listType) {
-                    const items = Array.from(listElement.querySelectorAll("li"))
+                    const items = Array.from((listElement as HTMLElement).querySelectorAll("li"))
                     const fragment = document.createDocumentFragment()
 
                     items.forEach((item) => {
@@ -323,7 +325,7 @@ export default function HtmlTextEditor({
                     }
                 } else {
                     const newList = document.createElement(listType)
-                    newList.innerHTML = listElement.innerHTML
+                    newList.innerHTML = (listElement as HTMLElement).innerHTML
                     if (listElement.parentNode.contains(listElement)) {
                         listElement.parentNode.replaceChild(newList, listElement)
                     }
@@ -620,7 +622,14 @@ export default function HtmlTextEditor({
                     />
                 </Card>
 
-                <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
+                <input 
+                    ref={fileInputRef} 
+                    type="file" 
+                    accept="image/*" 
+                    onChange={handleImageUpload} 
+                    className="hidden" 
+                    aria-label="Upload image file"
+                />
             </div>
         </div>
     )

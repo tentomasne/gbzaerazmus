@@ -132,7 +132,7 @@ export const getFeaturedEvents = (): TimelineEvent[] => {
 };
 
 export const getAvailableYears = (): number[] => {
-  const years = [...new Set(timelineEvents.map(event => event.year))];
+  const years = Array.from(new Set(timelineEvents.map(event => event.year)));
   return years.sort((a, b) => b - a);
 };
 

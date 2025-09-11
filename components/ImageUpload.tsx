@@ -157,6 +157,8 @@ export function ImageUpload({ value, onChange, label = "Cover Image", className 
         accept="image/*"
         onChange={handleFileInputChange}
         className="hidden"
+        title="Upload image"
+        aria-label="Upload image"
       />
     </div>
   );

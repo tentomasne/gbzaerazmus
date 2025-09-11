@@ -115,7 +115,7 @@ export default function TimelinePage() {
               </span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Explore the remarkable journey of GBZA's Erasmus program from its inception to today, 
+              Explore the remarkable journey of GBZA&apos;s Erasmus program from its inception to today, 
               showcasing the milestones that have shaped our international education excellence.
             </p>
           </motion.div>

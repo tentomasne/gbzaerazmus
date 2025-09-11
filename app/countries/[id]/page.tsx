@@ -151,7 +151,7 @@ export default function CountryPage() {
                     </CardHeader>
                     <CardContent>
                       <ul className="space-y-3">
-                        {t(`countries_data.${country.id}.highlights`, { returnObjects: true }).map((highlight: string, index: number) => (
+                        {(t(`countries_data.${country.id}.highlights`, { returnObjects: true }) as string[]).map((highlight: string, index: number) => (
                           <motion.li
                             key={index}
                             initial={{ opacity: 0, x: -20 }}

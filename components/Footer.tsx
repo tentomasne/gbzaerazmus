@@ -34,13 +34,18 @@ export default function Footer() {
             <div>
               <h3 className="font-semibold mb-4">{t('footer.contact')}</h3>
               <p className="text-gray-400">
-                gbza-erasmus@davidik.fr
+                <a href="mailto:petra.fabikova@gbza.eu" className="text-gray-400 hover:text-white">
+                  petra.fabikova@gbza.eu
+                </a>
               </p>
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center">
             <p className="text-gray-400">
               {t('footer.copyright')}
+            </p>
+            <p className="text-gray-400">
+              Website made with ❤️ by <a href="https://tomasdavidik.sk" className="text-blue-500 hover:underline">Tomáš</a>
             </p>
           </div>
         </div>

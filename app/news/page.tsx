@@ -83,10 +83,10 @@ export default function NewsPage() {
         setFilteredArticles(data.articles || []);
         
         // Extract available years from articles
-        const years = [...new Set(data.articles.map((article: NewsArticle) => 
+        const years = Array.from(new Set(data.articles.map((article: NewsArticle) => 
           new Date(article.publishedAt).getFullYear()
-        ))].sort((a, b) => b - a);
-        setAvailableYears(years);
+        ))) as number[];
+        setAvailableYears(years.sort((a, b) => b - a));
       }
     } catch (error) {
       console.error('Failed to fetch articles:', error);
