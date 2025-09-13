@@ -5,7 +5,7 @@ contact footer
 timeline months and not on mobile compataibilty
 studentske spravy - News and Storyes
 sprava pouzivatel vratit sa button to administracii
-
+euro mapa
 
 1. Belgicko: https://www.providencechampion.be/ (6týždňov)
 2. Švédsko: https://www.westerlundska.nu/ (2 týždne)

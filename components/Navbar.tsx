@@ -55,6 +55,7 @@ function Navbar({ className, showNavbar = true }: { className?: string; showNavb
     const timer = setTimeout(checkBackgroundBrightness, 100)
     return () => clearTimeout(timer)
   }, [pathname])
+
   const navItems = [
     { href: "/", label: t('nav.home') },
     { href: "/countries", label: t('nav.destinations') },
@@ -79,6 +80,7 @@ function Navbar({ className, showNavbar = true }: { className?: string; showNavb
   const getActiveBackground = () => {
     return isDarkBackground ? "bg-white/20" : "bg-blue-100"
   }
+
   return (
     <>
       {/* Desktop Navigation */}
@@ -185,6 +187,16 @@ function Navbar({ className, showNavbar = true }: { className?: string; showNavb
               </div>
             </div>
           )}
+
+          {/* Login Button for non-authenticated users */}
+          {!isAuthenticated && (
+            <Link href="/auth/login" className={cn(
+              "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+              getTextColor(false)
+            )}>
+              {t('nav.login')}
+            </Link>
+          )}
         </div>
       </div>
 
@@ -240,25 +252,13 @@ function Navbar({ className, showNavbar = true }: { className?: string; showNavb
                     {item.label}
                   </Link>
                 ))}
-                <Link
-                  href="/timeline"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={cn(
-                    "flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-colors",
-                    isActivePath("/timeline")
-                      ? "bg-blue-50 text-blue-700 border border-blue-200"
-                      : "text-gray-700 hover:bg-gray-50 hover:text-blue-600"
-                  )}
-                >
-                  Timeline
-                </Link>
               </div>
 
               <Separator />
 
               {/* Language Switcher */}
               <div className="px-4">
-                <p className="text-sm font-medium text-gray-900 mb-3">{t('nav.language')}</p>
+                <p className="text-sm font-medium text-gray-900 mb-3">Language</p>
                 <LanguageSwitcher />
               </div>
 

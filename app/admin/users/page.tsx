@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Plus, Edit, Trash2, Search, Filter, User, Mail, Calendar, Shield } from 'lucide-react';
+import { Plus, Edit, Trash2, Search, Filter, User, Mail, Calendar, Shield, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import Navbar from '@/components/Navbar';
@@ -125,6 +125,14 @@ export default function UsersPage() {
             transition={{ duration: 0.8 }}
             className="mb-8"
           >
+            <Link
+              href="/admin"
+              className="inline-flex items-center text-blue-600 hover:text-blue-500 mb-6 transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Admin Dashboard
+            </Link>
+
             <div className="flex justify-between items-center">
               <div>
                 <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">

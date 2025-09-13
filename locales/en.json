@@ -3,11 +3,12 @@
     "home": "Home",
     "destinations": "Destinations",
     "timeline": "Timeline",
-    "studentNews": "Student News",
+    "studentNews": "News and Stories",
     "ourTeam": "Our Team",
     "dashboard": "Dashboard",
     "adminPanel": "Admin Panel",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "login": "Login"
   },
   "hero": {
     "showcasing": "Showcasing",
@@ -46,8 +47,7 @@
     }
   },
   "news": {
-    "title": "Latest News from",
-    "ourStudents": "Our Students",
+    "title": "Latest",
     "subtitle": "Read the latest updates, experiences, and achievements shared by our GBZA students currently studying across Europe.",
     "searchPlaceholder": "Search articles, tags, or topics...",
     "filterByCountry": "Filter by country",

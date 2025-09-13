@@ -3,11 +3,12 @@
     "home": "Domov",
     "destinations": "Destinácie",
     "timeline": "Časová os",
-    "studentNews": "Študentské správy",
+    "studentNews": "Správy a príbehy",
     "ourTeam": "Náš tím",
     "dashboard": "Dashboard",
     "adminPanel": "Admin panel",
-    "signOut": "Odhlásiť sa"
+    "signOut": "Odhlásiť sa",
+    "login": "Prihlásiť sa"
   },
   "hero": {
     "showcasing": "Prezentujeme",
@@ -46,8 +47,7 @@
     }
   },
   "news": {
-    "title": "Najnovšie správy od",
-    "ourStudents": "našich študentov",
+    "title": "Najnovšie",
     "subtitle": "Čítajte najnovšie aktualizácie, skúsenosti a úspechy zdieľané našimi študentmi GBZA, ktorí momentálne študujú po celej Európe.",
     "searchPlaceholder": "Hľadať články, tagy alebo témy...",
     "filterByCountry": "Filtrovať podľa krajiny",

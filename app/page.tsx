@@ -179,7 +179,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 mx-auto max-w-lg font-bold tracking-tight text-center">
               {t('news.title')}
               <PointerHighlight containerClassName="inline-block md:inline">
-              <span className="text-blue-600 md:ml-2 block md:inline"> {t('news.ourStudents')}</span>
+              <span className="text-blue-600 md:ml-2 block md:inline"> {t('nav.studentNews')}</span>
               </PointerHighlight>
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">

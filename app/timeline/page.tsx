@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Calendar, Award, Users, Globe, Filter, Clock } from 'lucide-react';
-import { format } from 'date-fns';
+import { format, getMonth } from 'date-fns';
 import Lenis from 'lenis';
 import Navbar from '@/components/Navbar';
 import { Card, CardContent } from '@/components/ui/card';
@@ -55,6 +55,14 @@ const getCategoryColor = (category: string) => {
     default:
       return 'bg-gray-100 text-gray-800';
   }
+};
+
+const getMonthName = (monthIndex: number) => {
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+  return months[monthIndex];
 };
 
 export default function TimelinePage() {
@@ -182,7 +190,7 @@ export default function TimelinePage() {
           {/* Timeline */}
           <div className="relative">
             {/* Timeline Line */}
-            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-600 to-purple-600 transform md:-translate-x-1/2"></div>
+            <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-600 to-purple-600 transform md:-translate-x-1/2"></div>
 
             <div className="space-y-12">
               {filteredEvents.map((event, index) => (
@@ -197,7 +205,7 @@ export default function TimelinePage() {
                   } flex-col md:gap-8`}
                 >
                   {/* Timeline Dot */}
-                  <div className="absolute left-8 md:left-1/2 w-4 h-4 bg-white border-4 border-blue-600 rounded-full transform md:-translate-x-1/2 z-10">
+                  <div className="absolute left-6 md:left-1/2 w-4 h-4 bg-white border-4 border-blue-600 rounded-full transform md:-translate-x-1/2 z-10">
                     <motion.div
                       initial={{ scale: 0 }}
                       whileInView={{ scale: 1 }}
@@ -213,7 +221,7 @@ export default function TimelinePage() {
                     whileInView={{ scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: index * 0.1 + 0.1 }}
-                    className="absolute left-16 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-8 z-20"
+                    className="absolute left-14 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-8 z-20"
                   >
                     <Badge className="bg-blue-600 text-white px-3 py-1 text-sm font-bold">
                       {event.year}
@@ -223,11 +231,11 @@ export default function TimelinePage() {
                   {/* Content Card */}
                   <motion.div
                     variants={index % 2 === 0 ? slideInLeft : slideInRight}
-                    className="w-full md:w-5/12 ml-20 md:ml-0"
+                    className="w-full md:w-5/12 ml-16 md:ml-0"
                   >
                     <Card className="glass-card overflow-hidden hover:shadow-xl transition-all duration-300 group">
                       {event.image && (
-                        <div className="relative h-48 overflow-hidden">
+                        <div className="relative h-32 md:h-48 overflow-hidden">
                           <div
                             className="absolute inset-0 bg-cover bg-center transform group-hover:scale-105 transition-transform duration-500"
                             style={{ backgroundImage: `url(${event.image})` }}
@@ -252,14 +260,15 @@ export default function TimelinePage() {
                       <CardContent className="p-6">
                         <div className="flex items-center text-sm text-gray-500 mb-3">
                           <Clock className="h-4 w-4 mr-2" />
-                          {format(new Date(event.date), 'MMMM dd, yyyy')}
+                          <span className="hidden md:inline">{format(new Date(event.date), 'MMMM dd, yyyy')}</span>
+                          <span className="md:hidden">{getMonthName(getMonth(new Date(event.date)))} {event.year}</span>
                         </div>
 
-                        <h3 className="text-xl font-bold text-gray-900 mb-3">
+                        <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 line-clamp-2">
                           {event.title}
                         </h3>
 
-                        <p className="text-gray-600 leading-relaxed">
+                        <p className="text-gray-600 leading-relaxed text-sm md:text-base line-clamp-3 md:line-clamp-none">
                           {event.description}
                         </p>
                       </CardContent>
@@ -304,7 +313,7 @@ export default function TimelinePage() {
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
                 Our Impact in Numbers
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
                 {[
                   { label: 'Years of Excellence', value: '15+', icon: Calendar },
                   { label: 'Partner Universities', value: '20+', icon: Users },
@@ -319,11 +328,11 @@ export default function TimelinePage() {
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     className="text-center"
                   >
-                    <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <stat.icon className="h-8 w-8 text-white" />
+                    <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <stat.icon className="h-6 w-6 md:h-8 md:w-8 text-white" />
                     </div>
-                    <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
-                    <div className="text-gray-600">{stat.label}</div>
+                    <div className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
+                    <div className="text-sm md:text-base text-gray-600">{stat.label}</div>
                   </motion.div>
                 ))}
               </div>

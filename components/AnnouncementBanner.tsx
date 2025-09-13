@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { StickyBanner } from '@/components/ui/sticky-banner';
+import { X } from 'lucide-react';
 
 interface Announcement {
   id: string;
@@ -46,13 +47,24 @@ export function AnnouncementBanner() {
 
   return (
     <StickyBanner 
-      className={`h-12 flex items-center justify-center`}
+      className="min-h-12 flex items-center justify-center px-4"
       style={{ backgroundColor: announcement.color }}
       onClose={handleDismiss}
     >
-      <p className="mx-0 max-w-[90%] text-white drop-shadow-md text-center">
-        {announcement.text}
-      </p>
+      <div className="flex items-center justify-between w-full max-w-7xl mx-auto">
+        <div className="flex-1 text-center">
+          <p className="text-white drop-shadow-md text-sm leading-relaxed py-2">
+            {announcement.text}
+          </p>
+        </div>
+        <button
+          onClick={handleDismiss}
+          className="ml-4 p-1 hover:bg-white/20 rounded-full transition-colors flex-shrink-0"
+          aria-label="Close announcement"
+        >
+          <X className="h-4 w-4 text-white" />
+        </button>
+      </div>
     </StickyBanner>
   );
 }
