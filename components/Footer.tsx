@@ -44,7 +44,7 @@ export default function Footer() {
             <p className="text-gray-400">
               {t('footer.copyright')}
             </p>
-            <p className="text-gray-400">
+            <p className="text-gray-400 mt-2">
               Website made with ❤️ by <a href="https://tomasdavidik.sk" className="text-blue-500 hover:underline">Tomáš</a>
             </p>
           </div>

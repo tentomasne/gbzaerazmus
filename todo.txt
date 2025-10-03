@@ -1,6 +1,4 @@
 annoucement bar compataibilty height
-navbar login button 
-navbar for mobiles sidebar
 contact footer
 timeline months and not on mobile compataibilty
 studentske spravy - News and Storyes
